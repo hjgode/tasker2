@@ -1,36 +1,102 @@
-0x1d766c06: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x1d766c06:              DEBUG BUILD !
-0x1d766c06:              TESTMODE !
-0x1d766c06: Checking for Mutex (single instance allowed only)...
-0x1d766c06: 	Created new mutex
-0x1d766c06: Using launch time 04.12.2011, 00:00
-0x1d766c06: CmdLine = 
-0x1d766c06: 	argv[1]: 'AppRunAfterTimeChange'
-0x1d766c06: Checking for valid date/time...
-0x1d766c06: Date/Time after 11 2011. OK
-0x1d766c06: got 'AppRunAfterTimeChange' signaled
-0x1d766c06: Checking for valid date/time...
-0x1d766c06: Date/Time after 11 2011. OK
-0x1d766c06: Cleared 0 Tasker schedules
-0x1d766c06: scheduleAllTasks: ClearAllSchedules for 0 tasks
-0x1d766c06: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
-0x1d766c06: 	calculating new schedule for '201112042000'...
-0x1d766c06: 	interval is: 1d00h00m
-0x1d766c06: 	schedule adjusted to '201112042000'
-0x1d766c06: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
-0x1d766c06: 	calculating new schedule for '201112040600'...
-0x1d766c06: 	interval is: 1d00h00m
-0x1d766c06: 	schedule adjusted to '201112040600'
-0x1d766c06: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
-0x1d766c06: 	calculating new schedule for '201112041955'...
-0x1d766c06: 	interval is: 1d00h00m
-0x1d766c06: 	schedule adjusted to '201112041955'
-0x1d766c06: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
-0x1d766c06: 	calculating new schedule for '201112040605'...
-0x1d766c06: 	interval is: 1d00h00m
-0x1d766c06: 	schedule adjusted to '201112040605'
-0x1d766c06: scheduleAllTasks: scheduled 0 new tasks
-0x1d766c06: Scheduled 0 Tasks
-0x1d766c06: 	ReleaseMutex...0x1d766c06: OK
-0x1d766c06: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
-0x1d766c06: nclog goes down
+0xbd79ac26: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
+0xbd79ac26:              DEBUG BUILD !
+0xbd79ac26:              TESTMODE !
+0xbd79ac26: Checking for Mutex (single instance allowed only)...
+0xbd79ac26: 	Created new mutex
+0xbd79ac26: Using launch time 02.12.2011, 19:55
+0xbd79ac26: CmdLine = 
+0xbd79ac26: 	argv[1]: '-s'
+0xbd79ac26: 	argv[2]: 'task2'
+0xbd79ac26: Checking for valid date/time...
+0xbd79ac26: Date/Time after 11 2011. OK
+0xbd79ac26: Clearing all schedules for Task2 with '-s task2'
+0xbd79ac26: 	ClearRunApp2: ...
+0xbd79ac26: 	ClearRunApp2: returning with 0
+0xbd79ac26: 	checking for delayed schedule...
+0xbd79ac26: stStartTime = '201112021955', 0xbd79ac26: current time = '201112021955'
+0xbd79ac26: interval is: 1d00h00m
+0xbd79ac26: 	delta is 0 minutes
+0xbd79ac26: 	max allowed diff for delayed schedule recognition is plus 5
+0xbd79ac26: *** NO delayed schedule *** recognized
+0xbd79ac26: 	calculating new schedule for '201112021955'...
+0xbd79ac26: 	interval is: 1d00h00m
+0xbd79ac26: 	schedule adjusted to '201112031955'
+0xbd79ac26: Creating new schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
+0xbd79ac26: Not a delayed schedule
+0xbd79ac26: 	checking AC line status
+0xbd79ac26: Skipping start of exe '\Program Files\INcontrol\Athena\tclient.exe' as not on AC power
+0xbd79ac26: 	ReleaseMutex...0xbd79ac26: OK
+0xbd79ac26: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xbd79ac26: nclog goes down
+0x3d6fec92: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
+0x3d6fec92:              DEBUG BUILD !
+0x3d6fec92:              TESTMODE !
+0x3d6fec92: Checking for Mutex (single instance allowed only)...
+0x3d6fec92: 	Created new mutex
+0x3d6fec92: Using launch time 04.12.2011, 00:03
+0x3d6fec92: CmdLine = 
+0x3d6fec92: 	argv[1]: 'AppRunAfterTimeChange'
+0x3d6fec92: Checking for valid date/time...
+0x3d6fec92: Date/Time after 11 2011. OK
+0x3d6fec92: got 'AppRunAfterTimeChange' signaled
+0x3d6fec92: Checking for valid date/time...
+0x3d6fec92: Date/Time after 11 2011. OK
+0x3d6fec92: Cleared 0 Tasker schedules
+0x3d6fec92: scheduleAllTasks: ClearAllSchedules for 0 tasks
+0x3d6fec92: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x3d6fec92: 	calculating new schedule for '201112042000'...
+0x3d6fec92: 	interval is: 1d00h00m
+0x3d6fec92: 	schedule adjusted to '201112042000'
+0x3d6fec92: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x3d6fec92: 	calculating new schedule for '201112040600'...
+0x3d6fec92: 	interval is: 1d00h00m
+0x3d6fec92: 	schedule adjusted to '201112040600'
+0x3d6fec92: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
+0x3d6fec92: 	calculating new schedule for '201112041955'...
+0x3d6fec92: 	interval is: 1d00h00m
+0x3d6fec92: 	schedule adjusted to '201112041955'
+0x3d6fec92: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
+0x3d6fec92: 	calculating new schedule for '201112040605'...
+0x3d6fec92: 	interval is: 1d00h00m
+0x3d6fec92: 	schedule adjusted to '201112040605'
+0x3d6fec92: scheduleAllTasks: scheduled 0 new tasks
+0x3d6fec92: Scheduled 0 Tasks
+0x3d6fec92: 	ReleaseMutex...0x3d6fec92: OK
+0x3d6fec92: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x3d6fec92: nclog goes down
+0x3d6d7816: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
+0x3d6d7816:              DEBUG BUILD !
+0x3d6d7816:              TESTMODE !
+0x3d6d7816: Checking for Mutex (single instance allowed only)...
+0x3d6d7816: 	Created new mutex
+0x3d6d7816: Using launch time 04.12.2011, 00:00
+0x3d6d7816: CmdLine = 
+0x3d6d7816: 	argv[1]: 'AppRunAfterTimeChange'
+0x3d6d7816: Checking for valid date/time...
+0x3d6d7816: Date/Time after 11 2011. OK
+0x3d6d7816: got 'AppRunAfterTimeChange' signaled
+0x3d6d7816: Checking for valid date/time...
+0x3d6d7816: Date/Time after 11 2011. OK
+0x3d6d7816: Cleared 0 Tasker schedules
+0x3d6d7816: scheduleAllTasks: ClearAllSchedules for 0 tasks
+0x3d6d7816: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x3d6d7816: 	calculating new schedule for '201112042000'...
+0x3d6d7816: 	interval is: 1d00h00m
+0x3d6d7816: 	schedule adjusted to '201112042000'
+0x3d6d7816: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x3d6d7816: 	calculating new schedule for '201112040600'...
+0x3d6d7816: 	interval is: 1d00h00m
+0x3d6d7816: 	schedule adjusted to '201112040600'
+0x3d6d7816: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
+0x3d6d7816: 	calculating new schedule for '201112041955'...
+0x3d6d7816: 	interval is: 1d00h00m
+0x3d6d7816: 	schedule adjusted to '201112041955'
+0x3d6d7816: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
+0x3d6d7816: 	calculating new schedule for '201112040605'...
+0x3d6d7816: 	interval is: 1d00h00m
+0x3d6d7816: 	schedule adjusted to '201112040605'
+0x3d6d7816: scheduleAllTasks: scheduled 0 new tasks
+0x3d6d7816: Scheduled 0 Tasks
+0x3d6d7816: 	ReleaseMutex...0x3d6d7816: OK
+0x3d6d7816: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x3d6d7816: nclog goes down
