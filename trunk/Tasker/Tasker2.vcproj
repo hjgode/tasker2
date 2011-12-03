@@ -335,6 +335,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Task.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Tasker2.cpp"
 				>
 			</File>
@@ -358,6 +362,10 @@
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Task.h"
 				>
 			</File>
 		</Filter>
