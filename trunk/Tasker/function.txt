@@ -49,16 +49,18 @@ function description
 						clear all kill or start schedules
 						get interval from reg
 						check for delayed schedule
-							if delay > maxDelay use createDelayedNextSchedule(...) to calc new schedule time
-							else use createNextSchedule(...)
-							schedule kill or start task
+						delay may be negative, if launched before next time
+					if delay is negative, only re-schedule task with original next time
+					if delay > maxDelay use createDelayedNextSchedule(...) to calc new schedule time
+					else use createNextSchedule(...)
+					schedule kill or start task
 							
-							if delayed schedule
-								do not execute a kill or start!
-							else
-								if onAcPowerOnly is set and AC is there: start exe
-								else do not start exe
-								kill exe without check of AC
+					if delayed schedule
+						do not execute a kill or start!
+					else
+						if onAcPowerOnly is set and AC is there: start exe
+						else do not start exe
+						kill exe without check of AC
 								
 					
 				-r taskX
