@@ -1,3 +1,23 @@
+Test sceanrios
+1. Tasker is started during boot and install phase of device without args
+	date/time has to be valid (>=11/2011)
+2. Tasker is started by TimeChangeEvents with arg="AppRunAfterTimeChange" or "AppRunAfterTzChange"
+	if valid date then tasker should re-schedule taks with new date/time using the specified interval
+	and using the current date/time
+3. Tasker is started with "-s taskX" or "-k taskX"
+	this normally happens after/before time change events or if the time of the schedule is reached
+	the call is done by the OS scheduler
+
+	Possible Conditions:
+	a) taskX is launched at the right time
+	b) taskX is launched with date/time before time (nextStart or nextStop) {iDelay is negative}
+	c) taskX is launched after date/time {iDelay is positive}. If delay is less than maxDelay, this is ignored
+
+	tasker2 has to re-schedule taskX with the correct interval
+	- for delayed schedules
+	- for premature schedules
+	- for non-delayed schedules
+
 ############### Start ################
 
 	REGEDIT4
@@ -37,7 +57,7 @@ set time manually to 01.02.2009 12:00
 ###	simulates time change to future
 set time manually to 02.12.2011 15:00
 	tasker.exe AppRunAfterTimeChange
-	check: 
+	verify: 
 		task1
 			start	2.12.2011 2000
 			stop	3.12.2011 0600
@@ -48,7 +68,7 @@ set time manually to 02.12.2011 15:00
 ###	simulates time change to future
 set time manually to 02.12.2011 19:52
 	tasker.exe AppRunAfterTimeChange
-	check: 
+	verify: 
 		task1
 			start	2.12.2011 2000
 			stop	3.12.2011 0600
@@ -62,7 +82,7 @@ set time manually to 02.12.2011 19:52
 set time manually to 02.12.2011 19:55
 	tasker.exe -s task2
 
-	check: task2 is executed!
+	verify: task2 is executed!
 		task2
 			start	3.12.2011 1955
 	
@@ -70,7 +90,7 @@ set time manually to 02.12.2011 19:55
 set time manually to 02.12.2011 2000
 	tasker.exe -s task1
 
-	check: task1 is executed!
+	verify: task1 is executed!
 		task1
 			start	3.12.2011 2000
 
@@ -78,7 +98,7 @@ set time manually to 02.12.2011 2000
 set time manually to 03.12.2011 0600
 	tasker.exe -k task1
 	
-	check: task1 is killed!
+	verify: task1 is killed!
 		task1
 		new stop	4.12.2011 0605
 		
@@ -86,7 +106,7 @@ set time manually to 03.12.2011 0600
 set time manually to 03.12.2011 0605
 	tasker.exe -k task2
 	
-	check: task2 is killed!
+	verify: task2 is killed!
 		task2
 		new stop	4.12.2011 0605
 
@@ -95,22 +115,22 @@ set time manually to 03.12.2011 0605
 set time manually to 04.12.2011 1500
 
 	tasker.exe -s task2
-		check: task2 is NOT executed! //delayed schedule!
+		verify: task2 is NOT executed! //delayed schedule!
 			task2
 				new start	4.12.2011 1955
 	
 	tasker.exe -s task1
-		check: task1 is NOT executed! //delayed schedule!
+		verify: task1 is NOT executed! //delayed schedule!
 			task1
 				new start	4.12.2011 2000
 
 	tasker.exe -k task1
-		check: task1 is NOT killed! //delayed schedule!
+		verify: task1 is NOT killed! //delayed schedule!
 			task1
 				new stop	5.12.2011 0605 
 		
 	tasker.exe -k task2
-		check: task2 is NOT killed! //delayed schedule!
+		verify: task2 is NOT killed! //delayed schedule!
 			task2
 				new stop	5.12.2011 0605
 
@@ -124,7 +144,7 @@ set time manually to 04.12.2011 1500
 				stop	5.12.2011 0605 
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 
-###	simululates a 
+###	simululates a premature TimeChangeEvent
 set time manually to 04.12.2011 0000
 
 	tasker.exe AppRunAfterTimeChange
