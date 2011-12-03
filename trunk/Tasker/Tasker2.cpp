@@ -2,7 +2,10 @@
 //
 // use test mode to disable the creation of new schedules and control 
 // everything with just calling Tasker2 with args manually
-//#define TESTMODE
+#define TESTMODE
+
+//if for emulator test, then undef INTERMEC
+//#define INTERMEC
 
 #include "stdafx.h"
 #include "task.h"
@@ -11,8 +14,14 @@
 #include "myNotify.h"
 #include "./common/nclog.h"
 
-#include "C:/Program Files (x86)/Intermec/Developer Library/Include/itc50.h"
-#pragma comment(lib, "C:/Program Files (x86)/Intermec/Developer Library/Lib/WCE600/WM6/Armv4i/itc50.lib")
+#ifdef INTERMEC
+//#include "C:/Program Files (x86)/Intermec/Developer Library/Include/itc50.h"
+//#pragma comment(lib, "C:/Program Files (x86)/Intermec/Developer Library/Lib/WCE600/WM6/Armv4i/itc50.lib")
+#include "C:/Programme/Intermec/Developer Library/Include/itc50.h"
+#pragma comment(lib, "C:/Programme/Intermec/Developer Library/Lib/WCE600/WM6/Armv4i/itc50.lib")
+#else
+#include <pm.h>
+#endif
 
 extern TASK _Tasks[iMaxTasks];
 SYSTEMTIME g_CurrentStartTime;
@@ -29,6 +38,14 @@ SYSTEMTIME createDelayedNextSchedule(SYSTEMTIME stNext, short shDays, short shHo
 
 BOOL isACpowered(){
 	nclog(L"\tchecking AC line status\n");
+#ifndef INTERMEC
+	SYSTEM_POWER_STATUS_EX2 sysPowr;
+	GetSystemPowerStatusEx2(&sysPowr, sizeof(SYSTEM_POWER_STATUS_EX2), TRUE);
+	if(sysPowr.ACLineStatus==AC_LINE_ONLINE)
+		return TRUE;
+	else
+		return FALSE;
+#else
 	DWORD dwLineStatus=0;
 	DWORD dwBatteryStatus=0;
 	DWORD dwBackupBatteryStatus=0;
@@ -45,6 +62,7 @@ BOOL isACpowered(){
 	else
 		nclog(L"\tITCPowerStatus() failed\n");
 	return FALSE;
+#endif
 }
 
 int ClearAllSchedules(){
