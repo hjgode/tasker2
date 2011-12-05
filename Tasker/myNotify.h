@@ -50,6 +50,8 @@ DWORD killExe(TCHAR* szExe);
 
 SYSTEMTIME DT_AddDay(const SYSTEMTIME st);
 int stDeltaMinutes(const SYSTEMTIME st1, const SYSTEMTIME st2);
+
+int isNewer2(SYSTEMTIME stFirst, SYSTEMTIME stSecond);
 BOOL isNewer(SYSTEMTIME stNew, SYSTEMTIME stCompare);
 
 void listNotifications();

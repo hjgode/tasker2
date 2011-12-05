@@ -13,6 +13,7 @@
 TCHAR str[MAX_PATH];
 
 // save inTime, get LocalTime and then set DAY, hour and minute of inTime
+// added support for negaitive days, hours and minutes in v2.34
 SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds) {
 	FILETIME ft; SYSTEMTIME st; ULARGE_INTEGER ul1;
 	
@@ -36,13 +37,26 @@ SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short
 	ul1.HighPart = ft.dwHighDateTime;
 	ul1.LowPart = ft.dwLowDateTime;
 	 
-	if (Milliseconds) { ul1.QuadPart += (Milliseconds * 10000); }
-	if (Seconds) { ul1.QuadPart += (Seconds * (__int64)10000000); }
-	if (Minutes) { ul1.QuadPart += (Minutes * (__int64)10000000 * 60); }
-	if (Hours) { ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60); }
-	if (Days) {
+	if (Milliseconds) 
+		ul1.QuadPart += (Milliseconds * 10000); 
+
+	if (Seconds)
+		ul1.QuadPart += (Seconds * (__int64)10000000); 
+
+	if (Minutes>0)
+		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
+	else if (Minutes<0)
+		ul1.QuadPart -= (Minutes * (__int64)10000000 * 60); 
+
+	if (Hours>0) 
+		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
+	else if (Hours<0)
+		ul1.QuadPart -= (Hours * (__int64)10000000 * 60 * 60);
+
+	if (Days>0)
 		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
-	}
+	else if (Days<0)
+		ul1.QuadPart -= (Days * (__int64)10000000 * 60 * 60 * 24); 
 	 
 	ft.dwHighDateTime = ul1.HighPart;
 	ft.dwLowDateTime = ul1.LowPart;
@@ -51,7 +65,7 @@ SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short
 		return Date;
 	}
 	 
-	if (Months) {
+	if (Months>0) {
 		if ((Months += st.wMonth) <= 0) {
 			Months *= (-1);
 			st.wYear -= ((Months / 12) + 1);
@@ -172,6 +186,27 @@ int /*int*/ stDeltaMinutes(const SYSTEMTIME st1, const SYSTEMTIME st2)
 
 	DEBUGMSG(1, (L"DEBUG: Time diff in minutes: %i\n", iDelta));
     return iDelta;// abs(iTimeDelta/60);
+}
+
+/*
+	compare two SYSTEMTIME values
+	return 0, if both are equal
+	return 1, if second time is after first time, if first time is after second time
+	return -1, if second time is before first time, if first time is befor second time
+	like wcscmp(...)
+*/
+int isNewer2(SYSTEMTIME stFirst, SYSTEMTIME stSecond){
+	int iReturn=0;
+	// 201112011415 01.12.2011 14:15 , 12 digits
+	double dFirst = stFirst.wYear * 100000000 + stFirst.wMonth * 1000000 + stFirst.wDay * 10000 + stFirst.wHour * 100 + stFirst.wMinute;
+	double dSecond = stSecond.wYear * 100000000 + stSecond.wMonth * 1000000 + stSecond.wDay * 10000 + stSecond.wHour * 100 + stSecond.wMinute;
+	if(dSecond==dFirst)
+		iReturn=0;
+	if(dSecond<dFirst)
+		iReturn=-1;
+	else if (dSecond>dFirst)
+		iReturn=1;
+	return iReturn;
 }
 
 BOOL isNewer(SYSTEMTIME stNew, SYSTEMTIME stCompare){
