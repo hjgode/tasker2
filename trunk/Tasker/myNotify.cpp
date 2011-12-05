@@ -46,17 +46,17 @@ SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short
 	if (Minutes>0)
 		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
 	else if (Minutes<0)
-		ul1.QuadPart -= (Minutes * (__int64)10000000 * 60); 
+		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
 
 	if (Hours>0) 
 		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
 	else if (Hours<0)
-		ul1.QuadPart -= (Hours * (__int64)10000000 * 60 * 60);
+		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
 
 	if (Days>0)
 		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
 	else if (Days<0)
-		ul1.QuadPart -= (Days * (__int64)10000000 * 60 * 60 * 24); 
+		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
 	 
 	ft.dwHighDateTime = ul1.HighPart;
 	ft.dwLowDateTime = ul1.LowPart;
@@ -191,8 +191,10 @@ int /*int*/ stDeltaMinutes(const SYSTEMTIME st1, const SYSTEMTIME st2)
 /*
 	compare two SYSTEMTIME values
 	return 0, if both are equal
-	return 1, if second time is after first time, if first time is after second time
-	return -1, if second time is before first time, if first time is befor second time
+	return -1, if first time is before second time
+	return 1, if first time is after second time
+	        ............stFirst..........
+	stSecond    -1         0        +1
 	like wcscmp(...)
 */
 int isNewer2(SYSTEMTIME stFirst, SYSTEMTIME stSecond){
@@ -202,9 +204,9 @@ int isNewer2(SYSTEMTIME stFirst, SYSTEMTIME stSecond){
 	double dSecond = stSecond.wYear * 100000000 + stSecond.wMonth * 1000000 + stSecond.wDay * 10000 + stSecond.wHour * 100 + stSecond.wMinute;
 	if(dSecond==dFirst)
 		iReturn=0;
-	if(dSecond<dFirst)
+	if(dFirst<dSecond)
 		iReturn=-1;
-	else if (dSecond>dFirst)
+	else if (dFirst>dSecond)
 		iReturn=1;
 	return iReturn;
 }

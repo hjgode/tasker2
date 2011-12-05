@@ -375,6 +375,13 @@ int _tmain(int argc, _TCHAR* argv[])
 			dumpST(L"actual time = ", stActual);
 			dumpST(L"new sched   = ", stNew);
 			
+			DEBUGMSG(1, (L"schedule is one day in past, interval is 1 day"));
+			stSched = DT_Add(stActual,0,0,-2,0,0,0,0);	//minus two days
+			stNew = getNextTime(stSched, stActual, 1, 0, 0);
+			dumpST(L"old sched   = ", stSched);
+			dumpST(L"actual time = ", stActual);
+			dumpST(L"new sched   = ", stNew);
+
 			nclog(L"... test mode ended\n");
 		}
 	}
@@ -759,27 +766,37 @@ SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays
 	}
 	else if(iCompareTimes==-1) //first time before second time, stBegin is current
 	{
-		//if stStart is before stBegin?
-		// stStart = '20111122 1210', stBegin = '20111122 1411'
-		do{
-			//add interval from stStart until before stBegin
+		//if stStart is before stBegin
+		//start with current date and use scheduled hour and minute
+		stStart1.wYear=stBegin.wYear;
+		stStart1.wMonth=stBegin.wMonth;
+		stStart1.wDay=stBegin.wDay;
+		while (isNewer2(stStart1, stBegin) != 1){
+			//add interval onto stStart as long as we are before stBegin
 			stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
 			dumpST(L"stStart1", stStart1);
 			dumpST(L"stBegin", stBegin);
 			iCompareTimes = isNewer2(stStart1, stBegin);
-		}while (iCompareTimes==-1);// (uStart>uBegin);
+		};// (uStart>uBegin);
 	}
-	else if(iCompareTimes==1) //first time is after second time, stBegin is current
+	else if(iCompareTimes==1) //stStart is after stBegin 
 	{
-		//if stStart is after stBegin?
-		// stStart = '20111122 1210', stBegin = '20111122 1411'
-		do{
+		//if stStart is after stBegin
+		//start with current date and use scheduled hour and minute
+		stStart1.wYear=stBegin.wYear;
+		stStart1.wMonth=stBegin.wMonth;
+		stStart1.wDay=stBegin.wDay;
+		while (isNewer2(stStart1, stBegin) != -1){
 			//add interval from stStart until before stBegin
 			stStart1 = DT_Add(stStart1, 0, 0, -iIntervalDays, -iIntervalHours, -iIntervalMinutes,0,0); 
 			dumpST(L"stStart1", stStart1);
 			dumpST(L"stBegin", stBegin);
 			iCompareTimes = isNewer2(stStart1, stBegin);
-		}while (iCompareTimes==1);// (uStart>uBegin);
+		};// (uStart>uBegin);
+		//ADD one interval
+		stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
+		if(isNewer2(stStart1, stBegin) ==0) // add one more interval is equal current time
+			stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
 	}
 	dumpST(L"stStart1", stStart1);
 	dumpST(L"stBegin", stBegin);
