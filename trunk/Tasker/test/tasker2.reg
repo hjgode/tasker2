@@ -1,0 +1,37 @@
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\Software\Tasker]
+"UpdateAll"=dword:00000001
+"dbglevel"=dword:00000000
+"maxDelay"=dword:00000005
+
+[HKEY_LOCAL_MACHINE\Software\Tasker\Task1]
+"exe"="\\Program Files\\INcontrol\\Athena\\Athena.exe"
+"args"="-hidden"
+;"start"="0255"
+;"stop"="0330"
+"start"="2000"
+"stop"="0600"
+"interval"="2400"
+"startOnAConly"=dword:00000001
+"active"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\Software\Tasker\Task2]
+"exe"="\\Program Files\\INcontrol\\Athena\\tclient.exe"
+"args"="-hidden"
+;"start"="0250"
+;"stop"="0335"
+"start"="1955"
+"stop"="0605"
+"interval"="2400"
+"startOnAConly"=dword:00000001
+"active"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\Software\Tasker\Task3]
+"exe"="\\Windows\\notepad.exe"
+"args"=""
+"start"="0010"
+"stop"="0110"
+"interval"="0010"
+"startOnAConly"=dword:00000001
+"active"=dword:00000001
