@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tasker2", "Tasker2.vcproj", "{2EFC3106-35CD-423D-BA61-2680D1D02519}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetDateTime", "..\SetDateTime\SetDateTime.vcproj", "{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Windows Mobile 6 Professional SDK (ARMV4I) = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I) = Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Windows Mobile 6 Professional SDK (ARMV4I) = Release|Windows Mobile 6 Professional SDK (ARMV4I)
+		Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I) = Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		setdatetime debug emul|Mixed Platforms = setdatetime debug emul|Mixed Platforms
+		setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I) = setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I)
+		setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I) = setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Mixed Platforms.ActiveCfg = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Mixed Platforms.Build.0 = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Mixed Platforms.Deploy.0 = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Windows Mobile 6 Professional SDK (ARMV4I).Build.0 = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Windows Mobile 6 Professional SDK (ARMV4I).Deploy.0 = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I).ActiveCfg = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I).Build.0 = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I).Deploy.0 = Debug|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Release|Mixed Platforms.ActiveCfg = Release|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Release|Mixed Platforms.Build.0 = Release|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Release|Mixed Platforms.Deploy.0 = Release|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Release|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Release|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Release|Windows Mobile 6 Professional SDK (ARMV4I).Build.0 = Release|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Release|Windows Mobile 6 Professional SDK (ARMV4I).Deploy.0 = Release|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I).ActiveCfg = Release|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.setdatetime debug emul|Mixed Platforms.ActiveCfg = setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.setdatetime debug emul|Mixed Platforms.Build.0 = setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.setdatetime debug emul|Mixed Platforms.Deploy.0 = setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I).Deploy.0 = setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2EFC3106-35CD-423D-BA61-2680D1D02519}.setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I).ActiveCfg = setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Debug|Mixed Platforms.ActiveCfg = Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Debug|Mixed Platforms.Build.0 = Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Debug|Mixed Platforms.Deploy.0 = Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Debug|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I).ActiveCfg = Debug|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Release|Mixed Platforms.ActiveCfg = Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Release|Mixed Platforms.Build.0 = Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Release|Mixed Platforms.Deploy.0 = Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Release|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I).ActiveCfg = Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I).Build.0 = Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I).Deploy.0 = Release|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.setdatetime debug emul|Mixed Platforms.ActiveCfg = setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.setdatetime debug emul|Mixed Platforms.Build.0 = setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.setdatetime debug emul|Mixed Platforms.Deploy.0 = setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.setdatetime debug emul|Windows Mobile 6 Professional SDK (ARMV4I).ActiveCfg = setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I).ActiveCfg = setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I).Build.0 = setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+		{2CA145C9-B9F7-42A7-A44D-FCDA9251CEAD}.setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I).Deploy.0 = setdatetime debug emul|Windows Mobile 6.5.3 Professional DTK (ARMV4I)
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

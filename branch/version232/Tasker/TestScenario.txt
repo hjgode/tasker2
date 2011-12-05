@@ -1,0 +1,160 @@
+Test sceanrios
+1. Tasker is started during boot and install phase of device without args
+	date/time has to be valid (>=11/2011)
+2. Tasker is started by TimeChangeEvents with arg="AppRunAfterTimeChange" or "AppRunAfterTzChange"
+	if valid date then tasker should re-schedule taks with new date/time using the specified interval
+	and using the current date/time
+3. Tasker is started with "-s taskX" or "-k taskX"
+	this normally happens after/before time change events or if the time of the schedule is reached
+	the call is done by the OS scheduler
+
+	Possible Conditions:
+	a) taskX is launched at the right time
+	b) taskX is launched with date/time before time (nextStart or nextStop) {iDelay is negative}
+	c) taskX is launched after date/time {iDelay is positive}. If delay is less than maxDelay, this is ignored
+
+	tasker2 has to re-schedule taskX with the correct interval
+	- for delayed schedules
+	- for premature schedules
+	- for non-delayed schedules
+
+############### Start ################
+
+	REGEDIT4
+
+	[HKEY_LOCAL_MACHINE\Software\Tasker]
+	"dbglevel"=dword:00000000
+	"maxDelay"=dword:00000005
+
+	[HKEY_LOCAL_MACHINE\Software\Tasker\Task1]
+	"exe"="\\Program Files\\INcontrol\\Athena\\Athena.exe"
+	"args"="-hidden"
+	"start"="2000"
+	"stop"="0600"
+	"interval"="2400"
+	"startOnAConly"=dword:00000001
+	"active"=dword:00000001
+
+	[HKEY_LOCAL_MACHINE\Software\Tasker\Task2]
+	"exe"="\\Program Files\\INcontrol\\Athena\\tclient.exe"
+	"args"="-hidden"
+	"start"="1955"
+	"stop"="0605"
+	"interval"="2400"
+	"startOnAConly"=dword:00000001
+	"active"=dword:00000001
+	
+###	simulates boot phase
+set time manually to 01.01.2003 12:00
+	tasker.exe 
+		test = no action
+	
+###	simulates boot phase	
+set time manually to 01.02.2009 12:00
+	tasker.exe
+		test = no action
+	
+###	simulates time change to future
+set time manually to 02.12.2011 15:00
+	tasker.exe AppRunAfterTimeChange
+	verify: 
+		task1
+			start	2.12.2011 2000
+			stop	3.12.2011 0600
+		task2
+			start	2.12.2011 1955
+			stop	3.12.2011 0605
+
+###	simulates time change to future
+set time manually to 02.12.2011 19:52
+	tasker.exe AppRunAfterTimeChange
+	verify: 
+		task1
+			start	2.12.2011 2000
+			stop	3.12.2011 0600
+		task2
+			start	2.12.2011 1955
+			stop	3.12.2011 0605
+	
+	VERIFY there is no CHANGE
+
+###	simululates a scheduler call at correct time
+set time manually to 02.12.2011 19:55
+	tasker.exe -s task2
+
+	verify: task2 is executed!
+		task2
+			start	3.12.2011 1955
+	
+###	simululates a scheduler call at correct time
+set time manually to 02.12.2011 2000
+	tasker.exe -s task1
+
+	verify: task1 is executed!
+		task1
+			start	3.12.2011 2000
+
+###	simululates a scheduler call at correct time
+set time manually to 03.12.2011 0600
+	tasker.exe -k task1
+	
+	verify: task1 is killed!
+		task1
+		new stop	4.12.2011 0605
+		
+###	simululates a scheduler call at correct time
+set time manually to 03.12.2011 0605
+	tasker.exe -k task2
+	
+	verify: task2 is killed!
+		task2
+		new stop	4.12.2011 0605
+
+++++++++++++++++++++++++++++++++++++++++++++++++
+###	simululates a delayed call
+set time manually to 04.12.2011 1500
+
+	tasker.exe -s task2
+		verify: task2 is NOT executed! //delayed schedule!
+			task2
+				new start	4.12.2011 1955
+	
+	tasker.exe -s task1
+		verify: task1 is NOT executed! //delayed schedule!
+			task1
+				new start	4.12.2011 2000
+
+	tasker.exe -k task1
+		verify: task1 is NOT killed! //delayed schedule!
+			task1
+				new stop	5.12.2011 0605 
+		
+	tasker.exe -k task2
+		verify: task2 is NOT killed! //delayed schedule!
+			task2
+				new stop	5.12.2011 0605
+
+	tasker.exe AppRunAfterTimeChange
+			task2
+				start	4.12.2011 1955
+				stop	5.12.2011 0605
+				
+			task1
+				start	4.12.2011 2000
+				stop	5.12.2011 0605 
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+###	simululates a premature TimeChangeEvent
+set time manually to 04.12.2011 0000
+
+	tasker.exe AppRunAfterTimeChange
+			task2
+				start	4.12.2011 1955
+				stop	5.12.2011 0605
+				
+			task1
+				start	4.12.2011 2000
+				stop	5.12.2011 0605 
+	SEE NO CHANGE!
+++++++++++++++++++++++++++++++++++++++++++++++++++
+

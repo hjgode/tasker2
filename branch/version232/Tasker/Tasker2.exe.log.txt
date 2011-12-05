@@ -1,0 +1,12 @@
+0xf5d2df26: ++++++++++++++++ Tasker v232 started +++++++++++++++++++
+0xf5d2df26:              DEBUG BUILD !
+0xf5d2df26:              TESTMODE !
+0xf5d2df26: Checking for Mutex (single instance allowed only)...
+0xf5d2df26: 	Created new mutex
+0xf5d2df26: Using launch time 01.01.2003, 12:00
+0xf5d2df26: CmdLine = 
+0xf5d2df26: Checking for valid date/time...
+0xf5d2df26: scheduling event notifications
+0xf5d2df26: Date/Time not valid!
+*********** END ************
+0xf5d2df26: nclog goes down
