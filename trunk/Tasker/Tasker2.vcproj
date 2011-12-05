@@ -25,6 +25,7 @@
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
+			UseOfATL="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -49,6 +50,7 @@
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_CONSOLE;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
+				BufferSecurityCheck="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -70,6 +72,7 @@
 				AdditionalOptions=" /subsystem:windowsce,5.02"
 				OutputFile="$(OutDir)/Tasker2.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\ce\atlmfc\lib\armv4"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/Tasker2.pdb"
@@ -157,6 +160,7 @@
 				AdditionalOptions=" /subsystem:windowsce,5.02"
 				OutputFile="$(OutDir)/Tasker2.exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\ce\atlmfc\lib\armv4"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/Tasker2.pdb"
@@ -247,6 +251,7 @@
 				AdditionalOptions=" /subsystem:windowsce,5.02"
 				OutputFile="$(OutDir)/Tasker2.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\ce\atlmfc\lib\armv4"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/Tasker2.pdb"
@@ -307,6 +312,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SimpleDateTime.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -358,6 +367,10 @@
 			</File>
 			<File
 				RelativePath=".\regRW.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SimpleDateTime.h"
 				>
 			</File>
 			<File
