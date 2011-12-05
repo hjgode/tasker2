@@ -36,6 +36,9 @@ int processStartStopCmd(TCHAR* argv[]);
 SYSTEMTIME createNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin);
 SYSTEMTIME createDelayedNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin);
 
+void dumpST(TCHAR* szNote, SYSTEMTIME st);
+SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays, int iIntervalHours, int iIntervalMinutes);
+
 BOOL isACpowered(){
 	nclog(L"\tchecking AC line status\n");
 #ifndef INTERMEC
@@ -353,8 +356,25 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		else if(wcsicmp(argv[1], L"-t")==0){	//test mode
 			//just sleep 15 seconds for testing mutex
-			nclog(L"test mode: sleep 15 seconds...\n");
-			Sleep(15000);
+			nclog(L"test mode...\n");
+			SYSTEMTIME stSched, stActual, stNew;
+			GetLocalTime(&stActual);
+			memcpy(&stSched, &stActual, sizeof(SYSTEMTIME));
+
+			DEBUGMSG(1, (L"schedule is one day in future"));
+			stSched = DT_Add(stActual,0,0,1,0,0,0,0);	//add one day
+			stNew = getNextTime(stSched, stActual, 0, 1, 0); //get next schedule for 1 hour interval
+			dumpST(L"old sched   = ", stSched);
+			dumpST(L"actual time = ", stActual);
+			dumpST(L"new sched   = ", stNew);
+
+			DEBUGMSG(1, (L"schedule is one day in past"));
+			stSched = DT_Add(stActual,0,0,-2,0,0,0,0);	//minus two days
+			stNew = getNextTime(stSched, stActual, 0, 1, 0);
+			dumpST(L"old sched   = ", stSched);
+			dumpST(L"actual time = ", stActual);
+			dumpST(L"new sched   = ", stNew);
+			
 			nclog(L"... test mode ended\n");
 		}
 	}
@@ -710,6 +730,9 @@ SYSTEMTIME createNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, sho
 /*
 	return the next time (hhmm) that is past stBegin with a given interval
 	subtract interval as long as stStart>stBegin and finally add one interval
+
+	stStart is the current schedule time
+	stBegin is the current time
 */
 SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays, int iIntervalHours, int iIntervalMinutes){
 	SYSTEMTIME stStart1; 
@@ -718,32 +741,48 @@ SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays
 	//DEBUGMSG(1, (L"BEFORE: wDay=%02i, wHour=%02i, wMinute=%02i\n", stStart1.wDay, stStart1.wHour, stStart1.wMinute));
 	dumpST(L"stStart1", stStart1);
 	dumpST(L"stBegin", stBegin);
-	if(isNewer(stStart1, stBegin))
+
+	int iCompareTimes = isNewer2(stStart1, stBegin);
+	if(iCompareTimes==0) //both times are equal
 	{
-		//if stStart is in the future of stBegin?
-		do{
-			//subtract interval from stStart until before stBegin
-			stStart1 = DT_Add(stStart1, 0, 0, -iIntervalDays, -iIntervalHours, -iIntervalMinutes, 0, 0); 
-			dumpST(L"stStart1", stStart1);
-			dumpST(L"stBegin", stBegin);
-		}while (isNewer(stStart1, stBegin));// (uStart>uBegin);
-		//add one interval
-		stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
+		//simply add one interval
+		stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes, 0, 0);
+		////if stStart is in the future of stBegin?
+		//do{
+		//	//subtract interval from stStart until before stBegin
+		//	stStart1 = DT_Add(stStart1, 0, 0, -iIntervalDays, -iIntervalHours, -iIntervalMinutes, 0, 0); 
+		//	dumpST(L"stStart1", stStart1);
+		//	dumpST(L"stBegin", stBegin);
+		//}while (isNewer(stStart1, stBegin));// (uStart>uBegin);
+		////add one interval
+		//stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
 	}
-	else
+	else if(iCompareTimes==-1) //first time before second time, stBegin is current
 	{
-		//if stStart is in the past of stBegin?
+		//if stStart is before stBegin?
 		// stStart = '20111122 1210', stBegin = '20111122 1411'
 		do{
 			//add interval from stStart until before stBegin
 			stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
 			dumpST(L"stStart1", stStart1);
 			dumpST(L"stBegin", stBegin);
-		}while (!isNewer(stStart1, stBegin));// (uStart>uBegin);
+			iCompareTimes = isNewer2(stStart1, stBegin);
+		}while (iCompareTimes==-1);// (uStart>uBegin);
+	}
+	else if(iCompareTimes==1) //first time is after second time, stBegin is current
+	{
+		//if stStart is after stBegin?
+		// stStart = '20111122 1210', stBegin = '20111122 1411'
+		do{
+			//add interval from stStart until before stBegin
+			stStart1 = DT_Add(stStart1, 0, 0, -iIntervalDays, -iIntervalHours, -iIntervalMinutes,0,0); 
+			dumpST(L"stStart1", stStart1);
+			dumpST(L"stBegin", stBegin);
+			iCompareTimes = isNewer2(stStart1, stBegin);
+		}while (iCompareTimes==1);// (uStart>uBegin);
 	}
 	dumpST(L"stStart1", stStart1);
 	dumpST(L"stBegin", stBegin);
-
 
 	//DEBUGMSG(1, (L"AFTER: wDay=%02i, wHour=%02i, wMinute=%02i\n", stStart1.wDay, stStart1.wHour, stStart1.wMinute));
 	return stStart1;
@@ -751,6 +790,8 @@ SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays
 
 /*
 	return time of next schedule in future that meets the given interval
+	stNext is the actual time of the schedule
+	shDays, shHour and shMin define the interval for the schedule
 */
 SYSTEMTIME createDelayedNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin){
 	nclog(L"+++ createDelayedNextSchedule: delayed schedule recalculation...\n");
