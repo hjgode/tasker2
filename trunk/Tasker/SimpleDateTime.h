@@ -1,4 +1,4 @@
-// SimpleDate.h: interface for the CSimpleDate class.
+// SimpleDateTime.h: interface for the CSimpleDateTime class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,6 +17,8 @@ enum{
 	MMDDYYYY,
 	DDMMYYYY,
 	YYYYMMDD,
+	DDMMYYYYhhmm,
+	hhmm
 };
 
 // NOTE:: If you choose any of the two digit year formats you had better be sure all
@@ -25,107 +27,119 @@ enum{
 
 //#include "Parseit.h"
 
-class CSimpleDate  
+class CSimpleDateTime  
 {
 public:
 	//	constructors and destructors
-	CSimpleDate(int FormatType=MMDDYYYY);
-	CSimpleDate(LPCSTR DateString,int FormatType=MMDDYYYY);
-	CSimpleDate(long JD,int FormatType=MMDDYYYY);
-	virtual ~CSimpleDate();
+	CSimpleDateTime(int FormatType=MMDDYYYY);
+	CSimpleDateTime(LPCWSTR DateString,int FormatType=MMDDYYYY);
+	CSimpleDateTime(long JD,int FormatType=MMDDYYYY);
+	CSimpleDateTime(SYSTEMTIME systemTime);
+	virtual ~CSimpleDateTime();
 
 	//	Date math routines
-	const	CSimpleDate& AddDays(int Days);
-	const	CSimpleDate& AddYears(int Yrs);
-	const	CSimpleDate& AddMonths(int Mon);
-	const	CSimpleDate& SubtractYears(int Yrs);
-	const	CSimpleDate& SubtractDays(int Days);
-	const	CSimpleDate& SubtractMonths(int Mon);
+	const	CSimpleDateTime& AddDays(int Days);
+	const	CSimpleDateTime& AddYears(int Yrs);
+	const	CSimpleDateTime& AddMonths(int Mon);
+	const	CSimpleDateTime& SubtractYears(int Yrs);
+	const	CSimpleDateTime& SubtractDays(int Days);
+	const	CSimpleDateTime& SubtractMonths(int Mon);
 	virtual int			YearsOld();
 
 	// access routines;
-	LPCSTR		GetFullDateString();
-	LPCSTR		GetFullDateStringLong();
+	LPCWSTR		GetFullDateString();
+	LPCWSTR		GetFullDateStringLong();
 	virtual		int GetDayOfWeek();
 	virtual		BOOL IsValid();
 	long		GetJulianDate(); // easier to use (long)CSimpelDate but some prefer this
 
-	virtual		int	GetDay()
-					{if(!IsValid()) return 0;return m_Day;};
-	virtual		int	GetMonth()
-					{if(!IsValid()) return 0;return m_Month;};
-	virtual		int	GetYear()
-					{if(!IsValid()) return 0;return m_Year;};
+	virtual		int		GetDay()
+								{if(!IsValid()) return 0;return m_systemTime.wDay;};
+	virtual		int		GetMonth()
+								{if(!IsValid()) return 0;return m_systemTime.wMonth;};
+	virtual		int		GetYear()
+								{if(!IsValid()) return 0;return m_systemTime.wYear;};
 	virtual		void	GetIntegerDate(int& m, int& d,int& y)
-					{if(!IsValid()) return;m=m_Month;y=m_Year;d=m_Day;};
+								{if(!IsValid()) return;m=m_systemTime.wMonth;y=m_systemTime.wYear;d=m_systemTime.wDay;};
 	virtual		int		GetHour()
-					{if(!IsValid()) return 0;return m_Hour+m_bPM*12;};
+								{if(!IsValid()) return 0;return m_systemTime.wHour;};
 	virtual		int		GetMin()
-					{if(!IsValid()) return 0;return m_Min;};
+								{if(!IsValid()) return 0;return m_systemTime.wMinute;};
 	virtual		int		GetSeconds()
-					{if(!IsValid()) return 0;return m_Second;};
-
+								{if(!IsValid()) return 0;return m_systemTime.wSecond;};
+	virtual		SYSTEMTIME		GetSystemTime()
+				{
+					if(!IsValid()){
+						SYSTEMTIME st;
+						memset(&st, 0, sizeof(SYSTEMTIME));
+						return st;
+					}
+					return m_systemTime;
+				};
+	
 	//virtual		void	GetTimeString(CString& s,BOOL AmPm=TRUE);
 	//virtual		void	GetTimeString(LPSTR s,int nLen,BOOL AmPm=TRUE);
 	//virtual		void	GetTimeStringShort(CString& s,BOOL AmPm=TRUE);
 	//virtual		void	GetTimeStringShort(LPSTR s,int nLen,BOOL AmPm=TRUE);
 
 	//	operator assignments conversions equality etc...
-	operator	LPCSTR();
+	operator	LPCWSTR();
 	operator	long();
-	const CSimpleDate& operator = (const CSimpleDate& Date);
-	const CSimpleDate& operator = (LPCSTR Date);
-	BOOL operator > (const CSimpleDate& Date);
-	BOOL operator < (const CSimpleDate& Date);
-	BOOL operator >= (const CSimpleDate& Date);
-	BOOL operator <= (const CSimpleDate& Date);
-	BOOL operator == (const CSimpleDate& Date);
-	BOOL operator != (const CSimpleDate& Date);
-	BOOL operator > (LPCSTR Date);
-	BOOL operator < (LPCSTR Date);
-	BOOL operator >= (LPCSTR Date);
-	BOOL operator <= (LPCSTR Date);
-	BOOL operator == (LPCSTR Date);
-	BOOL operator != (LPCSTR Date);
+	const CSimpleDateTime& operator = (const CSimpleDateTime& Date);
+	const CSimpleDateTime& operator = (LPCWSTR Date);
+
+	const CSimpleDateTime& operator + (LPCWSTR Date);
+	const CSimpleDateTime& operator + (SYSTEMTIME Date);
+
+	BOOL operator > (const CSimpleDateTime& Date);
+	BOOL operator < (const CSimpleDateTime& Date);
+	BOOL operator >= (const CSimpleDateTime& Date);
+	BOOL operator <= (const CSimpleDateTime& Date);
+	BOOL operator == (const CSimpleDateTime& Date);
+	BOOL operator != (const CSimpleDateTime& Date);
+	BOOL operator > (LPCWSTR Date);
+	BOOL operator < (LPCWSTR Date);
+	BOOL operator >= (LPCWSTR Date);
+	BOOL operator <= (LPCWSTR Date);
+	BOOL operator == (LPCWSTR Date);
+	BOOL operator != (LPCWSTR Date);
 
 
 
 protected:
 	//	internal class stuff
+	SYSTEMTIME		DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds);
 	virtual	BOOL	SetToday();
-	virtual	BOOL	CSimpleDate::ParseDateString(LPCSTR,int& m,int& d,int& y);
-	virtual	BOOL	ParseDateString(LPCSTR);
-	virtual	long	ConvertToJulian( int month,int day,int year);
+	virtual	BOOL	SetNow();
+	virtual	BOOL	CSimpleDateTime::ParseDateString(LPCWSTR,WORD& m,WORD& d,WORD& y);
+	virtual BOOL	CSimpleDateTime::ParseDateString(LPCWSTR date,WORD& m,WORD& d,WORD& y, WORD& hour, WORD& min);
+	//virtual	BOOL	ParseDateString(LPCWSTR);
+	virtual	BOOL	ParseDateTimeString(LPCWSTR TheDateTime);
+	virtual	long	ConvertToJulian( WORD month, WORD day, WORD year);
 	virtual	long	ConvertToJulian();
-	virtual	void	ConvertFromJulian(int& Month,int& Day,int& Year);
+	virtual	void	ConvertFromJulian(WORD& Month, WORD& Day, WORD& Year);
 	virtual void	ConvertFromJulian();
 	virtual void	AdjustDays();
-	virtual void SetTime();
+	virtual void	SetTime();
+	virtual long	getLong(SYSTEMTIME sysTime);
 
 	//	STATIC MEMBER FUNCTIONS
 public:  
 	
 	// the static functions assume a date format of MMDDYY or MMDDYYYY
 	//	They also do not call this IsValid() function
-	static	BOOL	VerifyDateFormat(LPCSTR date);
+	static	BOOL	VerifyDateFormat(LPCWSTR date);
 	//static	BOOL	FixDateFormat(CString & date);
 	static	BOOL	FixDateFormat(LPSTR date);
 	
 
 	//	class data
 protected:
-	int			m_Year;
-	int			m_Month;
-	int			m_Day;
+	SYSTEMTIME	m_systemTime;
+
 	long		m_JulianDate;
 	int			m_Format;
-	//CString		m_DateString;
-
-	int			m_Hour;
-	int			m_Min;
-	int			m_Second;
-	BOOL		m_bPM;
-
+	TCHAR		m_DateString[MAX_PATH];
 };
 
 #endif // !defined(AFX_SIMPLEDATE_H__3DD52FF4_4E78_11D3_82D6_00A0CC28BFE2__INCLUDED_)
