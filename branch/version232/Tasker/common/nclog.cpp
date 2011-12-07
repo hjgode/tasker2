@@ -1,19 +1,25 @@
 // --- nclog.cpp ---
 #pragma once
 
+//#define USEWINSOCK
+
 #include "../stdafx.h"
-#include "winsock2.h"
-#pragma comment (lib, "ws2.lib")
+#ifdef USEWINSOCK
+	#include "winsock2.h"
+	#pragma comment (lib, "ws2.lib")
+#endif
 
 #include "nclog.h"
 
 #include <stdarg.h>
 #include <stdio.h>
 
+#ifdef USEWINSOCK
 static SOCKET wsa_socket=INVALID_SOCKET;
 #pragma comment(lib , "winsock")
 
 static unsigned short theLogPort;
+#endif
 
 //file stuff
 //global
@@ -21,7 +27,7 @@ static char		logFileName[MAX_PATH];
 static TCHAR	logFileNameW[MAX_PATH];
 static BOOL		bFirstFileCall = true;
 
-
+#ifdef USEWINSOCK
 // bind the log socket to a specific port.
 static bool wsa_bind(unsigned short port)
 {
@@ -82,6 +88,7 @@ static void wsa_send(const char *x)
         }
 
 }
+#endif
 
 //========================== start of file stuff =============================
 static int initFileNames()
@@ -208,7 +215,9 @@ void nclog (const wchar_t *fmt, ...)
         va_start(vl,fmt);
         wchar_t bufW[1024]; // to bad CE hasn't got wvnsprintf
         wvsprintf(bufW,fmt,vl);
-        wsa_init();
+#ifdef USEWINSOCK
+		wsa_init();
+#endif
         char bufOutA[512];
 		//add instance number
 		HMODULE hMod = GetModuleHandle(NULL);
@@ -217,8 +226,9 @@ void nclog (const wchar_t *fmt, ...)
 		wsprintf(bufW, L"%s", bufTmpW);
 		//convert to char
         WideCharToMultiByte(CP_ACP,0,bufW,-1,bufOutA,400, NULL, NULL);
-        wsa_send(bufOutA);
-
+#ifdef USEWINSOCK
+		wsa_send(bufOutA);
+#endif
 		writefile(bufW);
 #ifdef DEBUG
 		DEBUGMSG(1, (bufW));
@@ -232,12 +242,14 @@ struct _nclog_module
 {
         ~_nclog_module()
         {
-                if (wsa_socket!=INVALID_SOCKET)
+#ifdef USEWINSOCK
+			if (wsa_socket!=INVALID_SOCKET)
                 {
                         nclog(L"nclog goes down\n");
                         shutdown(wsa_socket,2);
                         closesocket(wsa_socket);
                 }
+#endif
         }
 
 };

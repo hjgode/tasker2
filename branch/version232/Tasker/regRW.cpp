@@ -10,7 +10,7 @@
 TASK _Tasks[iMaxTasks];
 int iTaskCount=0;
 
-DWORD _dwVersion = 233L;
+DWORD _dwVersion = 232L;
 int _dbgLevel = 0;
 
 static TCHAR* _szRegKey = L"Software\\tasker";

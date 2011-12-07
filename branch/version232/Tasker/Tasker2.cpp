@@ -201,7 +201,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	DEBUGMSG(1, (L"here we are: '%s'\n", argv[0]));
 
-	nclog(L"++++++++++++++++ Tasker v%i started +++++++++++++++++++\n", _dwVersion);
+	nclog(L"++++++++++++++++ Tasker v%ia started +++++++++++++++++++\n", _dwVersion);
 #ifdef DEBUG
 	nclog(L"             DEBUG BUILD !\n");
 #endif
