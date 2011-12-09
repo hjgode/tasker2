@@ -114,12 +114,28 @@ CSimpleDateTime::CSimpleDateTime(SYSTEMTIME systemTime)
 CSimpleDateTime::CSimpleDateTime(LPCWSTR DateString,int FormatType)
 {
 	m_Format=FormatType;
+//	if(wcslen(DateString)!=12)
+		
 	ParseDateTimeString(DateString);
 	m_JulianDate=ConvertToJulian();	
-	SetTime();
+	//SetTime();
 }
 
+//--------------------------------------------------------------------
+// Function name	: CSimpleDateTime::CSimpleDateTime
+// Description	    : paramaterized constructor object is set to date in string. Parsing will be done based on formattype
+// Return type		: 
+// Argument         : LPCWSTR DateString
+//--------------------------------------------------------------------
 
+//CSimpleDateTime::CSimpleDateTime(LPCWSTR DateString)
+//{
+////	if(wcslen(DateString)!=12)
+////		return CSimpleDateTime();
+//	ParseDateTimeString(DateString);
+//	m_JulianDate=ConvertToJulian();	
+//	//SetTime();
+//}
 
 //--------------------------------------------------------------------
 // Function name	: CSimpleDateTime::CSimpleDateTime
@@ -482,9 +498,9 @@ int CSimpleDateTime::GetDayOfWeek()
 //--------------------------------------------------------------------
 LPCWSTR CSimpleDateTime::GetFullDateString()
 {
-	if(!IsValid())
-		return NULL;
-	wsprintf(m_DateString, L"%s %s %02d %04d", daysofweek[GetDayOfWeek()],monthsofyear[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
+	//if(!IsValid())
+	//	return NULL;
+	wsprintf(m_DateString, L"%02i %02i %04i %02i:%02i", m_systemTime.wDay , m_systemTime.wMonth, m_systemTime.wYear, m_systemTime.wHour, m_systemTime.wMinute);
 	//m_DateString.Format("%s %s %02d %04d", daysofweek[GetDayOfWeek()],monthsofyear[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
 	return m_DateString;
 }
@@ -496,9 +512,9 @@ LPCWSTR CSimpleDateTime::GetFullDateString()
 //--------------------------------------------------------------------
 LPCWSTR CSimpleDateTime::GetFullDateStringLong()
 {
-	if(!IsValid())
-		return NULL;
-	wsprintf(m_DateString, L"%s %s %02d %04d", days_of_week[GetDayOfWeek()],months_of_year[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
+	//if(!IsValid())
+	//	return NULL;
+	wsprintf(m_DateString, L"%02i %02i %04i %02i:%02i", m_systemTime.wDay , m_systemTime.wMonth, m_systemTime.wYear, m_systemTime.wHour, m_systemTime.wMinute);
 	//m_DateString.Format("%s %s %02d %04d", days_of_week[GetDayOfWeek()],months_of_year[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
 	return m_DateString;
 }

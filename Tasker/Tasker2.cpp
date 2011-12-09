@@ -14,6 +14,8 @@
 #include "myNotify.h"
 #include "./common/nclog.h"
 
+#include "SimpleDateTime.h"
+
 #ifdef INTERMEC
 //#include "C:/Program Files (x86)/Intermec/Developer Library/Include/itc50.h"
 //#pragma comment(lib, "C:/Program Files (x86)/Intermec/Developer Library/Lib/WCE600/WM6/Armv4i/itc50.lib")
@@ -357,6 +359,22 @@ int _tmain(int argc, _TCHAR* argv[])
 		else if(wcsicmp(argv[1], L"-t")==0){	//test mode
 			//just sleep 15 seconds for testing mutex
 			nclog(L"test mode...\n");
+			CSimpleDateTime dt1;
+			CSimpleDateTime dt2(L"201111091200");;
+			CSimpleDateTime dt3(L"000000000100");
+			if(dt1!=dt2)
+				nclog(L"dt1 not equal dt2\n");
+			else
+				nclog(L"dt1 equal dt2\n");
+
+			CSimpleDateTime dt4 = dt2+dt3;
+				nclog(L"dt2 not equal dt3: %s\n", dt4.GetFullDateString());
+
+			if(dt1>dt2)
+				nclog(L"dt1 > dt2\n");
+			else
+				nclog(L"dt1 <= dt2\n");
+
 			SYSTEMTIME stSched, stActual, stNew;
 			GetLocalTime(&stActual);
 			memcpy(&stSched, &stActual, sizeof(SYSTEMTIME));

@@ -32,9 +32,12 @@ class CSimpleDateTime
 public:
 	//	constructors and destructors
 	CSimpleDateTime(int FormatType=MMDDYYYY);
-	CSimpleDateTime(LPCWSTR DateString,int FormatType=MMDDYYYY);
+	CSimpleDateTime(LPCWSTR DateString, int FormatType=MMDDYYYY);
 	CSimpleDateTime(long JD,int FormatType=MMDDYYYY);
 	CSimpleDateTime(SYSTEMTIME systemTime);
+	
+	//CSimpleDateTime(LPCWSTR DateString);
+	
 	virtual ~CSimpleDateTime();
 
 	//	Date math routines
@@ -83,7 +86,9 @@ public:
 	//virtual		void	GetTimeStringShort(LPSTR s,int nLen,BOOL AmPm=TRUE);
 
 	//	operator assignments conversions equality etc...
-	operator	LPCWSTR();
+	operator	LPCWSTR(){
+		return GetFullDateString();
+	}
 	operator	long();
 	const CSimpleDateTime& operator = (const CSimpleDateTime& Date);
 	const CSimpleDateTime& operator = (LPCWSTR Date);
