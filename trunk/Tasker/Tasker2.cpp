@@ -360,20 +360,25 @@ int _tmain(int argc, _TCHAR* argv[])
 			//just sleep 15 seconds for testing mutex
 			nclog(L"test mode...\n");
 			CSimpleDateTime dt1;
-			CSimpleDateTime dt2(L"201111091200");;
+			CSimpleDateTime dt2(L"201111091200");
 			CSimpleDateTime dt3(L"000000000100");
+			
 			if(dt1!=dt2)
-				nclog(L"dt1 not equal dt2\n");
+				nclog(L"dt1 %s not equal dt2 %s\n", dt1.GetDateTimeString(), dt2.GetDateTimeString());
 			else
-				nclog(L"dt1 equal dt2\n");
+				nclog(L"dt1 %s equal dt2 %s\n", dt1.GetDateTimeString(), dt2.GetDateTimeString());
 
-			CSimpleDateTime dt4 = dt2+dt3;
-				nclog(L"dt2 not equal dt3: %s\n", dt4.GetFullDateString());
+			CSimpleDateTime dt4 = dt2 + dt3;
+			nclog(L"dt2 %s + dt3 %s = %s\n", dt2.GetFullDateString(), dt3.GetFullDateString(), dt4.GetFullDateString());
 
 			if(dt1>dt2)
-				nclog(L"dt1 > dt2\n");
+				nclog(L"dt1 %s > dt2 %s\n", dt1.GetDateTimeString(), dt2.GetDateTimeString());
 			else
-				nclog(L"dt1 <= dt2\n");
+				nclog(L"dt1 %s <= dt2 %s\n", dt1.GetDateTimeString(), dt2.GetDateTimeString());
+
+			nclog(L"Start time is %s\n", dt1.GetDateTimeString());
+			dt1.GetNextSchedule(dt1.GetSystemTime(), 130, 2530);
+			nclog(L"next schedule is %s\n", dt1.GetDateTimeString());
 
 			SYSTEMTIME stSched, stActual, stNew;
 			GetLocalTime(&stActual);
