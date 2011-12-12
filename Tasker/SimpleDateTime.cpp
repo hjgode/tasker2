@@ -89,8 +89,7 @@ CSimpleDateTime::CSimpleDateTime(int FormatType)
 {
 	m_Format=FormatType;
 	SetToday();
-	m_JulianDate=ConvertToJulian();	
-	SetTime();
+//	SetTime();
 }
 
 //--------------------------------------------------------------------
@@ -101,6 +100,7 @@ CSimpleDateTime::CSimpleDateTime(int FormatType)
 //--------------------------------------------------------------------
 CSimpleDateTime::CSimpleDateTime(SYSTEMTIME systemTime)
 {
+	m_Format=YYYYMMDDhhmm;
 	m_systemTime = systemTime;
 }
 
@@ -111,46 +111,16 @@ CSimpleDateTime::CSimpleDateTime(SYSTEMTIME systemTime)
 // Argument         : LPCWSTR DateString
 //--------------------------------------------------------------------
 
-CSimpleDateTime::CSimpleDateTime(LPCWSTR DateString,int FormatType)
+CSimpleDateTime::CSimpleDateTime(LPCWSTR DateString, int FormatType)
 {
 	m_Format=FormatType;
 //	if(wcslen(DateString)!=12)
 		
 	ParseDateTimeString(DateString);
-	m_JulianDate=ConvertToJulian();	
+//	m_JulianDate=ConvertToJulian();	
 	//SetTime();
 }
 
-//--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::CSimpleDateTime
-// Description	    : paramaterized constructor object is set to date in string. Parsing will be done based on formattype
-// Return type		: 
-// Argument         : LPCWSTR DateString
-//--------------------------------------------------------------------
-
-//CSimpleDateTime::CSimpleDateTime(LPCWSTR DateString)
-//{
-////	if(wcslen(DateString)!=12)
-////		return CSimpleDateTime();
-//	ParseDateTimeString(DateString);
-//	m_JulianDate=ConvertToJulian();	
-//	//SetTime();
-//}
-
-//--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::CSimpleDateTime
-// Description	    : 
-// Return type		: 
-// Argument         : long JD
-// Argument         : int FormatType
-//--------------------------------------------------------------------
-CSimpleDateTime::CSimpleDateTime(long JD,int FormatType)
-{
-	m_Format=FormatType;
-	m_JulianDate=JD;	
-	ConvertFromJulian();  // note: m_JulianDate must be set prior to this call
-	SetTime();
-}
 
 //--------------------------------------------------------------------
 // Function name	: CSimpleDateTime::~CSimpleDateTime
@@ -159,7 +129,6 @@ CSimpleDateTime::CSimpleDateTime(long JD,int FormatType)
 //--------------------------------------------------------------------
 CSimpleDateTime::~CSimpleDateTime()
 {
-
 }
 
 
@@ -209,24 +178,11 @@ BOOL CSimpleDateTime::IsValid()
 	   return TRUE;
 }
 
-
 //--------------------------------------------------------------------
 // Function name	: CSimpleDateTime::ParseDateString
 // Description	    : 
 // Return type		: BOOL 
-// Argument         : LPCWSTR TheDate
-//--------------------------------------------------------------------
-//BOOL CSimpleDateTime::ParseDateString(LPCWSTR TheDate)
-//{
-//	ParseDateString(TheDate, m_systemTime.wMonth, m_systemTime.wDay, m_systemTime.wYear);
-//	return TRUE;
-//}
-
-//--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::ParseDateString
-// Description	    : 
-// Return type		: BOOL 
-// Argument         : LPCWSTR TheDate
+// Argument         : LPCWSTR TheDate as YYYYMMDDhhmm string
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::ParseDateTimeString(LPCWSTR TheDateTime)
 {
@@ -234,6 +190,12 @@ BOOL CSimpleDateTime::ParseDateTimeString(LPCWSTR TheDateTime)
 	return TRUE;
 }
 
+//--------------------------------------------------------------------
+// Function name	: CSimpleDateTime::ParseDateString
+// Description	    : 
+// Return type		: BOOL 
+// Argument         : LPCWSTR TheDate
+//--------------------------------------------------------------------
 BOOL CSimpleDateTime::ParseDateString(LPCWSTR date,WORD& m, WORD& d, WORD& y, WORD& hour, WORD& min)
 {
 	BOOL bRet=TRUE; 
@@ -352,130 +314,6 @@ BOOL CSimpleDateTime::ParseDateString(LPCWSTR date, WORD& m, WORD& d, WORD& y)
 }
 
 //--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::ParseDateString
-// Description	    : See CParseIt class in Parseit.cpp for details
-// Return type		: BOOL 
-// Argument         : LPCWSTR date
-// Argument         : int& m
-// Argument         : int& d
-// Argument         : int& y
-//--------------------------------------------------------------------
-//BOOL CSimpleDateTime::ParseDateString(LPCWSTR date,int& m,int& d,int& y)
-//{
-//	CParseIt ParseIt(date,"/.-");      
-//	ParseIt.Parse();
-//	int	one,two,three;           
-//	one=two=three=0;
-//	int N=ParseIt.GetNumFields();
-//	one=(int)ParseIt.GetField(1);	
-//	if(N > 1)
-//		two=(int)ParseIt.GetField(2);	
-//	if(N > 2)
-//		three=(int)ParseIt.GetField(3);	
-//	switch(m_Format)
-//	{
-//	case MMDDYY:
-//		m=one;d=two;y=three;
-//		if(y < 100)     // ajust two digit year to the range of 1900-1999 
-//			y+=1900;
-//		break;
-//	case DDMMYY:
-//		d=one;m=two;y=three;
-//		if(y < 100)
-//			y+=1900;
-//		break;
-//	case YYMMDD:
-//		y=one;m=two;d=three;
-//		if(y < 100)
-//			y+=1900;
-//		break;
-//	case MMDDYYYY:
-//		m=one;d=two;y=three;
-//		if(y < 100)
-//			y+=1900;
-//		break;
-//	case DDMMYYYY:
-//		d=one;m=two;y=three;
-//		if(y < 100)
-//			y+=1900;
-//		break;
-//	case YYYYMMDD:
-//		y=one;m=two;d=three;
-//		if(y < 100)
-//			y+=1900;
-//		break;
-//	default:
-//		m=y=d=0;
-//	}
-//
-//	return TRUE;
-//
-//}
-//
-//--------------------------------------------------------------------
-//	JULIAN DATE CONVERSION BELOW
-//--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::ConvertToJulian
-// Description	    : 
-// Return type		: long 
-//--------------------------------------------------------------------
-long CSimpleDateTime::ConvertToJulian()
-{
-	return ConvertToJulian(m_systemTime.wMonth,m_systemTime.wDay,m_systemTime.wYear);
-
-}
-//--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::ConvertToJulian
-// Description	    : go to http://www.capecod.net/~pbaum/date/date0.htm for details
-// Return type		: long 
-// Argument         :  int month
-// Argument         : int day
-// Argument         : int year
-//--------------------------------------------------------------------
-long CSimpleDateTime::ConvertToJulian( WORD m, WORD d, WORD y)
-{
-	if(m < 3)
-	{
-      m = m + 12;
-      y=y-1 ;
-	}
-	long jd = d + (153 * m - 457) / 5 + 365 * y + (y / 4) - (y / 100) + (y / 400) + 1721119;
-	return jd;
-}
-
-//--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::ConvertFromJulian
-// Description	    : 
-// Return type		: void 
-//--------------------------------------------------------------------
-void CSimpleDateTime::ConvertFromJulian()
-{
-	ConvertFromJulian(m_systemTime.wMonth, m_systemTime.wDay, m_systemTime.wYear);
-}
-//--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::ConvertFromJulian
-// Description	    : goto http://www.capecod.net/~pbaum/date/date0.htm for details
-// Return type		: void 
-// Argument         : int Month
-// Argument         : int DAy
-// Argument         : int Year
-//--------------------------------------------------------------------
-void CSimpleDateTime::ConvertFromJulian(WORD& Month, WORD& Day, WORD& Year)
-{
-
-	long L = m_JulianDate + 68569;
-    long N = (long) ((4*L)/146097) ;
-    L = L - ((long)((146097 * N + 3)/4) );
-    long I = (long) ((4000 *(L + 1)/1461001)) ;
-    L = L - (long)((1461*I)/4) + 31; 
-    long J = (long)((80*L)/2447); 
-    Day = L - (long)((2447*J)/80);
-    L=(long)(J/11) ;
-    Month = J + 2 - 12*L;
-    Year = 100*(N-49) + I + L ;
-}
-
-//--------------------------------------------------------------------
 //	JULIAN DATE CONVERSION ABOVE
 //--------------------------------------------------------------------
 //--------------------------------------------------------------------
@@ -487,13 +325,13 @@ int CSimpleDateTime::GetDayOfWeek()
 {
 	if(!IsValid())
 		return 0;
-	int res= ((int) (m_JulianDate + 1.5)) % 7;
+	int res= ((int) (m_systemTime.wDayOfWeek));
 	return res;
 }
 
 //--------------------------------------------------------------------
 // Function name	: CSimpleDateTime::GetFullDateString
-// Description	    : 
+// Description	    : return string in form 'DD MM YYYY hh:mm'
 // Return type		: LPCWSTR 
 //--------------------------------------------------------------------
 LPCWSTR CSimpleDateTime::GetFullDateString()
@@ -502,6 +340,22 @@ LPCWSTR CSimpleDateTime::GetFullDateString()
 	//	return NULL;
 	wsprintf(m_DateString, L"%02i %02i %04i %02i:%02i", m_systemTime.wDay , m_systemTime.wMonth, m_systemTime.wYear, m_systemTime.wHour, m_systemTime.wMinute);
 	//m_DateString.Format("%s %s %02d %04d", daysofweek[GetDayOfWeek()],monthsofyear[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
+	return m_DateString;
+}
+
+//--------------------------------------------------------------------
+// Function name	: CSimpleDateTime::GetFullDateString
+// Description	    : return string in form 'YYYYMMDDhhmm'
+// Return type		: LPCWSTR 
+//--------------------------------------------------------------------
+LPCWSTR CSimpleDateTime::GetDateTimeString()
+{
+	//if(!IsValid())
+	//	return NULL;
+	TCHAR str[MAX_PATH];
+	wsprintf(str/*m_DateString*/, L"%04i%02i%02i%02i%02i", m_systemTime.wYear, m_systemTime.wMonth, m_systemTime.wDay, m_systemTime.wHour, m_systemTime.wMinute);
+	//m_DateString.Format("%s %s %02d %04d", daysofweek[GetDayOfWeek()],monthsofyear[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
+	wcscpy(m_DateString, str);
 	return m_DateString;
 }
 
@@ -520,68 +374,23 @@ LPCWSTR CSimpleDateTime::GetFullDateStringLong()
 }
 
 
-//--------------------------------------------------------------------
-// Function name	: CSimpleDateTime::GetJulianDate
-// Description	    : 
-// Return type		: long 
-//--------------------------------------------------------------------
-long CSimpleDateTime::GetJulianDate()
-{
-	if(!IsValid())
-		return 0L;
-	return m_JulianDate;
-}
-
 
 //--------------------------------------------------------------------
 //	overloaded operators and copy constructors here
 //--------------------------------------------------------------------
-// Function name	: LPCWSTR
-// Description	    : 
-// Return type		: CSimpleDateTime::operator return LPCWSTR
-//--------------------------------------------------------------------
-//CSimpleDateTime::operator LPCWSTR()
-//{
-//	if(!IsValid())
-//		return (LPCWSTR)0;
-//	switch(m_Format)
-//	{
-//	case MMDDYY:
-//		m_DateString.Format("%02d/%02d/%02d",m_systemTime.wMonth,m_systemTime.wDay,m_systemTime.wYear > 99 ? m_systemTime.wYear-1900:m_systemTime.wYear);		
-//		return (LPCWSTR)m_DateString;
-//	case DDMMYY:
-//		m_DateString.Format("%02d/%02d/%02d",m_systemTime.wDay,m_systemTime.wMonth,m_systemTime.wYear > 99 ? m_systemTime.wYear-1900:m_systemTime.wYear);		
-//		return (LPCWSTR)m_DateString;
-//	case YYMMDD:
-//		m_DateString.Format("%02d/%02d/%02d",m_systemTime.wYear > 99 ? m_systemTime.wYear-1900:m_systemTime.wYear,m_systemTime.wMonth,m_systemTime.wDay);		
-//		return (LPCWSTR)m_DateString;
-//	case MMDDYYYY:
-//		m_DateString.Format("%02d/%02d/%04d",m_systemTime.wMonth,m_systemTime.wDay,m_systemTime.wYear );		
-//		return (LPCWSTR)m_DateString;
-//	case DDMMYYYY:
-//		m_DateString.Format("%02d/%02d/%04d",m_systemTime.wDay,m_systemTime.wMonth,m_systemTime.wYear);		
-//		return (LPCWSTR)m_DateString;
-//	case YYYYMMDD:
-//		m_DateString.Format("%04d/%02d/%02d",m_systemTime.wYear ,m_systemTime.wMonth,m_systemTime.wDay);		
-//		return (LPCWSTR)m_DateString;
-//	default:
-//		return (LPCWSTR)NULL;
-//	}
-//}
-
 
 //--------------------------------------------------------------------
 // OPERATORS
 //--------------------------------------------------------------------
-// Function name	: long
-// Description	    : 
+// Function name	: DOUBLE
+// Description	    : return the date as DOUBLE 201112241200 for 12:00 24.12.2011
 // Return type		: CSimpleDateTime::operator return long
 //--------------------------------------------------------------------
-CSimpleDateTime::operator long()
+CSimpleDateTime::operator DOUBLE()
 {
 	if(!IsValid())
-		return 0L;
-	return m_JulianDate;
+		return 0;
+	return m_systemTime.wYear*10^10 + m_systemTime.wMonth*10^6 + m_systemTime.wDay*10^4 + m_systemTime.wHour*10^2 + m_systemTime.wMinute*1;
 }
 
 //--------------------------------------------------------------------
@@ -596,9 +405,49 @@ const CSimpleDateTime& CSimpleDateTime::operator =(const CSimpleDateTime& Date)
 	m_systemTime.wYear=Date.m_systemTime.wYear;
 	m_systemTime.wMonth=Date.m_systemTime.wMonth;
 	m_systemTime.wDay=Date.m_systemTime.wDay;
-	m_JulianDate=Date.m_JulianDate;
 	m_Format=Date.m_Format;
 	return *this;
+}
+
+////////////
+//equivalent of DATEADD function from SQLServer
+//Returns a new datetime value based on adding an interval
+// to the specified date.
+////////////*/
+SYSTEMTIME /*new datetime*/
+CSimpleDateTime::DT_AddDiff
+			(	const __int64 datepart, /*datepart with we want to manipulate, 
+			{nano100SecInDay ...}*/
+			const __int64 num, /*value used to increment/decrement datepart*/
+			const SYSTEMTIME* pst /*valid datetime which we want change*/
+			)
+{
+	FILETIME ft;
+	SYSTEMTIME st;
+	__int64* pi; 
+
+	SystemTimeToFileTime (pst,&ft); 
+	pi = (__int64*)&ft; 
+	(*pi) += (__int64)num*datepart; 
+
+	/*convert FILETIME to SYSTEMTIME*/
+	FileTimeToSystemTime (&ft,&st); 
+
+	/*now, st contain new valid datetime, so return it*/
+	return st;
+}
+
+SYSTEMTIME CSimpleDateTime::DT_AddDays(const SYSTEMTIME st, int days){
+	SYSTEMTIME stStart;
+	memcpy(&stStart, &st, sizeof(SYSTEMTIME));
+	//GetLocalTime(&stNow);
+	//stStart.wHour=st.wHour;
+	//stStart.wMinute=st.wMinute;
+	//stStart.wSecond=st.wSecond;
+
+	SYSTEMTIME stNew = DT_AddDiff(nano100SecInDay, days, &stStart);
+
+	return stNew;
 }
 
 // save inTime, get LocalTime and then set DAY, hour and minute of inTime
@@ -679,7 +528,6 @@ const CSimpleDateTime& CSimpleDateTime::operator +(LPCWSTR DateTime)
 {
 	ParseDateTimeString(DateTime);
 	m_systemTime = DT_Add(this->m_systemTime, m_systemTime.wYear, m_systemTime.wMonth, m_systemTime.wDay, m_systemTime.wHour, m_systemTime.wMinute, m_systemTime.wSecond, 0);
-	m_JulianDate=ConvertToJulian();	
 	return *this;
 }
 
@@ -692,8 +540,21 @@ const CSimpleDateTime& CSimpleDateTime::operator +(SYSTEMTIME DateTime)
 {
 	m_systemTime = DT_Add(this->m_systemTime, DateTime.wYear, DateTime.wMonth, DateTime.wDay, DateTime.wHour, DateTime.wMinute, DateTime.wSecond, 0);
 	//CSimpleDateTime newTime = CSimpleDateTime(sysTime);
-	m_JulianDate=ConvertToJulian();	
 	return  *this;
+}
+
+//--------------------------------------------------------------------
+// Function name	: +
+// Description	    : 
+// Return type		: CSimpleDateTime::operator 
+//--------------------------------------------------------------------
+const CSimpleDateTime& CSimpleDateTime::operator +(CSimpleDateTime& DateTime)
+{
+	SYSTEMTIME stStart = this->m_systemTime;
+	SYSTEMTIME stNew = DT_Add(stStart, DateTime.m_systemTime.wYear, DateTime.m_systemTime.wMonth, DateTime.m_systemTime.wDay, 
+		DateTime.m_systemTime.wHour, DateTime.m_systemTime.wMinute, DateTime.m_systemTime.wSecond, 0);
+	//CSimpleDateTime newTime = CSimpleDateTime(sysTime);
+	return CSimpleDateTime(stNew);// *this;
 }
 
 //--------------------------------------------------------------------
@@ -704,18 +565,28 @@ const CSimpleDateTime& CSimpleDateTime::operator +(SYSTEMTIME DateTime)
 const CSimpleDateTime& CSimpleDateTime::operator =(LPCWSTR DateTime)
 {
 	ParseDateTimeString(DateTime);
-	m_JulianDate=ConvertToJulian();	
 	return *this;
 }
 
 //--------------------------------------------------------------------
-LONG CSimpleDateTime::getLong(SYSTEMTIME sysTime){
-	LONG lDateTime =  m_systemTime.wYear	*1000000000 
-					+ m_systemTime.wMonth	*10000000 
-					+ m_systemTime.wDay		*100000
-					+ m_systemTime.wHour	*1000
-					+ m_systemTime.wMinute	*10
-					+ m_systemTime.wSecond;
+//LONG CSimpleDateTime::getDouble(SYSTEMTIME sysTime){
+//	LONG lDateTime =  m_systemTime.wYear	*1000000000 
+//					+ m_systemTime.wMonth	*10000000 
+//					+ m_systemTime.wDay		*100000
+//					+ m_systemTime.wHour	*1000
+//					+ m_systemTime.wMinute	*10
+//					+ m_systemTime.wSecond;
+//	return lDateTime;
+//}
+
+//--------------------------------------------------------------------
+DOUBLE CSimpleDateTime::getDouble(SYSTEMTIME sysTime){
+	DOUBLE lDateTime =  sysTime.wYear	*1000000000 
+					+ sysTime.wMonth	*10000000 
+					+ sysTime.wDay		*100000
+					+ sysTime.wHour	*1000
+					+ sysTime.wMinute	*10
+					+ sysTime.wSecond;
 	return lDateTime;
 }
 
@@ -724,42 +595,44 @@ BOOL CSimpleDateTime::operator > (const CSimpleDateTime& Date)
 {                        
 	if(!IsValid())
 		return FALSE;
-	return getLong(m_systemTime) > getLong(Date.m_systemTime);
+	return getDouble(m_systemTime) > getDouble(Date.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator >= (const CSimpleDateTime& Date)	
 {                        
 	if(!IsValid())
 		return FALSE;
-	return getLong(m_systemTime) >= getLong(Date.m_systemTime);
+	return getDouble(m_systemTime) >= getDouble(Date.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator < (const CSimpleDateTime& Date)	
 {                        
 	if(!IsValid())
 		return FALSE;
-	return getLong(m_systemTime) < getLong(Date.m_systemTime);
+	return getDouble(m_systemTime) < getDouble(Date.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator <= (const CSimpleDateTime& Date)	
 {                        
 	if(!IsValid())
 		return FALSE;
-	return getLong(m_systemTime) <= getLong(Date.m_systemTime);
+	return getDouble(m_systemTime) <= getDouble(Date.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator == (const CSimpleDateTime& Date)	
 {                        
 	if(!IsValid())
 		return FALSE;
-	return getLong(m_systemTime) == getLong(Date.m_systemTime);
+	return getDouble(m_systemTime) == getDouble(Date.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator != (const CSimpleDateTime& Date)	
 {                        
 	if(!IsValid())
 		return FALSE;
-	return getLong(m_systemTime) != getLong(Date.m_systemTime);
+	DOUBLE thisDateTime = getDouble(m_systemTime);
+	DOUBLE otherDateTime = getDouble(Date.m_systemTime);
+	return (thisDateTime != otherDateTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator > (LPCWSTR Date)	
@@ -769,7 +642,7 @@ BOOL CSimpleDateTime::operator > (LPCWSTR Date)
 	CSimpleDateTime TheDate(Date);
 	if(!TheDate.IsValid())
 		return FALSE;
-	return getLong(m_systemTime) > getLong(TheDate.m_systemTime);
+	return getDouble(m_systemTime) > getDouble(TheDate.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator < (LPCWSTR Date)	
@@ -779,7 +652,7 @@ BOOL CSimpleDateTime::operator < (LPCWSTR Date)
 	CSimpleDateTime TheDate(Date);
 	if(!TheDate.IsValid())
 		return FALSE;
-	return getLong(m_systemTime) < getLong(TheDate.m_systemTime);
+	return getDouble(m_systemTime) < getDouble(TheDate.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator >= (LPCWSTR Date)	
@@ -789,7 +662,7 @@ BOOL CSimpleDateTime::operator >= (LPCWSTR Date)
 	CSimpleDateTime TheDate(Date);
 	if(!TheDate.IsValid())
 		return FALSE;
-	return getLong(m_systemTime) >= getLong(TheDate.m_systemTime);
+	return getDouble(m_systemTime) >= getDouble(TheDate.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator <= (LPCWSTR Date)	
@@ -799,7 +672,7 @@ BOOL CSimpleDateTime::operator <= (LPCWSTR Date)
 	CSimpleDateTime TheDate(Date);
 	if(!TheDate.IsValid())
 		return FALSE;
-	return getLong(m_systemTime) <= getLong(TheDate.m_systemTime);
+	return getDouble(m_systemTime) <= getDouble(TheDate.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator == (LPCWSTR Date)	
@@ -809,7 +682,7 @@ BOOL CSimpleDateTime::operator == (LPCWSTR Date)
 	CSimpleDateTime TheDate(Date);
 	if(!TheDate.IsValid())
 		return FALSE;
-	return getLong(m_systemTime) == getLong(TheDate.m_systemTime);
+	return getDouble(m_systemTime) == getDouble(TheDate.m_systemTime);
 }			
 //--------------------------------------------------------------------
 BOOL CSimpleDateTime::operator != (LPCWSTR Date)	
@@ -819,7 +692,7 @@ BOOL CSimpleDateTime::operator != (LPCWSTR Date)
 	CSimpleDateTime TheDate(Date);
 	if(!TheDate.IsValid())
 		return FALSE;
-	return getLong(m_systemTime) != getLong(TheDate.m_systemTime);
+	return getDouble(m_systemTime) != getDouble(TheDate.m_systemTime);
 }			
 
 
@@ -837,8 +710,8 @@ int CSimpleDateTime::YearsOld()
 	CSimpleDateTime ToDay;
 	if(ToDay <= *this)
 		return 0;
-	long t=ToDay.GetJulianDate();
-	long b=GetJulianDate();
+	long t=ToDay.GetYear();
+	long b=GetYear();
 	return (int)((t-b)/365.2425);
 
 }
@@ -864,7 +737,6 @@ const CSimpleDateTime& CSimpleDateTime::AddMonths(int Mon)
 		}
 	}
 	AdjustDays();
-   	m_JulianDate=ConvertToJulian();
 	return *this;
 }
 
@@ -892,7 +764,6 @@ const CSimpleDateTime& CSimpleDateTime::SubtractMonths(int Mon)
 		m_systemTime.wMonth+=12;
 	}
 	AdjustDays();
-   	m_JulianDate=ConvertToJulian();
 	return *this;
 }
 
@@ -908,7 +779,6 @@ const CSimpleDateTime& CSimpleDateTime::AddYears(int Yrs)
 		return *this;
 	m_systemTime.wYear+=Yrs;
 	AdjustDays();
-	m_JulianDate=ConvertToJulian();
 	return *this;
 
 }
@@ -926,7 +796,6 @@ const CSimpleDateTime& CSimpleDateTime::SubtractYears(int Yrs)
 		return *this;
 	m_systemTime.wYear-=Yrs;
 	AdjustDays();
-	m_JulianDate=ConvertToJulian();
 	return *this;
 
 }
@@ -941,11 +810,46 @@ const CSimpleDateTime& CSimpleDateTime::AddDays(int Days)
 {
 	if(!IsValid())
 		return *this;
-	m_JulianDate+=Days;
-	ConvertFromJulian(m_systemTime.wMonth,m_systemTime.wDay,m_systemTime.wYear);
+	m_systemTime = this->DT_AddDays(this->m_systemTime, Days);
 	return *this;
 }
 
+//--------------------------------------------------------------------
+// Function name	: CSimpleDateTime::GetNextSchedule
+// Description	    : 
+// Return type		: const CSimpleDateTime& 
+// Argument         : CSimpleDateTime start
+// Argument         : int time, ie 0130 for 1:30 clock
+// Argument         : int interval, ie 2430 for an interval of 24 hours and 30 minutes
+//--------------------------------------------------------------------
+const CSimpleDateTime& CSimpleDateTime::GetNextSchedule(SYSTEMTIME start, UINT time, UINT interval){
+	if(!IsValid())
+		return *this;
+	short shStartHour = time/100;		//0130 ->	 1 hour
+	short shStartMinute = time % 100;	//0130 ->	30 minutes
+
+	short shHours = interval/100;		//2430 ->	24 hours
+	shHours=shHours % 24;				//2430 ->	 0 hours
+	short shDays = interval/100 / 24;		//2430 ->	 1 day
+	short shMinutes = interval % 100;	//2430 ->	30 minutes
+
+	m_systemTime = this->DT_Add(start, 0, 0, shDays, shHours, shMinutes, 0, 0);
+	return *this;
+}
+
+//--------------------------------------------------------------------
+// Function name	: CSimpleDateTime::AddDay
+// Description	    : 
+// Return type		: const CSimpleDateTime& 
+// Argument         : int Days
+//--------------------------------------------------------------------
+const CSimpleDateTime& CSimpleDateTime::AddDay()
+{
+	if(!IsValid())
+		return *this;
+	m_systemTime = this->DT_AddDays(this->m_systemTime, 1);
+	return *this;
+}
 
 //--------------------------------------------------------------------
 // Function name	: CSimpleDateTime::SubtractDays
@@ -957,8 +861,7 @@ const CSimpleDateTime& CSimpleDateTime::SubtractDays(int Days)
 {
 	if(!IsValid())
 		return *this;
-	m_JulianDate-=Days;
-	ConvertFromJulian(m_systemTime.wMonth,m_systemTime.wDay,m_systemTime.wYear);
+	m_systemTime = DT_AddDays(m_systemTime, -Days);
 	return *this;
 
 }
@@ -990,6 +893,7 @@ void CSimpleDateTime::SetTime()
 {
 	GetLocalTime(&m_systemTime);
 }
+
 
 //--------------------------------------------------------------------
 // Function name	: CSimpleDateTime::GetTimeString
