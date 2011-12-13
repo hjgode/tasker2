@@ -1,14 +1,28 @@
 // SimpleDateTime.h: interface for the CSimpleDateTime class.
 //
 //////////////////////////////////////////////////////////////////////
-
 #if !defined(AFX_SIMPLEDATE_H__3DD52FF4_4E78_11D3_82D6_00A0CC28BFE2__INCLUDED_)
 #define AFX_SIMPLEDATE_H__3DD52FF4_4E78_11D3_82D6_00A0CC28BFE2__INCLUDED_
+
+// MFC START
+#pragma comment(linker, "/nodefaultlib:libc.lib")
+#pragma comment(linker, "/nodefaultlib:libcd.lib")
+#pragma comment(linker, "/nodefaultlib:secchk.lib")
+#pragma comment(linker, "/nodefaultlib:ccrtrtti.lib")
+
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS	// some CString constructors will be explicit
+#ifdef _CE_DCOM
+#define _ATL_APARTMENT_THREADED
+#endif
+// turns off MFC's hiding of some common and often safely ignored warning messages
+#define _AFX_ALL_WARNINGS
+#include <afxwin.h>         // MFC core and standard components
+#include <afxext.h>         // MFC extensions
+// MFC END
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
-
 
 enum formatTypes{
 	MMDDYY,
@@ -32,8 +46,9 @@ class CSimpleDateTime
 {
 public:
 	//	constructors and destructors
-	CSimpleDateTime(int FormatType=YYYYMMDDhhmm);
-	CSimpleDateTime(LPCWSTR DateString, int FormatType=MMDDYYYY);
+	//CSimpleDateTime(LPCWSTR strHHMM);
+	CSimpleDateTime();
+	CSimpleDateTime(LPCWSTR DateString);
 	CSimpleDateTime(SYSTEMTIME systemTime);
 	
 	//CSimpleDateTime(LPCWSTR DateString);
@@ -41,6 +56,7 @@ public:
 	virtual ~CSimpleDateTime();
 
 	//	Date math routines
+	const	CSimpleDateTime& setHHMM(LPCWSTR strHHMM);
 	const	CSimpleDateTime& AddDays(int Days);
 	const	CSimpleDateTime& GetNextSchedule(SYSTEMTIME start, UINT time, UINT interval);
 
@@ -93,8 +109,11 @@ public:
 	operator	LPCWSTR(){
 		return GetDateTimeString();
 	}
-	operator TCHAR(){
-		return (TCHAR)GetDateTimeString();
+	operator TCHAR*(){
+		TCHAR* pStr;
+		pStr=new TCHAR(MAX_PATH);
+		wsprintf(pStr, L"%s", GetDateTimeString());
+		return pStr;
 	}
 //	operator	long();	//long cannot store values like 201103152322 2011 03 15 23:22
 	operator	DOUBLE();
@@ -122,7 +141,7 @@ public:
 
 protected:
 	//	internal class stuff
-	SYSTEMTIME		DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds);
+	SYSTEMTIME		DT_Add(const SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds);
 	SYSTEMTIME		DT_AddDay(const SYSTEMTIME st);
 	SYSTEMTIME		DT_AddDiff (	const __int64 datepart, /*datepart with we want to manipulate, 
 					{nano100SecInDay ...}*/
@@ -156,14 +175,13 @@ public:
 	//static	BOOL	FixDateFormat(CString & date);
 	static	BOOL	FixDateFormat(LPSTR date);
 	
-	TCHAR		m_DateString[MAX_PATH];
-
+	CString		m_DateString;
 	//	class data
 protected:
 	SYSTEMTIME	m_systemTime;
 
 //	long		m_JulianDate;
-	int			m_Format;
+//	int			m_Format;
 	static const __int64 nano100SecInDay=(__int64)10000000*60*60*24;
 	static const __int64 nano10Minutes=(__int64)10000000*60*10;
 };
