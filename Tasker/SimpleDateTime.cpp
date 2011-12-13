@@ -85,9 +85,9 @@ static char* months_of_year[] =
 // Description	    : Simple Constructor object is set to todays date
 // Return type		: 
 //--------------------------------------------------------------------
-CSimpleDateTime::CSimpleDateTime(int FormatType)
+CSimpleDateTime::CSimpleDateTime()
 {
-	m_Format=FormatType;
+	DEBUGMSG(1, (L"CSimpleDateTime init without arg\n"));
 	SetToday();
 //	SetTime();
 }
@@ -100,8 +100,15 @@ CSimpleDateTime::CSimpleDateTime(int FormatType)
 //--------------------------------------------------------------------
 CSimpleDateTime::CSimpleDateTime(SYSTEMTIME systemTime)
 {
-	m_Format=YYYYMMDDhhmm;
+	DEBUGMSG(1, (L"CSimpleDateTime init with systemTime\n"));
+	FILETIME ft;
+	if(!SystemTimeToFileTime(&systemTime, &ft)){
+		systemTime.wDayOfWeek=0;
+		systemTime.wSecond=0;
+		systemTime.wMilliseconds=0;
+	}
 	m_systemTime = systemTime;
+	CTime
 }
 
 //--------------------------------------------------------------------
@@ -111,12 +118,18 @@ CSimpleDateTime::CSimpleDateTime(SYSTEMTIME systemTime)
 // Argument         : LPCWSTR DateString
 //--------------------------------------------------------------------
 
-CSimpleDateTime::CSimpleDateTime(LPCWSTR DateString, int FormatType)
+CSimpleDateTime::CSimpleDateTime(LPCWSTR DateString)
 {
-	m_Format=FormatType;
+	DEBUGMSG(1, (L"CSimpleDateTime init with '%s'\n"));
 //	if(wcslen(DateString)!=12)
 		
 	ParseDateTimeString(DateString);
+	FILETIME ft;
+	if(!SystemTimeToFileTime(&m_systemTime, &ft)){
+		m_systemTime.wDayOfWeek=0;
+		m_systemTime.wSecond=0;
+		m_systemTime.wMilliseconds=0;
+	}
 //	m_JulianDate=ConvertToJulian();	
 	//SetTime();
 }
@@ -206,6 +219,12 @@ BOOL CSimpleDateTime::ParseDateString(LPCWSTR date,WORD& m, WORD& d, WORD& y, WO
 	TCHAR szTemp[MAX_PATH];
 
 	m=0; d=0; y=0;
+	if(wcslen(date)==4){
+		memset(&m_systemTime,0,sizeof(SYSTEMTIME));
+		m_systemTime.wHour=_wtol(date) / 100;
+		m_systemTime.wMinute=_wtol(date) % 100;
+		return TRUE;
+	}
 	//YYYY
 	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
 	wcsncpy(szTemp, pszDateTime, 4);
@@ -338,7 +357,8 @@ LPCWSTR CSimpleDateTime::GetFullDateString()
 {
 	//if(!IsValid())
 	//	return NULL;
-	wsprintf(m_DateString, L"%02i %02i %04i %02i:%02i", m_systemTime.wDay , m_systemTime.wMonth, m_systemTime.wYear, m_systemTime.wHour, m_systemTime.wMinute);
+	TCHAR* str = L"%02i %02i %04i %02i:%02i";
+	m_DateString.Format(str, m_systemTime.wDay , m_systemTime.wMonth, m_systemTime.wYear, m_systemTime.wHour, m_systemTime.wMinute);
 	//m_DateString.Format("%s %s %02d %04d", daysofweek[GetDayOfWeek()],monthsofyear[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
 	return m_DateString;
 }
@@ -355,7 +375,7 @@ LPCWSTR CSimpleDateTime::GetDateTimeString()
 	TCHAR str[MAX_PATH];
 	wsprintf(str/*m_DateString*/, L"%04i%02i%02i%02i%02i", m_systemTime.wYear, m_systemTime.wMonth, m_systemTime.wDay, m_systemTime.wHour, m_systemTime.wMinute);
 	//m_DateString.Format("%s %s %02d %04d", daysofweek[GetDayOfWeek()],monthsofyear[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
-	wcscpy(m_DateString, str);
+	m_DateString = str;
 	return m_DateString;
 }
 
@@ -368,7 +388,8 @@ LPCWSTR CSimpleDateTime::GetFullDateStringLong()
 {
 	//if(!IsValid())
 	//	return NULL;
-	wsprintf(m_DateString, L"%02i %02i %04i %02i:%02i", m_systemTime.wDay , m_systemTime.wMonth, m_systemTime.wYear, m_systemTime.wHour, m_systemTime.wMinute);
+	TCHAR* str = L"%02i %02i %04i %02i:%02i";
+	m_DateString.Format(str, m_systemTime.wDay , m_systemTime.wMonth, m_systemTime.wYear, m_systemTime.wHour, m_systemTime.wMinute);
 	//m_DateString.Format("%s %s %02d %04d", days_of_week[GetDayOfWeek()],months_of_year[m_systemTime.wMonth],m_systemTime.wDay,m_systemTime.wYear);
 	return m_DateString;
 }
@@ -405,7 +426,6 @@ const CSimpleDateTime& CSimpleDateTime::operator =(const CSimpleDateTime& Date)
 	m_systemTime.wYear=Date.m_systemTime.wYear;
 	m_systemTime.wMonth=Date.m_systemTime.wMonth;
 	m_systemTime.wDay=Date.m_systemTime.wDay;
-	m_Format=Date.m_Format;
 	return *this;
 }
 
@@ -452,21 +472,23 @@ SYSTEMTIME CSimpleDateTime::DT_AddDays(const SYSTEMTIME st, int days){
 
 // save inTime, get LocalTime and then set DAY, hour and minute of inTime
 // added support for negaitive days, hours and minutes in v2.34
-SYSTEMTIME CSimpleDateTime::DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds) {
+SYSTEMTIME CSimpleDateTime::DT_Add(const SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds) 
+{
 	FILETIME ft; SYSTEMTIME st; ULARGE_INTEGER ul1;
-	
-	SYSTEMTIME inTime;
-	//v2.28 GetLocalTime(&inTime); //actual time and date
-	extern SYSTEMTIME g_CurrentStartTime;
-	memcpy(&inTime, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	inTime.wDay = Date.wDay;
-	inTime.wHour = Date.wHour;
-	inTime.wMinute = Date.wMinute;
-	inTime.wSecond=0;
-	inTime.wMilliseconds=0;
+	/*### DO NOT CHANGE OR NORMALIZE INPUT ###*/
+	//create a new systime and copy the single values to it	
+	//SYSTEMTIME inTime;
+	//memset(&inTime, 0, sizeof(SYSTEMTIME));
+	//inTime.wDay = Date.wDay;
+	//inTime.wHour = Date.wHour;
+	//inTime.wMinute = Date.wMinute;
 
-	memcpy((void*)&Date, &inTime, sizeof(SYSTEMTIME));
+	//memcpy((void*)&Date, &inTime, sizeof(SYSTEMTIME));
 
+	//convert INPUT to filetime
+	SYSTEMTIME stStart;
+	//memset(&stStart, 0, sizeof(SYSTEMTIME));
+	memcpy(&stStart, &Date, sizeof(SYSTEMTIME));
 	if (!SystemTimeToFileTime(&Date, &ft))
 	{
 		DEBUGMSG(1, (L"DT_Add: error in SystemTimeToFileTime: %i\n", GetLastError()));
@@ -498,7 +520,8 @@ SYSTEMTIME CSimpleDateTime::DT_Add(SYSTEMTIME& Date, short Years, short Months, 
 	 
 	ft.dwHighDateTime = ul1.HighPart;
 	ft.dwLowDateTime = ul1.LowPart;
-	 
+	
+	//try to convert filetime back to a systemtime
 	if (!FileTimeToSystemTime(&ft,&st)) {
 		return Date;
 	}
@@ -554,7 +577,8 @@ const CSimpleDateTime& CSimpleDateTime::operator +(CSimpleDateTime& DateTime)
 	SYSTEMTIME stNew = DT_Add(stStart, DateTime.m_systemTime.wYear, DateTime.m_systemTime.wMonth, DateTime.m_systemTime.wDay, 
 		DateTime.m_systemTime.wHour, DateTime.m_systemTime.wMinute, DateTime.m_systemTime.wSecond, 0);
 	//CSimpleDateTime newTime = CSimpleDateTime(sysTime);
-	return CSimpleDateTime(stNew);// *this;
+	this->m_systemTime=stNew;
+	return *this;//CSimpleDateTime(stNew);// *this;
 }
 
 //--------------------------------------------------------------------
@@ -798,6 +822,22 @@ const CSimpleDateTime& CSimpleDateTime::SubtractYears(int Yrs)
 	AdjustDays();
 	return *this;
 
+}
+//--------------------------------------------------------------------
+// Function name	: CSimpleDateTime::AddDays
+// Description	    : 
+// Return type		: const CSimpleDateTime& 
+// Argument         : int Days
+//--------------------------------------------------------------------
+const CSimpleDateTime& CSimpleDateTime::setHHMM(LPCWSTR strHHMM)
+{
+	SYSTEMTIME st;
+	memset(&st,0,sizeof(SYSTEMTIME));
+	LONG wTime = _wtol(strHHMM);
+	st.wHour=(WORD)(wTime / 100);
+	st.wMinute=(WORD)(wTime % 100);
+	m_systemTime=st;
+	return *this;
 }
 
 //--------------------------------------------------------------------
