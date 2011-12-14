@@ -12,142 +12,71 @@
 
 TCHAR str[MAX_PATH];
 
-// save inTime, get LocalTime and then set DAY, hour and minute of inTime
-// added support for negaitive days, hours and minutes in v2.34
-SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds) {
-	FILETIME ft; SYSTEMTIME st; ULARGE_INTEGER ul1;
-	
-	SYSTEMTIME inTime;
-	//v2.28 GetLocalTime(&inTime); //actual time and date
-	extern SYSTEMTIME g_CurrentStartTime;
-	memcpy(&inTime, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	inTime.wDay = Date.wDay;
-	inTime.wHour = Date.wHour;
-	inTime.wMinute = Date.wMinute;
-	inTime.wSecond=0;
-	inTime.wMilliseconds=0;
+/*
+   struct tm  when;
+   __time64_t now, result;
+   int        days;
+   TCHAR       buff[80];
 
-	memcpy((void*)&Date, &inTime, sizeof(SYSTEMTIME));
+   _time64( &now );	//get the system time
+   _localtime64_s( &when, &now );	//convert a system time to a local tm time and correct for local time zone
+   
+   wprintf( L"Current time is %s\n", wasctime_s(buff, &now, 80));// L"_wasctime not implemented" );
+   days = 20;
+   int hours = 24;
+   when.tm_mday = when.tm_mday + days;
+   if( (result = _mktime64( &when )) != (time_t)-1 ) { //convert local tm time to calendar time
+      wprintf( L"In %d days the time will be %s\n", days, wasctime_s(buff, &result, 80) );
+   } else
+      DEBUGMSG(1, ( L"_mktime64 failed" ) );
+   when.tm_hour = when.tm_hour + hours;
+   if( (result = _mktime64( &when )) != (time_t)-1 ) { //convert local tm time to calendar time
+      wprintf( L"In %d hours the time will be %s\n", hours, wasctime_s(buff, &result, 80) );
+   } else
+      DEBUGMSG(1, ( L"_mktime64 failed" ) );
+*/
 
-	if (!SystemTimeToFileTime(&Date, &ft))
-	{
-		DEBUGMSG(1, (L"DT_Add: error in SystemTimeToFileTime: %i\n", GetLastError()));
-		return Date;
+TCHAR* wasctime_s(TCHAR* buf, const __time64_t* time64, int dwSize){
+	struct tm tmTime;
+	error_status_t eStat;
+	if((eStat =_localtime64_s(&tmTime, time64))==0)
+		wsprintf(buf, L"%04i%02i%02i%02i%02i", tmTime.tm_year+1900, tmTime.tm_mon+1, tmTime.tm_mday, tmTime.tm_hour, tmTime.tm_min);
+	else{
+		wsprintf(buf, L"");
+		nclog(L"\terror %i in wasctime_s\n");
 	}
-	ul1.HighPart = ft.dwHighDateTime;
-	ul1.LowPart = ft.dwLowDateTime;
-	 
-	if (Milliseconds) 
-		ul1.QuadPart += (Milliseconds * 10000); 
+	return buf;
+}
 
-	if (Seconds)
-		ul1.QuadPart += (Seconds * (__int64)10000000); 
-
-	if (Minutes>0)
-		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
-	else if (Minutes<0)
-		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
-
-	if (Hours>0) 
-		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
-	else if (Hours<0)
-		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
-
-	if (Days>0)
-		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
-	else if (Days<0)
-		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
-	 
-	ft.dwHighDateTime = ul1.HighPart;
-	ft.dwLowDateTime = ul1.LowPart;
-	 
-	if (!FileTimeToSystemTime(&ft,&st)) {
-		return Date;
-	}
-	 
-	if (Months>0) {
-		if ((Months += st.wMonth) <= 0) {
-			Months *= (-1);
-			st.wYear -= ((Months / 12) + 1);
-			st.wMonth = 12 - (Months % 12);
-		} else {
-			st.wMonth = Months % 12;
-			st.wYear += Months / 12;
+BOOL isACpowered(){
+	nclog(L"\tchecking AC line status\n");
+#ifndef INTERMEC
+	SYSTEM_POWER_STATUS_EX2 sysPowr;
+	GetSystemPowerStatusEx2(&sysPowr, sizeof(SYSTEM_POWER_STATUS_EX2), TRUE);
+	if(sysPowr.ACLineStatus==AC_LINE_ONLINE)
+		return TRUE;
+	else
+		return FALSE;
+#else
+	DWORD dwLineStatus=0;
+	DWORD dwBatteryStatus=0;
+	DWORD dwBackupBatteryStatus=0;
+	UINT uFuelGauge=0;
+	if (ITCPowerStatus(&dwLineStatus, &dwBatteryStatus, &dwBackupBatteryStatus, &uFuelGauge)==ITC_SUCCESS){
+		nclog(L"\tITCPowerStatus() OK\n");
+		if(dwLineStatus==ITC_ACLINE_CONNECTED){
+			nclog(L"\tAC line connected\n");
+			return TRUE;
 		}
-		while (!SystemTimeToFileTime(&st, &ft)) {
-			st.wDay -= 1;
-		}
+		else
+			nclog(L"\tAC line not connected or undefined\n");
 	}
-	return st;
+	else
+		nclog(L"\tITCPowerStatus() failed\n");
+	return FALSE;
+#endif
 }
 
-SYSTEMTIME DT_AddDay(const SYSTEMTIME st){
-	SYSTEMTIME stNow;
-	extern SYSTEMTIME g_CurrentStartTime;//v2.28 
-	memcpy(&stNow, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	//GetLocalTime(&stNow);
-	
-	stNow.wHour=st.wHour;
-	stNow.wMinute=st.wMinute;
-	stNow.wSecond=st.wSecond;
-
-	SYSTEMTIME stNew = DT_AddDiff(nano100SecInDay, 1, &stNow);
-
-	return stNew;
-}
-
-////////////
-//equivalent of DATEADD function from SQLServer
-//Returns a new datetime value based on adding an interval
-// to the specified date.
-////////////*/
-SYSTEMTIME /*new datetime*/
-DT_AddDiff
-			(	const __int64 datepart, /*datepart with we want to manipulate, 
-			{nano100SecInDay ...}*/
-			const __int64 num, /*value used to increment/decrement datepart*/
-			const SYSTEMTIME* pst /*valid datetime which we want change*/
-			)
-{
-	FILETIME ft;
-	SYSTEMTIME st;
-	__int64* pi; 
-
-	SystemTimeToFileTime (pst,&ft); 
-	pi = (__int64*)&ft; 
-	(*pi) += (__int64)num*datepart; 
-
-	/*convert FILETIME to SYSTEMTIME*/
-	FileTimeToSystemTime (&ft,&st); 
-
-	/*now, st contain new valid datetime, so return it*/
-	return st;
-}
-
-SYSTEMTIME AddDiff(SYSTEMTIME* pst, int minutes){
-	FILETIME ft;
-	SYSTEMTIME st;
-	__int64* pi; 
-	//LARGE_INTEGER li;
-
-	/*convert SYSTEMTIME to FILETIME*/
-	SystemTimeToFileTime (pst,&ft); 
-
-	SystemTimeToFileTime (pst,&ft); 
-
-	pi = (__int64*)&ft; 
-	(*pi) += (__int64)minutes*(__int64)10000000*60; 
-    
-	//li.LowPart = ft.dwLowDateTime;
-    //li.HighPart = ft.dwHighDateTime;
-
-	/*convert FAILETIME to SYSTEMTIME*/
-	FileTimeToSystemTime (&ft,&st); 
-
-	/*now, st contain new valid datetime, so return it*/
-	return st;
-
-}
 
 double minutes_between(const FILETIME & from, const FILETIME & to)
 {
@@ -826,3 +755,384 @@ void listNotifications(){
 	return;// lRes; //hr;
 }
 
+// save inTime, get LocalTime and then set DAY, hour and minute of inTime
+// added support for negaitive days, hours and minutes in v2.34
+SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds) {
+	FILETIME ft; SYSTEMTIME st; ULARGE_INTEGER ul1;
+	
+	SYSTEMTIME inTime;
+	//v2.28 GetLocalTime(&inTime); //actual time and date
+	extern SYSTEMTIME g_CurrentStartTime;
+	memcpy(&inTime, &g_CurrentStartTime, sizeof(SYSTEMTIME));
+	inTime.wDay = Date.wDay;
+	inTime.wHour = Date.wHour;
+	inTime.wMinute = Date.wMinute;
+	inTime.wSecond=0;
+	inTime.wMilliseconds=0;
+
+	memcpy((void*)&Date, &inTime, sizeof(SYSTEMTIME));
+
+	if (!SystemTimeToFileTime(&Date, &ft))
+	{
+		DEBUGMSG(1, (L"DT_Add: error in SystemTimeToFileTime: %i\n", GetLastError()));
+		return Date;
+	}
+	ul1.HighPart = ft.dwHighDateTime;
+	ul1.LowPart = ft.dwLowDateTime;
+	 
+	if (Milliseconds) 
+		ul1.QuadPart += (Milliseconds * 10000); 
+
+	if (Seconds)
+		ul1.QuadPart += (Seconds * (__int64)10000000); 
+
+	if (Minutes>0)
+		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
+	else if (Minutes<0)
+		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
+
+	if (Hours>0) 
+		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
+	else if (Hours<0)
+		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
+
+	if (Days>0)
+		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
+	else if (Days<0)
+		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
+	 
+	ft.dwHighDateTime = ul1.HighPart;
+	ft.dwLowDateTime = ul1.LowPart;
+	 
+	if (!FileTimeToSystemTime(&ft,&st)) {
+		return Date;
+	}
+	 
+	if (Months>0) {
+		if ((Months += st.wMonth) <= 0) {
+			Months *= (-1);
+			st.wYear -= ((Months / 12) + 1);
+			st.wMonth = 12 - (Months % 12);
+		} else {
+			st.wMonth = Months % 12;
+			st.wYear += Months / 12;
+		}
+		while (!SystemTimeToFileTime(&st, &ft)) {
+			st.wDay -= 1;
+		}
+	}
+	return st;
+}
+
+
+SYSTEMTIME DT_AddDay(const SYSTEMTIME st){
+	SYSTEMTIME stNow;
+	extern SYSTEMTIME g_CurrentStartTime;//v2.28 
+	memcpy(&stNow, &g_CurrentStartTime, sizeof(SYSTEMTIME));
+	//GetLocalTime(&stNow);
+	
+	stNow.wHour=st.wHour;
+	stNow.wMinute=st.wMinute;
+	stNow.wSecond=st.wSecond;
+
+	SYSTEMTIME stNew = DT_AddDiff(nano100SecInDay, 1, &stNow);
+
+	return stNew;
+}
+
+////////////
+//equivalent of DATEADD function from SQLServer
+//Returns a new datetime value based on adding an interval
+// to the specified date.
+////////////*/
+SYSTEMTIME /*new datetime*/
+DT_AddDiff
+			(	const __int64 datepart, /*datepart with we want to manipulate, 
+			{nano100SecInDay ...}*/
+			const __int64 num, /*value used to increment/decrement datepart*/
+			const SYSTEMTIME* pst /*valid datetime which we want change*/
+			)
+{
+	FILETIME ft;
+	SYSTEMTIME st;
+	__int64* pi; 
+
+	SystemTimeToFileTime (pst,&ft); 
+	pi = (__int64*)&ft; 
+	(*pi) += (__int64)num*datepart; 
+
+	/*convert FILETIME to SYSTEMTIME*/
+	FileTimeToSystemTime (&ft,&st); 
+
+	/*now, st contain new valid datetime, so return it*/
+	return st;
+}
+
+SYSTEMTIME AddDiff(SYSTEMTIME* pst, int minutes){
+	FILETIME ft;
+	SYSTEMTIME st;
+	__int64* pi; 
+	//LARGE_INTEGER li;
+
+	/*convert SYSTEMTIME to FILETIME*/
+	SystemTimeToFileTime (pst,&ft); 
+
+	SystemTimeToFileTime (pst,&ft); 
+
+	pi = (__int64*)&ft; 
+	(*pi) += (__int64)minutes*(__int64)10000000*60; 
+    
+	//li.LowPart = ft.dwLowDateTime;
+    //li.HighPart = ft.dwHighDateTime;
+
+	/*convert FAILETIME to SYSTEMTIME*/
+	FileTimeToSystemTime (&ft,&st); 
+
+	/*now, st contain new valid datetime, so return it*/
+	return st;
+
+}
+
+SYSTEMTIME& newSystemTime(SYSTEMTIME& systemTime, LPCWSTR strDateTime)
+{
+	SYSTEMTIME st;
+	TCHAR szDateTime[MAX_PATH];
+	TCHAR szTemp[MAX_PATH];
+	//should be yyyyMMddhhmm, ie 201112011650
+	wsprintf(szDateTime, L"%s", strDateTime);
+	//create a pointer for szDateTime
+	TCHAR* pszDateTime = szDateTime;
+
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 4);
+	int iYear;
+	iYear=_wtoi(szTemp);
+	//if(iYear==0)
+	//	iRet = -1;
+
+	pszDateTime+=4;
+	
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 2);
+	int iMonth;
+	iMonth=_wtoi(szTemp);
+	//if(iMonth==0)
+	//	iRet = -2;
+	pszDateTime+=2;
+
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 2);
+	int iDay;
+	iDay=_wtoi(szTemp);
+	//if(iDay==0)
+	//	iRet = -3;
+	pszDateTime+=2;
+
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 2);
+	int iHour;
+	iHour=_wtoi(szTemp);
+	pszDateTime+=2;
+
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 2);
+	int iMin;
+	iMin=_wtoi(szTemp);
+
+	memset(&st, 0, sizeof(SYSTEMTIME));
+	st.wDay=iDay;
+	st.wMonth=iMonth;
+	st.wYear=iYear;
+	st.wHour=iHour;
+	st.wMinute=iMin;	
+
+	memcpy(&systemTime, &st, sizeof(SYSTEMTIME));
+	return systemTime;
+}
+
+void dumpST(TCHAR* szNote, SYSTEMTIME st){
+#if !DEBUG
+	return;
+#endif
+	TCHAR szStr[MAX_PATH];
+	wsprintf(szStr, L"%04i%02i%02i %02i:%02i:%02i",
+		st.wYear, st.wMonth, st.wDay,
+		st.wHour, st.wMinute, st.wSecond);
+	DEBUGMSG(1, (L"%s: %s\n", szNote, szStr));
+}
+void dumpST(SYSTEMTIME st){
+#if !DEBUG
+	return;
+#endif
+	TCHAR szStr[MAX_PATH];
+	wsprintf(szStr, L"%04i%02i%02i %02i:%02i:%02i",
+		st.wYear, st.wMonth, st.wDay,
+		st.wHour, st.wMinute, st.wSecond);
+	DEBUGMSG(1, (L"%s\n", szStr));
+}
+/*
+	return time of next schedule in future that meets the given interval
+*/
+SYSTEMTIME createNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin){
+	
+	//v2.30, always test for delayed schedule
+	//v2.31 removed 	//return createDelayedNextSchedule(stNext, shDays, shHour, shMin);
+
+	//SYSTEMTIME stCurrentTime;
+	//GetLocalTime(&stCurrentTime);
+	
+	//cleanup, done now at startup
+	//stCurrentTime.wSecond=0;
+	//stCurrentTime.wMilliseconds=0;
+
+	TCHAR szTime[24] = {0};
+
+	if(shMin>=60){
+		shHour += (short)(shMin / 60);
+		shMin = (short)(shMin % 60);
+	}
+	if(shHour>=24){	//hour interval value is one day or more
+		shDays = (short) (shHour / 24);
+		shHour = (short) (shHour % 24);
+	}
+
+	nclog(L"\tcalculating new schedule for '%s'...\n", getLongStrFromSysTime2(stNext));
+	nclog(L"\tinterval is: %id%02ih%02im\n", shDays, shHour, shMin);
+#if DEBUG
+	dumpST(L"stNext", stNext);
+	dumpST(L"stCurrentTime", g_CurrentStartTime);
+#endif
+	if(!isNewer(stNext, g_CurrentStartTime)){
+		do{
+			//add interval to stNewTime
+			stNext = DT_Add(stNext, 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
+		}while (!isNewer(stNext, g_CurrentStartTime));
+	}
+	nclog(L"\tschedule adjusted to '%s'\n", getLongStrFromSysTime2(stNext));
+	//else
+	//	nclog(L"\tno schedule adjustement needed.\n");
+
+	return stNext;
+}
+
+/*
+	return the next time (hhmm) that is past stBegin with a given interval
+	subtract interval as long as stStart>stBegin and finally add one interval
+
+	stStart is the current schedule time
+	stBegin is the current time
+*/
+SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays, int iIntervalHours, int iIntervalMinutes){
+	SYSTEMTIME stStart1; 
+	//memset(&stStart1, 0, sizeof(SYSTEMTIME));
+	memcpy(&stStart1, &stStart, sizeof(SYSTEMTIME));
+	//DEBUGMSG(1, (L"BEFORE: wDay=%02i, wHour=%02i, wMinute=%02i\n", stStart1.wDay, stStart1.wHour, stStart1.wMinute));
+	dumpST(L"stStart1", stStart1);
+	dumpST(L"stBegin", stBegin);
+
+	int iCompareTimes = isNewer2(stStart1, stBegin);
+	if(iCompareTimes==0) //both times are equal
+	{
+		//simply add one interval
+		stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes, 0, 0);
+		////if stStart is in the future of stBegin?
+		//do{
+		//	//subtract interval from stStart until before stBegin
+		//	stStart1 = DT_Add(stStart1, 0, 0, -iIntervalDays, -iIntervalHours, -iIntervalMinutes, 0, 0); 
+		//	dumpST(L"stStart1", stStart1);
+		//	dumpST(L"stBegin", stBegin);
+		//}while (isNewer(stStart1, stBegin));// (uStart>uBegin);
+		////add one interval
+		//stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
+	}
+	else if(iCompareTimes==-1) //first time before second time, stBegin is current
+	{
+		//if stStart is before stBegin
+		//start with current date and use scheduled hour and minute
+		stStart1.wYear=stBegin.wYear;
+		stStart1.wMonth=stBegin.wMonth;
+		stStart1.wDay=stBegin.wDay;
+		while (isNewer2(stStart1, stBegin) != 1){
+			//add interval onto stStart as long as we are before stBegin
+			stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
+			dumpST(L"stStart1", stStart1);
+			dumpST(L"stBegin", stBegin);
+			iCompareTimes = isNewer2(stStart1, stBegin);
+		};// (uStart>uBegin);
+	}
+	else if(iCompareTimes==1) //stStart is after stBegin 
+	{
+		//if stStart is after stBegin
+		//start with current date and use scheduled hour and minute
+		stStart1.wYear=stBegin.wYear;
+		stStart1.wMonth=stBegin.wMonth;
+		stStart1.wDay=stBegin.wDay;
+		while (isNewer2(stStart1, stBegin) != -1){
+			//add interval from stStart until before stBegin
+			stStart1 = DT_Add(stStart1, 0, 0, -iIntervalDays, -iIntervalHours, -iIntervalMinutes,0,0); 
+			dumpST(L"stStart1", stStart1);
+			dumpST(L"stBegin", stBegin);
+			iCompareTimes = isNewer2(stStart1, stBegin);
+		};// (uStart>uBegin);
+		//ADD one interval
+		stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
+		if(isNewer2(stStart1, stBegin) ==0) // add one more interval is equal current time
+			stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
+	}
+	dumpST(L"stStart1", stStart1);
+	dumpST(L"stBegin", stBegin);
+
+	//DEBUGMSG(1, (L"AFTER: wDay=%02i, wHour=%02i, wMinute=%02i\n", stStart1.wDay, stStart1.wHour, stStart1.wMinute));
+	return stStart1;
+}
+
+/*
+	return time of next schedule in future that meets the given interval
+	stNext is the actual time of the schedule
+	shDays, shHour and shMin define the interval for the schedule
+*/
+SYSTEMTIME createDelayedNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin){
+	nclog(L"+++ createDelayedNextSchedule: delayed schedule recalculation...\n");
+	//SYSTEMTIME stCurrentTime;
+	//GetLocalTime(&stCurrentTime);
+	
+	//cleanup, v2.28 now done in main
+	//stCurrentTime.wSecond=0;
+	//stCurrentTime.wMilliseconds=0;
+
+	TCHAR szTime[24] = {0};
+
+	if(shMin>=60){
+		shHour += (short)(shMin / 60);
+		shMin = (short)(shMin % 60);
+	}
+	if(shHour>=24){	//hour interval value is one day or more
+		shDays = (short) (shHour / 24);
+		shHour = (short) (shHour % 24);
+	}
+
+	nclog(L"\tcalculating new schedule for '%s'...\n", getLongStrFromSysTime2(stNext));
+	nclog(L"\tinterval is: %id%02ih%02im\n", shDays, shHour, shMin);
+#if DEBUG
+	dumpST(L"stNext", stNext);
+	dumpST(L"stCurrentTime", g_CurrentStartTime);
+#endif
+	//for delayed schedules 
+	//example: stStopTime = '200902011205' and current time = '200902010000' and interval is: 0d00h10m
+	//we need to get to stNext = '200902010005'
+	SYSTEMTIME stNextNew = getNextTime(stNext, g_CurrentStartTime, shDays, shHour, shMin);
+	stNext=stNextNew;
+	nclog(L"\tschedule adjusted to '%s'\n", getLongStrFromSysTime2(stNext));
+	//if(!isNewer(stNext, stCurrentTime)){
+	//	do{
+	//		//add interval to stNewTime
+	//		stNext = DT_Add(stNext, 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
+	//	}while (!isNewer(stNext, stCurrentTime));
+	//	nclog(L"\tschedule adjusted to '%s'\n", getLongStrFromSysTime2(stNext));
+	//}
+	//else
+	//	nclog(L"\tno schedule adjustement needed.\n");
+
+	nclog(L"--- createDelayedNextSchedule: delayed schedule recalculation finished.\n");
+	return stNext;
+}
