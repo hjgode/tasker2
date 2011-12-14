@@ -1,6 +1,13 @@
+//if for emulator test, then undef INTERMEC
+//#define INTERMEC
+
 #include "stdafx.h"
 #include "regRW.h"
 #include "common/nclog.h"
+
+//#include "time.h"
+#include <altcecrt.h>
+//#pragma comment(lib, "crt.lib")
 
 /*
 #include <itc50.h>
@@ -8,14 +15,30 @@
 
 #include "log2file.h"
 */
+
+extern SYSTEMTIME g_CurrentStartTime;
+
 const __int64 nano100SecInDay=(__int64)10000000*60*60*24;
 const __int64 nano10Minutes=(__int64)10000000*60*10;
 
-SYSTEMTIME DT_AddDiff(const __int64 datepart, const __int64 num, const SYSTEMTIME* pst);
 
 SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds);
 
 SYSTEMTIME AddDiff(SYSTEMTIME* pst, int minutes);
+
+SYSTEMTIME DT_AddDay(const SYSTEMTIME st);
+
+SYSTEMTIME DT_AddDiff (const __int64 datepart, /*datepart with we want to manipulate, {nano100SecInDay ...}*/
+			const __int64 num, /*value used to increment/decrement datepart*/
+			const SYSTEMTIME* pst /*valid datetime which we want change*/);
+
+SYSTEMTIME& newSystemTime(SYSTEMTIME& systemTime, LPCWSTR strDateTime);
+
+SYSTEMTIME createDelayedNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin);
+SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays, int iIntervalHours, int iIntervalMinutes);
+SYSTEMTIME createNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin);
+void dumpST(SYSTEMTIME st);
+void dumpST(TCHAR* szNote, SYSTEMTIME st);
 
 HRESULT ScheduleRunApp(
   LPCTSTR szExeName,
@@ -55,4 +78,11 @@ int isNewer2(SYSTEMTIME stFirst, SYSTEMTIME stSecond);
 BOOL isNewer(SYSTEMTIME stNew, SYSTEMTIME stCompare);
 
 void listNotifications();
+
+BOOL isACpowered();
+
+
+TCHAR* wasctime_s(TCHAR* buf, const __time64_t* time64, int dwSize);
+
+
 
