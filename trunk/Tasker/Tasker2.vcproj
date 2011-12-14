@@ -25,7 +25,8 @@
 			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
-			UseOfATL="1"
+			UseOfMFC="0"
+			UseOfATL="0"
 			CharacterSet="1"
 			>
 			<Tool
@@ -312,10 +313,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\SimpleDateTime.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -367,10 +364,6 @@
 			</File>
 			<File
 				RelativePath=".\regRW.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SimpleDateTime.h"
 				>
 			</File>
 			<File

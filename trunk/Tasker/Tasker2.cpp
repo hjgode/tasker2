@@ -14,7 +14,9 @@
 #include "myNotify.h"
 #include "./common/nclog.h"
 
-#include "SimpleDateTime.h"
+//#include "time.h"
+#include <altcecrt.h>
+//#pragma comment(lib, "crt.lib")
 
 #ifdef INTERMEC
 //#include "C:/Program Files (x86)/Intermec/Developer Library/Include/itc50.h"
@@ -68,6 +70,71 @@ BOOL isACpowered(){
 		nclog(L"\tITCPowerStatus() failed\n");
 	return FALSE;
 #endif
+}
+
+TCHAR* wasctime_s(TCHAR* buf, const __time64_t* time64, int dwSize){
+	wsprintf(buf, L"TEST");
+	struct tm when;
+    _localtime64_s( &when, time64 );
+	wsprintf(buf, L"%02i.%02i.%04i %02i:%02i", when.tm_mday, when.tm_mon+1 , when.tm_year+1900, when.tm_hour, when.tm_min);
+	return buf;
+}
+
+SYSTEMTIME& newSystemTime(SYSTEMTIME& systemTime, LPCWSTR strDateTime)
+{
+	SYSTEMTIME st;
+	TCHAR szDateTime[MAX_PATH];
+	TCHAR szTemp[MAX_PATH];
+	//should be yyyyMMddhhmm, ie 201112011650
+	wsprintf(szDateTime, L"%s", strDateTime);
+	//create a pointer for szDateTime
+	TCHAR* pszDateTime = szDateTime;
+
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 4);
+	int iYear;
+	iYear=_wtoi(szTemp);
+	//if(iYear==0)
+	//	iRet = -1;
+
+	pszDateTime+=4;
+	
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 2);
+	int iMonth;
+	iMonth=_wtoi(szTemp);
+	//if(iMonth==0)
+	//	iRet = -2;
+	pszDateTime+=2;
+
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 2);
+	int iDay;
+	iDay=_wtoi(szTemp);
+	//if(iDay==0)
+	//	iRet = -3;
+	pszDateTime+=2;
+
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 2);
+	int iHour;
+	iHour=_wtoi(szTemp);
+	pszDateTime+=2;
+
+	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
+	wcsncpy(szTemp, pszDateTime, 2);
+	int iMin;
+	iMin=_wtoi(szTemp);
+
+	memset(&st, 0, sizeof(SYSTEMTIME));
+	st.wDay=iDay;
+	st.wMonth=iMonth;
+	st.wYear=iYear;
+	st.wHour=iHour;
+	st.wMinute=iMin;	
+
+	memcpy(&systemTime, &st, sizeof(SYSTEMTIME));
+	return systemTime;
 }
 
 int ClearAllSchedules(){
@@ -359,31 +426,35 @@ int _tmain(int argc, _TCHAR* argv[])
 		else if(wcsicmp(argv[1], L"-t")==0){	//test mode
 			//just sleep 15 seconds for testing mutex
 			nclog(L"test mode...\n");
-			CSimpleDateTime dt1;
-			CSimpleDateTime dt2(L"201111091200");
-			CSimpleDateTime dt3(L"000000000100");
-			
-			if(dt1!=dt2)
-				nclog(L"dt1 %s not equal dt2 %s\n", dt1.GetDateTimeString(), dt2.GetDateTimeString());
-			else
-				nclog(L"dt1 %s equal dt2 %s\n", dt1.GetDateTimeString(), dt2.GetDateTimeString());
-
-			CSimpleDateTime dt4 = dt2 + dt3;
-			nclog(L"dt2 %s + dt3 %s = %s\n", dt2.GetFullDateString(), dt3.GetFullDateString(), dt4.GetFullDateString());
-
-			if(dt1>dt2)
-				nclog(L"dt1 %s > dt2 %s\n", dt1.GetDateTimeString(), dt2.GetDateTimeString());
-			else
-				nclog(L"dt1 %s <= dt2 %s\n", dt1.GetDateTimeString(), dt2.GetDateTimeString());
-
-			nclog(L"Start time is %s\n", dt1.GetDateTimeString());
-			dt1.GetNextSchedule(dt1.GetSystemTime(), 130, 2530);
-			nclog(L"next schedule is %s\n", dt1.GetDateTimeString());
 
 			SYSTEMTIME stSched, stActual, stNew;
 			GetLocalTime(&stActual);
 			memcpy(&stSched, &stActual, sizeof(SYSTEMTIME));
 
+   struct tm  when;
+   __time64_t now, result;
+   int        days;
+   TCHAR       buff[80];
+
+   _time64( &now );	//get the system time
+   _localtime64_s( &when, &now );	//convert a system time to a local tm time and correct for local time zone
+   
+   wprintf( L"Current time is %s\n", wasctime_s(buff, &now, 80));// L"_wasctime not implemented" );
+   days = 20;
+   int hours = 24;
+   when.tm_mday = when.tm_mday + days;
+   if( (result = _mktime64( &when )) != (time_t)-1 ) { //convert local tm time to calendar time
+      wprintf( L"In %d days the time will be %s\n", days, wasctime_s(buff, &result, 80) );
+   } else
+      DEBUGMSG(1, ( L"_mktime64 failed" ) );
+   when.tm_hour = when.tm_hour + hours;
+   if( (result = _mktime64( &when )) != (time_t)-1 ) { //convert local tm time to calendar time
+      wprintf( L"In %d hours the time will be %s\n", hours, wasctime_s(buff, &result, 80) );
+   } else
+      DEBUGMSG(1, ( L"_mktime64 failed" ) );
+
+
+			stNew = newSystemTime(stNew, L"201112131425");
 			DEBUGMSG(1, (L"schedule is one day in future"));
 			stSched = DT_Add(stActual,0,0,1,0,0,0,0);	//add one day
 			stNew = getNextTime(stSched, stActual, 0, 1, 0); //get next schedule for 1 hour interval
