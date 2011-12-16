@@ -38,6 +38,7 @@
 	int getLongStrFromSysTime(SYSTEMTIME sysTime, TCHAR* sStr);
 	
 	TCHAR* getLongStrFromSysTime2(SYSTEMTIME sysTime);
+	TCHAR* getLongStrFromTM(struct tm tmTime);
 
 	DWORD getVersion();
 	int writeVersion(DWORD newVersion);
