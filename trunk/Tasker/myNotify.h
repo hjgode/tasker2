@@ -17,10 +17,15 @@
 */
 
 extern SYSTEMTIME g_CurrentStartTime;
+//extern __time64_t g_tmCurrentStartTime;
+extern struct tm  g_tmCurrentStartTime;
 
 const __int64 nano100SecInDay=(__int64)10000000*60*60*24;
 const __int64 nano10Minutes=(__int64)10000000*60*10;
 
+struct tm getLocalTime(tm* pLocalTime);
+
+SYSTEMTIME convertTM2SYSTEMTIME(SYSTEMTIME *systemTime, struct tm *tmTime);
 
 SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds);
 
@@ -36,9 +41,13 @@ SYSTEMTIME& newSystemTime(SYSTEMTIME& systemTime, LPCWSTR strDateTime);
 
 SYSTEMTIME createDelayedNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin);
 SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays, int iIntervalHours, int iIntervalMinutes);
+
 SYSTEMTIME createNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin);
+SYSTEMTIME createNextSchedule(struct tm tmNext, short shDays, short shHour, short shMin);
+
 void dumpST(SYSTEMTIME st);
 void dumpST(TCHAR* szNote, SYSTEMTIME st);
+void dumpTM(TCHAR* szNote, struct tm tmTime);
 
 HRESULT ScheduleRunApp(
   LPCTSTR szExeName,

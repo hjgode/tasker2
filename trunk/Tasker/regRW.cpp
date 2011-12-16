@@ -143,6 +143,18 @@ int getLongStrFromSysTime(SYSTEMTIME sysTime, TCHAR* sStr){
 
 }
 
+TCHAR* getLongStrFromTM(struct tm tmTime){
+		TCHAR* sTemp = new TCHAR[12+1];
+		wsprintf(sTemp, L"%04i%02i%02i%02i%02i", 
+			(tmTime.tm_year)+1900 ,
+			(tmTime.tm_mon)+1,
+			tmTime.tm_mday,
+			tmTime.tm_hour, 
+			tmTime.tm_min);
+		wsprintf(sTemp, L"%s", sTemp);
+		return sTemp; //no Error
+}
+
 TCHAR* getLongStrFromSysTime2(SYSTEMTIME sysTime){
 		TCHAR* sTemp = new TCHAR[12+1];
 		wsprintf(sTemp, L"%04i%02i%02i%02i%02i", 

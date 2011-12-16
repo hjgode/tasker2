@@ -22,6 +22,8 @@
 
 extern TASK _Tasks[iMaxTasks];
 SYSTEMTIME g_CurrentStartTime;
+//__time64_t g_tmCurrentStartTime;
+struct tm g_tmCurrentStartTime;
 
 TCHAR* szTaskerEXE = L"\\Windows\\Tasker2.exe";
 
@@ -152,26 +154,42 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	BOOL bIsDelayedSchedule = TRUE; //used to save a delayed schedule situation
 
-	SYSTEMTIME stNow;
-	GetLocalTime(&stNow);
-	//clean up
-	stNow.wSecond=0;
-	stNow.wMilliseconds=0;
+	// START ----------- store the start time in a global var
+	//struct tm when;
+	//__time64_t now;
+	//_tzset();
+ //   // Get UNIX-style time
+	//_time64( &now );	//get the system time
+	//_localtime64_s( &when, &now );	// convert to local time
+	//g_tmCurrentStartTime = when;
+	g_tmCurrentStartTime = getLocalTime(&g_tmCurrentStartTime);
 
 	nclog(L"Using launch time %02i.%02i.%04i, %02i:%02i\n",
-		stNow.wDay, stNow.wMonth, stNow.wYear,
-		stNow.wHour, stNow.wMinute);
+		g_tmCurrentStartTime.tm_mday, g_tmCurrentStartTime.tm_mon+1, g_tmCurrentStartTime.tm_year +1900,
+		g_tmCurrentStartTime.tm_hour, g_tmCurrentStartTime.tm_min);
+	
+	//// using bad SYSTEMTIME
+	//SYSTEMTIME stNow;
+	//GetLocalTime(&stNow);
+	////clean up
+	//stNow.wSecond=0;
+	//stNow.wMilliseconds=0;
+
+	//nclog(L"Using launch time %02i.%02i.%04i, %02i:%02i\n",
+	//	stNow.wDay, stNow.wMonth, stNow.wYear,
+	//	stNow.wHour, stNow.wMinute);
+
+	////##################### use only one current start time #############################
+	////v2.28: use only one current time, the time the exe has been started
+	//memcpy(&g_CurrentStartTime, &stNow, sizeof(SYSTEMTIME));
+	// END ----------- store the start time in a global var
 
 	nclog(L"CmdLine = \n");
 	for(int x=1; x<argc; x++){
 		nclog(L"\targv[%i]: '%s'\n", x, argv[x]);
 	}
 
-	//##################### use only one current start time #############################
-	//v2.28: use only one current time, the time the exe has been started
-	memcpy(&g_CurrentStartTime, &stNow, sizeof(SYSTEMTIME));
-
-		//change tasker2.exe path
+	// change global tasker2.exe path
 	// Get name of executable
 	TCHAR lpFileName[MAX_PATH+1];
 	GetModuleFileName(NULL, lpFileName, MAX_PATH); //lpFileName will contain the exe name of this running app!
@@ -189,9 +207,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		return iRegRet;
 	}
 
-	//check if date/time is valid
+	//check if date/time is valid (tm version)
 	nclog(L"Checking for valid date/time...\n");
-	if( (stNow.wYear*100 + stNow.wMonth) < 201111){
+	if( ((g_tmCurrentStartTime.tm_year+1900)*100 + g_tmCurrentStartTime.tm_mon+1) < 201111){
 		nclog(L"scheduling event notifications\n");
 		//clear and renew all event notifications
 #ifndef TESTMODE
@@ -200,6 +218,18 @@ int _tmain(int argc, _TCHAR* argv[])
 		nclog(L"Date/Time not valid!\n*********** END ************\n");
 		return 0xBADDA1E;
 	}
+
+//	//check if date/time is valid (SYSTEMTIME version)
+//	nclog(L"Checking for valid date/time...\n");
+//	if( (stNow.wYear*100 + stNow.wMonth) < 201111){
+//		nclog(L"scheduling event notifications\n");
+//		//clear and renew all event notifications
+//#ifndef TESTMODE
+//		RunAppAtTimeChangeEvents(szTaskerEXE);
+//#endif
+//		nclog(L"Date/Time not valid!\n*********** END ************\n");
+//		return 0xBADDA1E;
+//	}
 	nclog(L"Date/Time after 11 2011. OK\n");
 
 	//nclog(L"running version: %i\n", _dwVersion);
@@ -241,17 +271,18 @@ int _tmain(int argc, _TCHAR* argv[])
 			nclog(L"got '%s' signaled\n", argv[1]);
 
 				//better to reread the current time we work with, possibly we have been blocked
-				GetLocalTime(&stNow);
-				//clean up
-				stNow.wSecond=0;
-				stNow.wMilliseconds=0;
-				memcpy(&g_CurrentStartTime, &stNow, sizeof(SYSTEMTIME));
+			g_tmCurrentStartTime=getLocalTime(&g_tmCurrentStartTime);
+				//GetLocalTime(&stNow);
+				////clean up
+				//stNow.wSecond=0;
+				//stNow.wMilliseconds=0;
+				//memcpy(&g_CurrentStartTime, &stNow, sizeof(SYSTEMTIME));
 
 			//now again check if we have a valid date
 
 				//check if date/time is valid
 				nclog(L"Checking for valid date/time...\n");
-				if( (stNow.wYear*100 + stNow.wMonth) < 201111){
+				if( ((g_tmCurrentStartTime.tm_year+1900)*100 + g_tmCurrentStartTime.tm_mon+1) < 201111){
 					nclog(L"scheduling event notifications\n");
 					//clear and renew all event notifications
 #ifndef TESTMODE
