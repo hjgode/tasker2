@@ -32,6 +32,7 @@
 	int regReadKeys();
 	int getTaskNumber(TCHAR* _sTask);
 	int getSTfromString(SYSTEMTIME* sysTime /*in,out*/, TCHAR* sStr /*in*/);
+	int getStrFromTM(struct tm sysTime, TCHAR sStr[4+1]);
 
 	//new with v2.1
 	int getSTfromLongString(SYSTEMTIME * sysTime /*in,out*/, TCHAR* sStr /*in*/);
@@ -47,7 +48,9 @@
 	int regDisableTask(int iTask);
 	int regEnableTask(int iTask);
 	int regSetStartTime(int iTask, SYSTEMTIME pStartTime);
+	int regSetStartTime(int iTask, struct tm pStartTime);
 	int regSetStopTime(int iTask, SYSTEMTIME pStartTime);
+	int regSetStopTime(int iTask, struct tm pStopTime);
 //	void setUpdateAll();
 //	void unsetUpdateAll();
 //	BOOL getUpdateAll();

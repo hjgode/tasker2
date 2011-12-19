@@ -26,6 +26,7 @@ const __int64 nano10Minutes=(__int64)10000000*60*10;
 struct tm getLocalTime(tm* pLocalTime);
 
 SYSTEMTIME convertTM2SYSTEMTIME(SYSTEMTIME *systemTime, struct tm *tmTime);
+struct tm convertSystemTime2TM( struct tm *tmTime, SYSTEMTIME *systemTime);
 
 SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds);
 
@@ -43,7 +44,7 @@ SYSTEMTIME createDelayedNextSchedule(SYSTEMTIME stNext, short shDays, short shHo
 SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays, int iIntervalHours, int iIntervalMinutes);
 
 SYSTEMTIME createNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin);
-SYSTEMTIME createNextSchedule(struct tm tmNext, short shDays, short shHour, short shMin);
+struct tm *createNextSchedule(struct tm *tmNext, short shDays, short shHour, short shMin);
 
 void dumpST(SYSTEMTIME st);
 void dumpST(TCHAR* szNote, SYSTEMTIME st);
