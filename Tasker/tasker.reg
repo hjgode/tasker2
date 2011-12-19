@@ -2,19 +2,35 @@ REGEDIT4
 
 [HKEY_LOCAL_MACHINE\Software\Tasker]
 
-[HKEY_LOCAL_MACHINE\Software\Tasker\Task2]
-"active"=dword:00000001
-"interval"="0010"
-"stop"="1250"
-"start"="1235"
-"args"="-hidden"
-"exe"=""\\Program Files\\INcontrol\\Athena\\tclient.exe""
-
 [HKEY_LOCAL_MACHINE\Software\Tasker\Task1]
 "active"=dword:00000001
 "interval"="0010"
-"stop"="1252"
-"start"="1237"
+"stop"="1200"
+"start"="1300"
+"args"="-hidden"
+"exe"="\\Program Files\\INcontrol\\Athena\\Athena.exe"
+
+[HKEY_LOCAL_MACHINE\Software\Tasker\Task2]
+"active"=dword:00000001
+"interval"="0100"
+"stop"="1400"
+"start"="1500"
+"args"="-hidden"
+"exe"=""\\Program Files\\INcontrol\\Athena\\tclient.exe""
+
+[HKEY_LOCAL_MACHINE\Software\Tasker\Task3]
+"active"=dword:00000001
+"interval"="0060"
+"stop"="1700"
+"start"="1600"
+"args"="-hidden"
+"exe"="\\Program Files\\INcontrol\\Athena\\Athena.exe"
+
+[HKEY_LOCAL_MACHINE\Software\Tasker\Task4]
+"active"=dword:00000001
+"interval"="2400"
+"stop"="1900"
+"start"="1800"
 "args"="-hidden"
 "exe"="\\Program Files\\INcontrol\\Athena\\Athena.exe"
 

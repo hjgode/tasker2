@@ -68,21 +68,39 @@ int scheduleAllTasks(){
 			//create a new START schedule with new time
 			wsprintf(strTaskCmdLine, L"-s task%i", iTask+1); //the cmdLine for tasker.exe for this task	
 			nclog(L"Creating new Start Task schedule for '%s' in Task%i\n", _Tasks[iTask].szExeName, iTask+1);
-			short shHour	=	_Tasks[iTask].stDiffTime.wHour;
-			short shMin		=	_Tasks[iTask].stDiffTime.wMinute;
-			short shDays	=   0;
+			//use the interval settings
+			short shHourIntvl	=	_Tasks[iTask].stDiffTime.wHour;
+			short shMinIntvl		=	_Tasks[iTask].stDiffTime.wMinute;
+			short shDaysIntvl	=   0;
 
 			SYSTEMTIME stNewTime;
 			//SYSTEMTIME stCurrentTime;
 			//GetLocalTime(&stCurrentTime); //v2.28
 
-			stNewTime=_Tasks[iTask].stStartTime;
-			if(shHour>=24){	//hour interval value is one day or more
-				shDays = (short) (shHour / 24);
-				shHour = (short) (shHour % 24);
-			}				
+			if(shHourIntvl>=24){	//hour interval value is one day or more
+				shDaysIntvl = (short) (shHourIntvl / 24);
+				shHourIntvl = (short) (shHourIntvl % 24);
+			}
 
-			stNewTime = createNextSchedule(stNewTime, shDays, shHour, shMin);
+			//read next start time (hour/minute)
+			stNewTime=_Tasks[iTask].stStartTime;
+
+			struct tm tmNewTime;
+			//tmNewTime = convertSystemTime2TM(&tmNewTime, &stNewTime);
+			////set next to current plus interval
+			//__time64_t local_time;
+			//_time64(&local_time); // get current time
+
+			//get the current time
+			//set hour/minute to start/stop time
+			tmNewTime=g_tmCurrentStartTime;
+			//tmNewTime.tm_mday+=shDays;
+			tmNewTime.tm_hour = stNewTime.wHour;// shHour;
+			tmNewTime.tm_min  = stNewTime.wMinute;// shMin;
+
+			createNextSchedule(&tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
+			//stNewTime = createNextSchedule(stNewTime, shDays, shHour, shMin);
+//			stNewTime = convertTM2SYSTEMTIME(&stNewTime, &tmNewTime);
 #ifndef TESTMODE
 			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime)==0)
 				iRet++;
@@ -93,24 +111,29 @@ int scheduleAllTasks(){
 			//################ create a new KILL schedule for taskX
 			wsprintf(strTaskCmdLine, L"-k task%i", iTask+1); //the cmdLine for tasker.exe for this task	
 			nclog(L"Creating new Kill Task schedule for '%s' in Task%i\n", _Tasks[iTask].szExeName, iTask+1);
-			shHour	=	_Tasks[iTask].stDiffTime.wHour;
-			shMin	=	_Tasks[iTask].stDiffTime.wMinute;
-			shDays	=	0;
+			shHourIntvl	=	_Tasks[iTask].stDiffTime.wHour;
+			shMinIntvl	=	_Tasks[iTask].stDiffTime.wMinute;
+			shDaysIntvl	=	0;
 
-			stNewTime=_Tasks[iTask].stStopTime;
-			if(shHour>=24){	//hour interval value is one day or more
-				shDays = (short) (shHour / 24);
-				shHour = (short) (shHour % 24);
+			if(shHourIntvl>=24){	//hour interval value is one day or more
+				shDaysIntvl = (short) (shHourIntvl / 24);
+				shHourIntvl = (short) (shHourIntvl % 24);
 			}				
+			stNewTime=_Tasks[iTask].stStopTime;
+			tmNewTime=g_tmCurrentStartTime;
+			//tmNewTime.tm_mday+=shDays;
+			tmNewTime.tm_hour = stNewTime.wHour;
+			tmNewTime.tm_min  = stNewTime.wMinute;
 
-			stNewTime = createNextSchedule(stNewTime,shDays, shHour, shMin);
+			createNextSchedule(&tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
+			//stNewTime = createNextSchedule(stNewTime,shDays, shHour, shMin);
 #ifndef TESTMODE
 			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime)==0)
 				iRet++;
 #endif				
 			////save new changed stoptime
-			regSetStopTime(iTask, stNewTime);
-
+			regSetStopTime(iTask, tmNewTime);
+			
 		}
 	}
 	nclog(L"scheduleAllTasks: scheduled %i new tasks\n", iRet);
