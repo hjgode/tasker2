@@ -69,11 +69,11 @@ int scheduleAllTasks(){
 			wsprintf(strTaskCmdLine, L"-s task%i", iTask+1); //the cmdLine for tasker.exe for this task	
 			nclog(L"Creating new Start Task schedule for '%s' in Task%i\n", _Tasks[iTask].szExeName, iTask+1);
 			//use the interval settings
-			short shHourIntvl	=	_Tasks[iTask].stDiffTime.wHour;
-			short shMinIntvl		=	_Tasks[iTask].stDiffTime.wMinute;
+			short shHourIntvl	=	_Tasks[iTask].stDiffTime.tm_hour ;
+			short shMinIntvl		=	_Tasks[iTask].stDiffTime.tm_min;
 			short shDaysIntvl	=   0;
 
-			SYSTEMTIME stNewTime;
+			struct tm tmNewTime;
 			//SYSTEMTIME stCurrentTime;
 			//GetLocalTime(&stCurrentTime); //v2.28
 
@@ -83,10 +83,9 @@ int scheduleAllTasks(){
 			}
 
 			//read next start time (hour/minute)
-			stNewTime=_Tasks[iTask].stStartTime;
+			tmNewTime=_Tasks[iTask].stStartTime;
 
-			struct tm tmNewTime;
-			//tmNewTime = convertSystemTime2TM(&tmNewTime, &stNewTime);
+			//tmNewTime = convertSystemTime2TM(&tmNewTime, &tmNewTime);
 			////set next to current plus interval
 			//__time64_t local_time;
 			//_time64(&local_time); // get current time
@@ -95,40 +94,40 @@ int scheduleAllTasks(){
 			//set hour/minute to start/stop time
 			tmNewTime=g_tmCurrentStartTime;
 			//tmNewTime.tm_mday+=shDays;
-			tmNewTime.tm_hour = stNewTime.wHour;// shHour;
-			tmNewTime.tm_min  = stNewTime.wMinute;// shMin;
+			tmNewTime.tm_hour = _Tasks[iTask].stStartTime.tm_hour ;// shHour;
+			tmNewTime.tm_min  = _Tasks[iTask].stStartTime.tm_min;// shMin;
 
 			createNextSchedule(&tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
-			//stNewTime = createNextSchedule(stNewTime, shDays, shHour, shMin);
-//			stNewTime = convertTM2SYSTEMTIME(&stNewTime, &tmNewTime);
+			//tmNewTime = createNextSchedule(tmNewTime, shDays, shHour, shMin);
+//			tmNewTime = convertTM2SYSTEMTIME(&tmNewTime, &tmNewTime);
 #ifndef TESTMODE
-			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime)==0)
+			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime)==0)
 				iRet++;
 #endif
 			////save new start time
-			regSetStartTime(iTask, stNewTime);
+			regSetStartTime(iTask, tmNewTime);
 
 			//################ create a new KILL schedule for taskX
 			wsprintf(strTaskCmdLine, L"-k task%i", iTask+1); //the cmdLine for tasker.exe for this task	
 			nclog(L"Creating new Kill Task schedule for '%s' in Task%i\n", _Tasks[iTask].szExeName, iTask+1);
-			shHourIntvl	=	_Tasks[iTask].stDiffTime.wHour;
-			shMinIntvl	=	_Tasks[iTask].stDiffTime.wMinute;
+			shHourIntvl	=	_Tasks[iTask].stDiffTime.tm_hour;
+			shMinIntvl	=	_Tasks[iTask].stDiffTime.tm_min;
 			shDaysIntvl	=	0;
 
 			if(shHourIntvl>=24){	//hour interval value is one day or more
 				shDaysIntvl = (short) (shHourIntvl / 24);
 				shHourIntvl = (short) (shHourIntvl % 24);
 			}				
-			stNewTime=_Tasks[iTask].stStopTime;
+			//tmNewTime=_Tasks[iTask].stStopTime;
 			tmNewTime=g_tmCurrentStartTime;
 			//tmNewTime.tm_mday+=shDays;
-			tmNewTime.tm_hour = stNewTime.wHour;
-			tmNewTime.tm_min  = stNewTime.wMinute;
+			tmNewTime.tm_hour = _Tasks[iTask].stStopTime.tm_hour;
+			tmNewTime.tm_min  = _Tasks[iTask].stStopTime.tm_min;
 
 			createNextSchedule(&tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
-			//stNewTime = createNextSchedule(stNewTime,shDays, shHour, shMin);
+			//tmNewTime = createNextSchedule(tmNewTime,shDays, shHour, shMin);
 #ifndef TESTMODE
-			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime)==0)
+			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime)==0)
 				iRet++;
 #endif				
 			////save new changed stoptime
@@ -430,19 +429,19 @@ int _tmain(int argc, _TCHAR* argv[])
 			
 			//the new start task
 			short shHour;
-			shHour	=	_Tasks[iTask].stDiffTime.wHour;
+			shHour	=	_Tasks[iTask].stDiffTime.tm_hour;
 			short shMin;
-			shMin	=	_Tasks[iTask].stDiffTime.wMinute;
+			shMin	=	_Tasks[iTask].stDiffTime.tm_min;
 			short shDays	=	0;
 			if(shHour>=24){	//hour interval value is one day or more
 				shDays = (short) (shHour / 24);
 				shHour = (short) (shHour % 24);
 			}				
 
-			SYSTEMTIME stNewTime;
+			struct tm tmNewTime;
 			
-			stNewTime=_Tasks[iTask].stStartTime;
-			stNewTime = createNextSchedule(stNewTime, shDays, shHour, shMin);
+			tmNewTime = _Tasks[iTask].stStartTime;
+			tmNewTime = createNextSchedule(tmNewTime, shDays, shHour, shMin);
 			//stNewTime = DT_Add(_Tasks[iTask].stStartTime, 0, 0, 0, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
 			
 #ifndef TESTMODE
@@ -456,15 +455,15 @@ int _tmain(int argc, _TCHAR* argv[])
 
 				//create a new kill schedule with new time
 				nclog(L"Creating new Kill schedule for '%s' in Task%i\n", _Tasks[iTask].szExeName, iTask+1);
-				shHour	=	_Tasks[iTask].stDiffTime.wHour;
-				shMin	=	_Tasks[iTask].stDiffTime.wMinute;
+				shHour	=	_Tasks[iTask].stDiffTime.tm_hour;
+				shMin	=	_Tasks[iTask].stDiffTime.tm_min;
 				shDays	=	0;
 				if(shHour>=24){	//hour interval value is one day or more
 					shDays = (short) (shHour / 24);
 					shHour = (short) (shHour % 24);
 				}			
-				stNewTime=_Tasks[iTask].stStopTime;
-				stNewTime=createNextSchedule(stNewTime, shDays, shHour, shMin);
+				tmNewTime=_Tasks[iTask].stStopTime;
+				tmNewTime=createNextSchedule(tmNewTime, shDays, shHour, shMin);
 				//stNewTime = DT_Add(_Tasks[iTask].stStopTime, 0, 0, 0, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
 #ifndef TESTMODE
 				ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime);
@@ -527,9 +526,9 @@ int processStartStopCmd(TCHAR* argv[]){
 		nclog(L"Clearing all schedules for Task%i with '%s'\n", iTask+1, strTaskCmdLine);
 		notiClearRunApp(szTaskerEXE, strTaskCmdLine);
 
-		SYSTEMTIME stNewTime = {0};
-		short shHour	=	_Tasks[iTask].stDiffTime.wHour;
-		short shMin		=	_Tasks[iTask].stDiffTime.wMinute;
+		struct tm tmNewTime = {0};
+		short shHour	=	_Tasks[iTask].stDiffTime.tm_hour;
+		short shMin		=	_Tasks[iTask].stDiffTime.tm_min;
 		short shDays	=	0;
 		if(shHour>=24){	//hour interval value is one day or more
 			shDays = (short) (shHour / 24);
@@ -539,28 +538,40 @@ int processStartStopCmd(TCHAR* argv[]){
 		//is this a delayed schedule?
 		nclog(L"\tchecking for delayed schedule...\n");
 		int iDeltaMinutes;
+		__time64_t ttStart;
+		__time64_t ttStop;
+		__time64_t ttCurr;
+		ttStop = _mktime64(&(_Tasks[iTask].stStopTime));
+		ttStart = _mktime64(&(_Tasks[iTask].stStartTime));
+		ttCurr = _mktime64(&g_tmCurrentStartTime);
 
 		if(thisTaskType==stopTask){
-			iDeltaMinutes = stDeltaMinutes(_Tasks[iTask].stStopTime, g_CurrentStartTime);
-			nclog(L"stStopTime = '%s', ", getLongStrFromSysTime2(_Tasks[iTask].stStopTime));
+			//difftime(timer1, timer0) returns the elapsed time in seconds, from timer0 to timer1
+			iDeltaMinutes = difftime(ttCurr, ttStop)/60;// stDeltaMinutes(_Tasks[iTask].stStopTime, g_CurrentStartTime);
+			nclog(L"stStopTime = '%s', ", getLongStrFromTM(_Tasks[iTask].stStopTime));
 		}
 		else{
-			iDeltaMinutes = stDeltaMinutes(_Tasks[iTask].stStartTime, g_CurrentStartTime);
-			nclog(L"stStartTime = '%s', ", getLongStrFromSysTime2(_Tasks[iTask].stStartTime));
+			iDeltaMinutes = difftime(ttStart, ttCurr)/60;// stDeltaMinutes(_Tasks[iTask].stStartTime, g_CurrentStartTime);
+			nclog(L"stStartTime = '%s', ", getLongStrFromTM(_Tasks[iTask].stStartTime));
 		}
 
-		nclog(L"current time = '%s'\n", getLongStrFromSysTime2(g_CurrentStartTime));
+		nclog(L"current time = '%s'\n", getLongStrFromTM(g_tmCurrentStartTime));
 		nclog(L"interval is: %id%02ih%02im\n", shDays, shHour, shMin);
 		nclog(L"\tdelta is %i minutes\n", iDeltaMinutes);
 
 		//started BEFORE scheduled time, iDelta is negative
 		if(iDeltaMinutes<0){
-			if(thisTaskType==stopTask)
-				stNewTime=_Tasks[iTask].stStopTime;
-			else
-				stNewTime=_Tasks[iTask].stStartTime;
+			if(thisTaskType==stopTask){
+				//calculate new schedules or leave them as is?
+				//tmNewTime=_Tasks[iTask].stStopTime;	//leave them as is
+				tmNewTime=createNextSchedule(_Tasks[iTask].stStopTime, shDays,shHour,shMin); //calc new schedule
+			}
+			else{
+				//tmNewTime=_Tasks[iTask].stStartTime;	//leave them as is
+				tmNewTime=createNextSchedule(_Tasks[iTask].stStartTime, shDays,shHour,shMin); //calc new schedule
+			}
 #ifndef TESTMODE
-			ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime);
+			ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime);
 #endif
 			nclog(L"*** re-scheduled future task *** \n");
 			return 0;
@@ -580,17 +591,18 @@ int processStartStopCmd(TCHAR* argv[]){
 			//we calc the next schedule on base of the current time by adding the interval to stStartTime/stStopTime until the hh:mm
 			//is just greater than the current time
 			if(thisTaskType==stopTask)
-				stNewTime=_Tasks[iTask].stStopTime;
+				tmNewTime=_Tasks[iTask].stStopTime;
 			else
-				stNewTime=_Tasks[iTask].stStartTime;
+				tmNewTime=_Tasks[iTask].stStartTime;
 
-			stNewTime = createDelayedNextSchedule(stNewTime, shDays, shHour, shMin);
-			//if(!isNewer(stNewTime, stCurrentTime)){
-			//	while (!isNewer(stNewTime, stCurrentTime)){
-			//		//add interval to stNewTime
-			//		stNewTime = DT_Add(stNewTime, 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
+			tmNewTime = createNextSchedule(tmNewTime, shDays, shHour, shMin);
+			//tmNewTime = createDelayedNextSchedule(tmNewTime, shDays, shHour, shMin);
+			//if(!isNewer(tmNewTime, stCurrentTime)){
+			//	while (!isNewer(tmNewTime, stCurrentTime)){
+			//		//add interval to tmNewTime
+			//		tmNewTime = DT_Add(tmNewTime, 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
 			//	}
-			//	if(getLongStrFromSysTime(stNewTime, szTime)==0)
+			//	if(getLongStrFromSysTime(tmNewTime, szTime)==0)
 			//		nclog(L"\tschedule adjusted to %s\n", szTime);
 			//	else
 			//		nclog(L"\t... schedule adjusted.\n");
@@ -599,12 +611,12 @@ int processStartStopCmd(TCHAR* argv[]){
 		else{
 			nclog(L"*** NO delayed schedule *** recognized\n");
 			if(thisTaskType==stopTask){
-				stNewTime = createNextSchedule(_Tasks[iTask].stStopTime, shDays, shHour, shMin);
-				//stNewTime = DT_Add(_Tasks[iTask].stStopTime, 0, 0, shDays, shHour, shMin, 0, 0);
+				tmNewTime = createNextSchedule(_Tasks[iTask].stStopTime, shDays, shHour, shMin);
+				//tmNewTime = DT_Add(_Tasks[iTask].stStopTime, 0, 0, shDays, shHour, shMin, 0, 0);
 			}
 			else{
-				stNewTime = createNextSchedule(_Tasks[iTask].stStartTime, shDays, shHour, shMin);
-				//stNewTime = DT_Add(_Tasks[iTask].stStartTime, 0, 0, shDays, shHour, shMin, 0, 0);
+				tmNewTime = createNextSchedule(_Tasks[iTask].stStartTime, shDays, shHour, shMin);
+				//tmNewTime = DT_Add(_Tasks[iTask].stStartTime, 0, 0, shDays, shHour, shMin, 0, 0);
 			}
 			bIsDelayedSchedule=FALSE;
 		}
@@ -612,13 +624,13 @@ int processStartStopCmd(TCHAR* argv[]){
 		//create a new kill or start schedule with new time
 		nclog(L"Creating new schedule for '%s' in Task%i\n", _Tasks[iTask].szExeName, iTask+1);
 #ifndef TESTMODE
-		ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime);
+		ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime);
 #endif
 		//save new changed stop/start ime
 		if(thisTaskType==stopTask)
-			regSetStopTime(iTask, stNewTime);
+			regSetStopTime(iTask, tmNewTime);
 		else
-			regSetStartTime(iTask, stNewTime);
+			regSetStartTime(iTask, tmNewTime);
 
 		if(!bIsDelayedSchedule){
 			nclog(L"Not a delayed schedule\n");

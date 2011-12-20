@@ -45,6 +45,7 @@ SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays
 
 SYSTEMTIME createNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin);
 struct tm *createNextSchedule(struct tm *tmNext, short shDays, short shHour, short shMin);
+struct tm createNextSchedule(struct tm tmNext, short shDays, short shHour, short shMin);
 
 void dumpST(SYSTEMTIME st);
 void dumpST(TCHAR* szNote, SYSTEMTIME st);

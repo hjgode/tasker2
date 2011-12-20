@@ -1041,7 +1041,8 @@ struct tm *createNextSchedule(struct tm *tmNext, short shDays, short shHour, sho
 	dumpTT64(L"current time: ", ttCurr);
 	dumpTT64(L"next time:    ", ttNext);
 	//double dTime = difftime(mktime(&tmNext), mktime(&g_tmCurrentStartTime)); //difftime(endingTime, startTime)
-	if(ttNext < ttCurr){
+	//is the next schedule in future?
+	if(ttNext <= ttCurr){
 		do{
 			//add interval to stNewTime
 			tmNext->tm_mday+=shDays;
@@ -1049,7 +1050,7 @@ struct tm *createNextSchedule(struct tm *tmNext, short shDays, short shHour, sho
 			tmNext->tm_min+=shMin;
 			ttNext=_mktime64(tmNext);
 			//ttNext = DT_Add(tmNext->tm_mday+shDays , 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
-		}while (ttNext < ttCurr);
+		}while (ttNext <= ttCurr);
 	}
 	ttNext=_mktime64(tmNext);
 	dumpTT64(L"\tschedule adjusted to ", ttNext);
@@ -1059,6 +1060,52 @@ struct tm *createNextSchedule(struct tm *tmNext, short shDays, short shHour, sho
 	nclog(L"\tschedule adjusted to '%s'\n", getLongStrFromTM(*tmNext));
 
 	return tmNext;
+}
+
+struct tm createNextSchedule(struct tm tmNext, short shDays, short shHour, short shMin){
+	TCHAR szTime[24] = {0};
+	struct tm tmReturn;
+	memcpy(&tmReturn, &tmNext, sizeof(struct tm));
+
+	if(shMin>=60){
+		shHour += (short)(shMin / 60);
+		shMin = (short)(shMin % 60);
+	}
+	if(shHour>=24){	//hour interval value is one day or more
+		shDays = (short) (shHour / 24);
+		shHour = (short) (shHour % 24);
+	}
+	nclog(L"\tcalculating new schedule for '%s'...\n", getLongStrFromTM(tmNext));
+	nclog(L"\tinterval is: %id%02ih%02im\n", shDays, shHour, shMin);
+#if DEBUG
+	dumpTM(L"stNext", tmNext);
+	dumpTM(L"stCurrentTime", g_tmCurrentStartTime);
+#endif
+	__time64_t ttNext = _mktime64(&tmNext);	// time as seconds elapsed since midnight, January 1, 1970, or -1 in the case of an error.
+	__time64_t ttCurr = _mktime64(&g_tmCurrentStartTime);
+
+	dumpTT64(L"current time: ", ttCurr);
+	dumpTT64(L"next time:    ", ttNext);
+	//double dTime = difftime(mktime(&tmNext), mktime(&g_tmCurrentStartTime)); //difftime(endingTime, startTime)
+	//is the next schedule in future?
+	if(ttNext <= ttCurr){
+		do{
+			//add interval to stNewTime
+			tmNext.tm_mday+=shDays;
+			tmNext.tm_hour+=shHour;
+			tmNext.tm_min+=shMin;
+			ttNext=_mktime64(&tmNext);
+			//ttNext = DT_Add(tmNext->tm_mday+shDays , 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
+		}while (ttNext <= ttCurr);
+	}
+	ttNext=_mktime64(&tmNext);
+	dumpTT64(L"\tschedule adjusted to ", ttNext);
+	//else
+	//	nclog(L"\tno schedule adjustement needed.\n");
+
+	nclog(L"\tschedule adjusted to '%s'\n", getLongStrFromTM(tmNext));
+	tmReturn=tmNext;
+	return tmReturn;
 }
 
 /*
