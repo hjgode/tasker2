@@ -26,16 +26,16 @@ set value HKLM\Software\Tasker\Task3  startOnAConly : dword:00000001
 set value HKLM\Software\Tasker\Task3  active : dword:00000001
 ++++++++++++++ TEST1 ++++++++++++++++ 
 [HKLM\Software\Tasker]
-NextStart="201112010300"
-NextStop="201112020110"
+NextStart="201112201420"
+NextStop="201112201420"
 UpdateAll=dword:00000001
 Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112010300"
-NextStop="201112010400"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
@@ -45,8 +45,8 @@ startOnAConly=dword:00000001
 stop="0110"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112020100"
-NextStop="201112010110"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -56,8 +56,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112011515"
-NextStop="201112011505"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -71,16 +71,16 @@ set time manually to 01.01.2003 12:00
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112010300"
-NextStop="201112020110"
+NextStart="201112201420"
+NextStop="201112201420"
 UpdateAll=dword:00000001
 Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112010300"
-NextStop="201112010400"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
@@ -90,8 +90,8 @@ startOnAConly=dword:00000001
 stop="0110"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112020100"
-NextStop="201112010110"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -101,8 +101,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112011515"
-NextStop="201112011505"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -112,18 +112,17 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x3635deb2: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x3635deb2:              DEBUG BUILD !
-0x3635deb2:              TESTMODE !
-0x3635deb2: Checking for Mutex (single instance allowed only)...
-0x3635deb2: 	Created new mutex
-0x3635deb2: Using launch time 01.01.2003, 12:00
-0x3635deb2: CmdLine = 
-0x3635deb2: Checking for valid date/time...
-0x3635deb2: scheduling event notifications
-0x3635deb2: Date/Time not valid!
+0x55e8716e: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
+0x55e8716e:              TESTMODE !
+0x55e8716e: Checking for Mutex (single instance allowed only)...
+0x55e8716e: 	Created new mutex
+0x55e8716e: Using launch time 01.01.2003, 12:00
+0x55e8716e: CmdLine = 
+0x55e8716e: Checking for valid date/time...
+0x55e8716e: scheduling event notifications
+0x55e8716e: Date/Time not valid!
 *********** END ************
-0x3635deb2: nclog goes down
+0x55e8716e: nclog goes down
 ---------------TEST1  --------------- 
 .
 ++++++++++++++ TEST2 ++++++++++++++++ 
@@ -132,16 +131,16 @@ set time manually to 01.02.2009 12:00
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112010300"
-NextStop="201112020110"
+NextStart="201112201420"
+NextStop="201112201420"
 UpdateAll=dword:00000001
 Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112010300"
-NextStop="201112010400"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
@@ -151,8 +150,8 @@ startOnAConly=dword:00000001
 stop="0110"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112020100"
-NextStop="201112010110"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -162,8 +161,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112011515"
-NextStop="201112011505"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -173,20 +172,17 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0xb6222666: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0xb6222666:              DEBUG BUILD !
-0xb6222666:              TESTMODE !
-0xb6222666: Checking for Mutex (single instance allowed only)...
-0xb6222666: 	Attached to existing mutex
-0xb6222666: ................ Waiting for mutex release......
-0xb6222666: ++++++++++++++++ Mutex released. +++++++++++++++
-0xb6222666: Using launch time 01.02.2009, 12:00
-0xb6222666: CmdLine = 
-0xb6222666: Checking for valid date/time...
-0xb6222666: scheduling event notifications
-0xb6222666: Date/Time not valid!
+0x15e96e26: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
+0x15e96e26:              TESTMODE !
+0x15e96e26: Checking for Mutex (single instance allowed only)...
+0x15e96e26: 	Created new mutex
+0x15e96e26: Using launch time 01.02.2009, 12:00
+0x15e96e26: CmdLine = 
+0x15e96e26: Checking for valid date/time...
+0x15e96e26: scheduling event notifications
+0x15e96e26: Date/Time not valid!
 *********** END ************
-0xb6222666: nclog goes down
+0x15e96e26: nclog goes down
 ---------------TEST2  --------------- 
 .
 ++++++++++++++ TEST3 ++++++++++++++++ 
@@ -196,27 +192,27 @@ set time manually to 02.12.2011 15:00
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112021510"
-NextStop="201112020110"
-UpdateAll=dword:00000001
-Version=dword:000000e9
+NextStart="201112201420"
+NextStop="201112021510"
+UpdateAll=dword:00000000
+Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112021510"
-NextStop="201112021510"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
 interval="0010"
-start="1510"
+start="1420"
 startOnAConly=dword:00000001
 stop="1510"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112021955"
-NextStop="201112030605"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -226,8 +222,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112022000"
-NextStop="201112030600"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -237,50 +233,11 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x3652d2c2: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x3652d2c2:              DEBUG BUILD !
-0x3652d2c2:              TESTMODE !
-0x3652d2c2: Checking for Mutex (single instance allowed only)...
-0x3652d2c2: 	Created new mutex
-0x3652d2c2: Using launch time 02.12.2011, 15:00
-0x3652d2c2: CmdLine = 
-0x3652d2c2: 	argv[1]: 'AppRunAfterTimeChange'
-0x3652d2c2: Checking for valid date/time...
-0x3652d2c2: Date/Time after 11 2011. OK
-0x3652d2c2: got 'AppRunAfterTimeChange' signaled
-0x3652d2c2: Checking for valid date/time...
-0x3652d2c2: Date/Time after 11 2011. OK
-0x3652d2c2: Cleared 0 Tasker schedules
-0x3652d2c2: scheduleAllTasks: ClearAllSchedules for 0 tasks
-0x3652d2c2: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
-0x3652d2c2: 	calculating new schedule for '201112022000'...
-0x3652d2c2: 	interval is: 1d00h00m
-0x3652d2c2: 	schedule adjusted to '201112022000'
-0x3652d2c2: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
-0x3652d2c2: 	calculating new schedule for '201112020600'...
-0x3652d2c2: 	interval is: 1d00h00m
-0x3652d2c2: 	schedule adjusted to '201112030600'
-0x3652d2c2: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
-0x3652d2c2: 	calculating new schedule for '201112021955'...
-0x3652d2c2: 	interval is: 1d00h00m
-0x3652d2c2: 	schedule adjusted to '201112021955'
-0x3652d2c2: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
-0x3652d2c2: 	calculating new schedule for '201112020605'...
-0x3652d2c2: 	interval is: 1d00h00m
-0x3652d2c2: 	schedule adjusted to '201112030605'
-0x3652d2c2: Creating new Start Task schedule for '\Windows\notepad.exe' in Task3
-0x3652d2c2: 	calculating new schedule for '201112021510'...
-0x3652d2c2: 	interval is: 0d00h10m
-0x3652d2c2: 	schedule adjusted to '201112021510'
-0x3652d2c2: Creating new Kill Task schedule for '\Windows\notepad.exe' in Task3
-0x3652d2c2: 	calculating new schedule for '201112020110'...
-0x3652d2c2: 	interval is: 0d00h10m
-0x3652d2c2: 	schedule adjusted to '201112021510'
-0x3652d2c2: scheduleAllTasks: scheduled 0 new tasks
-0x3652d2c2: Scheduled 0 Tasks
-0x3652d2c2: 	ReleaseMutex...0x3652d2c2: OK
-0x3652d2c2: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
-0x3652d2c2: nclog goes down
+0xd5e96426: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
+0xd5e96426:              TESTMODE !
+0xd5e96426: Checking for Mutex (single instance allowed only)...
+0xd5e96426: 	Attached to existing mutex
+0xd5e96426: ................ Waiting for mutex release......
 ---------------TEST3  --------------- 
 .
 ++++++++++++++ TEST4 ++++++++++++++++ 
@@ -290,27 +247,27 @@ set time manually to 02.12.2011 19:52
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112021510"
+NextStart="201112201420"
 NextStop="201112021510"
-UpdateAll=dword:00000001
+UpdateAll=dword:00000000
 Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112021510"
-NextStop="201112021510"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
 interval="0010"
-start="1510"
+start="1420"
 startOnAConly=dword:00000001
 stop="1510"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112021955"
-NextStop="201112030605"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -320,8 +277,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112022000"
-NextStop="201112030600"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -331,12 +288,11 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0xb6551f12: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0xb6551f12:              DEBUG BUILD !
-0xb6551f12:              TESTMODE !
-0xb6551f12: Checking for Mutex (single instance allowed only)...
-0xb6551f12: 	Attached to existing mutex
-0xb6551f12: ................ Waiting for mutex release......
+0xb5e6ef96: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
+0xb5e6ef96:              TESTMODE !
+0xb5e6ef96: Checking for Mutex (single instance allowed only)...
+0xb5e6ef96: 	Attached to existing mutex
+0xb5e6ef96: ................ Waiting for mutex release......
 ---------------TEST4  --------------- 
 .
 ++++++++++++++ TEST5 ++++++++++++++++ 
@@ -347,27 +303,27 @@ set time manually to 02.12.2011 19:55
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112021510"
+NextStart="201112201420"
 NextStop="201112021510"
-UpdateAll=dword:00000001
+UpdateAll=dword:00000000
 Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112021510"
-NextStop="201112021510"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
 interval="0010"
-start="1510"
+start="1420"
 startOnAConly=dword:00000001
 stop="1510"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112021955"
-NextStop="201112030605"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -377,8 +333,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112022000"
-NextStop="201112030600"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -388,43 +344,42 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0xd68474ce: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0xd68474ce:              DEBUG BUILD !
-0xd68474ce:              TESTMODE !
-0xd68474ce: Checking for Mutex (single instance allowed only)...
-0xd68474ce: 	Attached to existing mutex
-0xd68474ce: ................ Waiting for mutex release......
+0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
+0x15e6ec7a:              TESTMODE !
+0x15e6ec7a: Checking for Mutex (single instance allowed only)...
+0x15e6ec7a: 	Attached to existing mutex
+0x15e6ec7a: ................ Waiting for mutex release......
 ---------------TEST5  --------------- 
 .
 ++++++++++++++ TEST6 ++++++++++++++++ 
 ------------------------------------- 
 ###	simulates a scheduler call at correct time  
 set time manually to 02.12.2011 20:00  
-	tasker.exe -s task1  
+	tasker.exe -s task3  
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112021510"
+NextStart="201112201420"
 NextStop="201112021510"
-UpdateAll=dword:00000001
+UpdateAll=dword:00000000
 Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112021510"
-NextStop="201112021510"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
 interval="0010"
-start="1510"
+start="1420"
 startOnAConly=dword:00000001
 stop="1510"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112021955"
-NextStop="201112030605"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -434,8 +389,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112022000"
-NextStop="201112030600"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -445,12 +400,11 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x164a1fc2: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x164a1fc2:              DEBUG BUILD !
-0x164a1fc2:              TESTMODE !
-0x164a1fc2: Checking for Mutex (single instance allowed only)...
-0x164a1fc2: 	Attached to existing mutex
-0x164a1fc2: ................ Waiting for mutex release......
+0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
+0x15e6ec7a:              TESTMODE !
+0x15e6ec7a: Checking for Mutex (single instance allowed only)...
+0x15e6ec7a: 	Attached to existing mutex
+0x15e6ec7a: ................ Waiting for mutex release......
 ---------------TEST6  --------------- 
 .
 ++++++++++++++ TEST7 ++++++++++++++++ 
@@ -461,27 +415,27 @@ set time manually to 03.12.2011 0600
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112021510"
+NextStart="201112201420"
 NextStop="201112021510"
-UpdateAll=dword:00000001
+UpdateAll=dword:00000000
 Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112021510"
-NextStop="201112021510"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
 interval="0010"
-start="1510"
+start="1420"
 startOnAConly=dword:00000001
 stop="1510"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112021955"
-NextStop="201112030605"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -491,8 +445,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112022000"
-NextStop="201112030600"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -502,12 +456,11 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x98d8c7d2: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x98d8c7d2:              DEBUG BUILD !
-0x98d8c7d2:              TESTMODE !
-0x98d8c7d2: Checking for Mutex (single instance allowed only)...
-0x98d8c7d2: 	Attached to existing mutex
-0x98d8c7d2: ................ Waiting for mutex release......
+0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
+0x15e6ec7a:              TESTMODE !
+0x15e6ec7a: Checking for Mutex (single instance allowed only)...
+0x15e6ec7a: 	Attached to existing mutex
+0x15e6ec7a: ................ Waiting for mutex release......
 ---------------TEST7  --------------- 
 .
 ++++++++++++++ TEST8 ++++++++++++++++ 
@@ -518,26 +471,27 @@ set time manually to 03.12.2011 0605
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
+NextStart="201112201420"
 NextStop="201112021510"
-UpdateAll=dword:00000001
+UpdateAll=dword:00000000
 Version=dword:000000e4
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
 [HKLM\Software\Tasker\Task3]
-NextStart="201112021510"
-NextStop="201112021510"
+NextStart="201112011510"
+NextStop="201112011510"
 active=dword:00000001
 args=""
 exe="\Windows\notepad.exe"
 interval="0010"
-start="0610"
+start="1420"
 startOnAConly=dword:00000001
 stop="1510"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112021955"
-NextStop="201112030605"
+NextStart="201112010605"
+NextStop="201112010605"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\tclient.exe"
@@ -547,8 +501,8 @@ startOnAConly=dword:00000001
 stop="0605"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112022000"
-NextStop="201112030600"
+NextStart="201112010600"
+NextStop="201112010600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -558,12 +512,11 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x36734cc6: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x36734cc6:              DEBUG BUILD !
-0x36734cc6:              TESTMODE !
-0x36734cc6: Checking for Mutex (single instance allowed only)...
-0x36734cc6: 	Attached to existing mutex
-0x36734cc6: ................ Waiting for mutex release......
+0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
+0x15e6ec7a:              TESTMODE !
+0x15e6ec7a: Checking for Mutex (single instance allowed only)...
+0x15e6ec7a: 	Attached to existing mutex
+0x15e6ec7a: ................ Waiting for mutex release......
 ---------------TEST8  --------------- 
 .
 ++++++++++++++ TEST9 ++++++++++++++++ 
@@ -576,310 +529,3 @@ set time manually to 04.12.2011 1500
 	tasker2.exe -k task2  				
 	tasker2.exe AppRunAfterTimeChange  
 ------------------------------------- 
-"############# Result:" 
-[HKLM\Software\Tasker]
-NextStop="201112050605"
-UpdateAll=dword:00000000
-Version=dword:000000e4
-dbglevel=dword:00000000
-maxDelay=dword:00000005
-
-[HKLM\Software\Tasker\Task3]
-NextStart="201112041510"
-NextStop="201112041510"
-active=dword:00000001
-args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1510"
-startOnAConly=dword:00000001
-stop="1510"
-
-[HKLM\Software\Tasker\Task2]
-NextStart="201112041955"
-NextStop="201112050605"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
-startOnAConly=dword:00000001
-stop="0605"
-
-[HKLM\Software\Tasker\Task1]
-NextStart="201112042000"
-NextStop="201112050600"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\Athena.exe"
-interval="2400"
-start="2000"
-startOnAConly=dword:00000001
-stop="0600"
-
-*************** LOG  **************** 
-0xb6551f12: ++++++++++++++++ Mutex released. +++++++++++++++
-0xb6551f12: Using launch time 04.12.2011, 15:00
-0xb6551f12: CmdLine = 
-0xb6551f12: 	argv[1]: 'AppRunAfterTimeChange'
-0xb6551f12: Checking for valid date/time...
-0xb6551f12: Date/Time after 11 2011. OK
-0xb6551f12: got 'AppRunAfterTimeChange' signaled
-0xb6551f12: Checking for valid date/time...
-0xb6551f12: Date/Time after 11 2011. OK
-0xb6551f12: Cleared 0 Tasker schedules
-0xb6551f12: scheduleAllTasks: ClearAllSchedules for 0 tasks
-0xb6551f12: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
-0xb6551f12: 	calculating new schedule for '201112042000'...
-0xb6551f12: 	interval is: 1d00h00m
-0xb6551f12: 	schedule adjusted to '201112042000'
-0xb6551f12: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
-0xb6551f12: 	calculating new schedule for '201112040600'...
-0xb6551f12: 	interval is: 1d00h00m
-0xb6551f12: 	schedule adjusted to '201112050600'
-0xb6551f12: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
-0xb6551f12: 	calculating new schedule for '201112041955'...
-0xb6551f12: 	interval is: 1d00h00m
-0xb6551f12: 	schedule adjusted to '201112041955'
-0xb6551f12: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
-0xb6551f12: 	calculating new schedule for '201112040605'...
-0xb6551f12: 	interval is: 1d00h00m
-0xb6551f12: 	schedule adjusted to '201112050605'
-0xb6551f12: Creating new Start Task schedule for '\Windows\notepad.exe' in Task3
-0xb6551f12: 	calculating new schedule for '201112040610'...
-0xb6551f12: 	interval is: 0d00h10m
-0xb6551f12: 	schedule adjusted to '201112041510'
-0xb6551f12: Creating new Kill Task schedule for '\Windows\notepad.exe' in Task3
-0xb6551f12: 	calculating new schedule for '201112041510'...
-0xb6551f12: 	interval is: 0d00h10m
-0xb6551f12: 	schedule adjusted to '201112041510'
-0x96575a86: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x96575a86:              DEBUG BUILD !
-0x96575a86:              TESTMODE !
-0x96575a86: Checking for Mutex (single instance allowed only)...
-0x96575a86: 	Attached to existing mutex
-0x96575a86: ................ Waiting for mutex release......
-0xb6551f12: scheduleAllTasks: scheduled 0 new tasks
-0xb6551f12: Scheduled 0 Tasks
-0xb6551f12: 	ReleaseMutex...0xb6551f12: OK
-0xb6551f12: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
-0xb6551f12: nclog goes down
-0xf910bfa2: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0xf910bfa2:              DEBUG BUILD !
-0xf910bfa2:              TESTMODE !
-0xf910bfa2: Checking for Mutex (single instance allowed only)...
-0xf910bfa2: 	Attached to existing mutex
-0xf910bfa2: ................ Waiting for mutex release......
-0xf6a80332: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0xf6a80332:              DEBUG BUILD !
-0xf6a80332:              TESTMODE !
-0xf6a80332: Checking for Mutex (single instance allowed only)...
-0xf6a80332: 	Attached to existing mutex
-0xf6a80332: ................ Waiting for mutex release......
-0xd68474ce: ++++++++++++++++ Mutex released. +++++++++++++++
-0xd68474ce: Using launch time 04.12.2011, 15:00
-0xd68474ce: CmdLine = 
-0xd68474ce: 	argv[1]: '-s'
-0xd68474ce: 	argv[2]: 'task2'
-0xd68474ce: Checking for valid date/time...
-0xd68474ce: Date/Time after 11 2011. OK
-0xd68474ce: Clearing all schedules for Task2 with '-s task2'
-0xd68474ce: 	ClearRunApp2: ...
-0xd68474ce: 	ClearRunApp2: returning with 0
-0xd68474ce: 	checking for delayed schedule...
-0xd68474ce: stStartTime = '201112041955', 0xd68474ce: current time = '201112041500'
-0xd68474ce: interval is: 1d00h00m
-0xd68474ce: 	delta is -295 minutes
-0xd68474ce: *** re-scheduled future task *** 
-0xd68474ce: 	ReleaseMutex...0xd68474ce: OK
-0xd68474ce: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
-0xd68474ce: nclog goes down
-0x164a1fc2: ++++++++++++++++ Mutex released. +++++++++++++++
-0x164a1fc2: Using launch time 04.12.2011, 15:00
-0x164a1fc2: CmdLine = 
-0x164a1fc2: 	argv[1]: '-s'
-0x164a1fc2: 	argv[2]: 'task1'
-0x164a1fc2: Checking for valid date/time...
-0x164a1fc2: Date/Time after 11 2011. OK
-0x164a1fc2: Clearing all schedules for Task1 with '-s task1'
-0x164a1fc2: 	ClearRunApp2: ...
-0x164a1fc2: 	ClearRunApp2: returning with 0
-0x164a1fc2: 	checking for delayed schedule...
-0x164a1fc2: stStartTime = '201112042000', 0x164a1fc2: current time = '201112041500'
-0x164a1fc2: interval is: 1d00h00m
-0x164a1fc2: 	delta is -300 minutes
-0x164a1fc2: *** re-scheduled future task *** 
-0x164a1fc2: 	ReleaseMutex...0x164a1fc2: OK
-0x164a1fc2: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
-0x164a1fc2: nclog goes down
-0x96847322: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x96847322:              DEBUG BUILD !
-0x96847322:              TESTMODE !
-0x16847346: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0x16847346:              DEBUG BUILD !
-
-0x16847346:              TESTMODE !
-for mutex release......
-0x16847346: Checking for Mutex (single instance allowed only)...
-0x16847346: 	Attached to existing mutex
-0x16847346: ................ Waiting for mutex release......
-0x36734cc6: ++++++++++++++++ Mutex released. +++++++++++++++
-0x36734cc6: Using launch time 04.12.2011, 15:00
-0x36734cc6: CmdLine = 
-0x36734cc6: 	argv[1]: '-k'
-0x36734cc6: 	argv[2]: 'task2'
-0x36734cc6: Checking for valid date/time...
-0x36734cc6: Date/Time after 11 2011. OK
-0x36734cc6: Clearing all schedules for Task2 with '-k task2'
-0x36734cc6: 	ClearRunApp2: ...
-0x36734cc6: 	ClearRunApp2: returning with 0
-0x36734cc6: 	checking for delayed schedule...
-0x36734cc6: stStopTime = '201112040605', 0x36734cc6: current time = '201112041500'
-0x36734cc6: interval is: 1d00h00m
-0x36734cc6: 	delta is 535 minutes
-0x36734cc6: 	max allowed diff for delayed schedule recognition is plus 5
-0x36734cc6: *** delayed schedule *** recognized
-0x36734cc6: +++ createDelayedNextSchedule: delayed schedule recalculation...
-0x36734cc6: 	calculating new schedule for '201112040605'...
-0x36734cc6: 	interval is: 1d00h00m
-0x36734cc6: 	schedule adjusted to '201112050605'
-0x36734cc6: --- createDelayedNextSchedule: delayed schedule recalculation finished.
-0x36734cc6: Creating new schedule for '\Program Files\INcontrol\Athena\tclient.exe' in Task2
-0x36734cc6: Exec/Kill skipped as this is a delayed schedule
-0x36734cc6: 	ReleaseMutex...0x36734cc6: OK
-0x36734cc6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
-0x36734cc6: nclog goes down
----------------TEST9  --------------- 
-.
-++++++++++++++ TEST10 ++++++++++++++++ 
-------------------------------------- 
-###	simululates a delayed call  
-set time manually to 04.12.2011 0000  
-	tasker2.exe AppRunAfterTimeChange  
-------------------------------------- 
-"############# Result:" 
-[HKLM\Software\Tasker]
-NextStart="201112041510"
-NextStop="201112040010"
-UpdateAll=dword:00000000
-Version=dword:000000e4
-dbglevel=dword:00000000
-maxDelay=dword:00000005
-
-[HKLM\Software\Tasker\Task3]
-NextStart="201112041510"
-NextStop="201112041510"
-active=dword:00000001
-args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1510"
-startOnAConly=dword:00000001
-stop="0010"
-
-[HKLM\Software\Tasker\Task2]
-NextStart="201112041955"
-NextStop="201112050605"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
-startOnAConly=dword:00000001
-stop="0605"
-
-[HKLM\Software\Tasker\Task1]
-NextStart="201112042000"
-NextStop="201112050600"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\Athena.exe"
-interval="2400"
-start="2000"
-startOnAConly=dword:00000001
-stop="0600"
-
-*************** LOG  **************** 
-0x96575a86: ++++++++++++++++ Mutex released. +++++++++++++++
-0x96575a86: Using launch time 04.12.2011, 00:00
-0x96575a86: CmdLine = 
-0x96575a86: 	argv[1]: '-s'
-0x96575a86: 	argv[2]: 'task2'
-0x96575a86: Checking for valid date/time...
-0x96575a86: Date/Time after 11 2011. OK
-0x96575a86: Clearing all schedules for Task2 with '-s task2'
-0x96575a86: 	ClearRunApp2: ...
-0x96575a86: 	ClearRunApp2: returning with 0
-0x96575a86: 	checking for delayed schedule...
-0x96575a86: stStartTime = '201112041955', 0x96575a86: current time = '201112040000'
-0x96575a86: interval is: 1d00h00m
-0x96575a86: 	delta is -1195 minutes
-0x96575a86: *** re-scheduled future task *** 
-0x96575a86: 	ReleaseMutex...0x96575a86: OK
-0x96575a86: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
-0x96575a86: nclog goes down
-0xd648bbae: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0xd648bbae:              DEBUG BUILD !
-0xd648bbae:              TESTMODE !
-0xd648bbae: Checking for Mutex (single instance allowed only)...
-0xd648bbae: 	Attached to existing mutex
-0xd648bbae: ................ Waiting for mutex release......
----------------TEST10  --------------- 
-.
-++++++++++++++ TEST10 ++++++++++++++++ 
-------------------------------------- 
-###	simululates a past time change  
-set time manually to 01.12.2011 0100  
-	tasker2.exe AppRunAfterTimeChange  
-------------------------------------- 
-"############# Result:" 
-[HKLM\Software\Tasker]
-NextStart="201112041510"
-NextStop="201112040010"
-UpdateAll=dword:00000000
-Version=dword:000000e4
-dbglevel=dword:00000000
-maxDelay=dword:00000005
-
-[HKLM\Software\Tasker\Task3]
-NextStart="201112041510"
-NextStop="201112041510"
-active=dword:00000001
-args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1510"
-startOnAConly=dword:00000001
-stop="0010"
-
-[HKLM\Software\Tasker\Task2]
-NextStart="201112041955"
-NextStop="201112050605"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
-startOnAConly=dword:00000001
-stop="0605"
-
-[HKLM\Software\Tasker\Task1]
-NextStart="201112042000"
-NextStop="201112050600"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\Athena.exe"
-interval="2400"
-start="2000"
-startOnAConly=dword:00000001
-stop="0600"
-
-*************** LOG  **************** 
-0xf62c5b52: ++++++++++++++++ Tasker v233 started +++++++++++++++++++
-0xf62c5b52:              DEBUG BUILD !
-0xf62c5b52:              TESTMODE !
-0xf62c5b52: Checking for Mutex (single instance allowed only)...
-0xf62c5b52: 	Attached to existing mutex
-0xf62c5b52: ................ Waiting for mutex release......
----------------TEST10  --------------- 
-.
