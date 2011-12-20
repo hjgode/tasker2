@@ -76,9 +76,27 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		dumpST(st);
 
-		if(iRet==0)
+		if(iRet==0){
 			if(!SetLocalTime(&st))
 				iRet = GetLastError();
+			else{
+				//read time back and test
+				//seems that WM does not change the time iimediately
+				SYSTEMTIME stCurr;
+				GetLocalTime(&stCurr);
+				int iCount=0;
+				int iMax=10;
+				do{
+					Sleep(1000);
+					GetSystemTime(&stCurr);
+					iCount++;
+				}while( stCurr.wYear==st.wYear && stCurr.wMonth==st.wMonth && stCurr.wDay==st.wDay 
+					&& stCurr.wHour==st.wHour && stCurr.wMinute==st.wMinute 
+					&& iCount<iMax);
+				if(iCount==iMax)
+					iRet=0xBADCAB1E;
+			}
+		}
 	}
 	if(iRet!=0)
 		MessageBeep(MB_ICONERROR);

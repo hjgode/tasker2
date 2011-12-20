@@ -7,6 +7,8 @@
 
 //CTask _ctasks[10];
 
+extern struct tm g_tmCurrentStartTime;
+
 TASK _Tasks[iMaxTasks];
 int iTaskCount=0;
 
@@ -48,6 +50,31 @@ int getSTfromString(SYSTEMTIME* sysTime /*in,out*/, TCHAR* sStr /*in*/){
 	sysTime->wHour=iHour;
 	sysTime->wMinute=iMinute;
 	if(_dbgLevel>4) nclog(L"getSTfromString: return with '%s'\n", sStr);
+	return 0;
+}
+
+///convert a HourMinute string (ie "1423) to a systemtime
+int getTMfromString(struct tm* tmTime /*in,out*/, TCHAR* sStr /*in*/){
+
+	if(_dbgLevel>4) 
+		nclog(L"getTMfromString: ...\n");
+	int iRet=-1;
+	if(wcslen(sStr)!=4){
+		if(_dbgLevel>4) nclog(L"getTMfromString: failure, string len not equal to 4\n");
+		return -1;	//string to short
+	}
+	//extern SYSTEMTIME g_CurrentStartTime;
+	memcpy(tmTime, &g_tmCurrentStartTime, sizeof(struct tm));
+	//GetLocalTime(tmTime); //v2.28
+	int iTime = _wtoi(sStr);
+	//v2.30: removed testing if 0
+	//if(iTime == 0)
+	//	return -2;	//string not a number
+	int iHour = iTime/100;
+	int iMinute = iTime % 100;
+	tmTime->tm_hour=iHour;
+	tmTime->tm_min=iMinute;
+	if(_dbgLevel>4) nclog(L"getTMfromString: return with '%s'\n", sStr);
 	return 0;
 }
 
@@ -163,6 +190,26 @@ int getLongStrFromSysTime(SYSTEMTIME sysTime, TCHAR* sStr){
 
 }
 
+int getLongStrFromTM(struct tm tmTime, TCHAR* sStr){
+	int iRet=-1;
+	wsprintf(sStr, L"000000000000");
+	int iSize = wcslen(sStr);
+	if(iSize != 12){
+		if(_dbgLevel>4) nclog(L"getLongStrFromTM: str len not equal 12\n");
+		return -1;	//string to short
+	}
+	TCHAR sTemp[12+1];
+	wsprintf(sTemp, L"%04i%02i%02i%02i%02i", 
+		(tmTime.tm_year)+1900 ,
+		(tmTime.tm_mon)+1,
+		tmTime.tm_mday,
+		tmTime.tm_hour, 
+		tmTime.tm_min);
+	wsprintf(sStr, L"%s", sTemp);
+	if(_dbgLevel>4) nclog(L"getLongStrFromTM: returning with '%s'\n", sStr);
+	return 0; //no Error
+}
+
 TCHAR* getLongStrFromTM(struct tm tmTime){
 		TCHAR* sTemp = new TCHAR[12+1];
 		wsprintf(sTemp, L"%04i%02i%02i%02i%02i", 
@@ -186,7 +233,37 @@ TCHAR* getLongStrFromSysTime2(SYSTEMTIME sysTime){
 		wsprintf(sTemp, L"%s", sTemp);
 		return sTemp; //no Error
 }
+//normalize a tm, ie, if hours is > 24
+struct tm fixTM(struct tm tmIn){
+	TCHAR szTemp[13]; wsprintf(szTemp, L"000000000000");
+	getLongStrFromTM(tmIn, szTemp);
+	if(_dbgLevel>4) 
+		nclog(L"fixTM: started with '%s'\n", szTemp);
 
+	short shMin=tmIn.tm_min;
+	//minutes above 60? add to hours
+	if(shMin>=60){
+		tmIn.tm_hour+=shMin/60;
+		shMin=shMin%60;
+	}
+	short shHour = tmIn.tm_hour;
+	//hours above 24? add to days
+	if(shHour>24)
+	{
+		tmIn.tm_mday+=shHour/24;
+		shHour=shHour%24;
+	}
+
+	struct tm tmReturn;
+	memcpy(&tmReturn, &tmIn, sizeof(struct tm));
+
+	tmReturn.tm_min=shMin;
+	tmReturn.tm_hour=shHour;
+
+	getLongStrFromTM(tmReturn, szTemp);
+	if(_dbgLevel>4) nclog(L"fixTM: returning with '%s'\n", szTemp);
+	return tmReturn;
+}
 //normalize a SYSTEMTIME, ie, if hours is > 24
 SYSTEMTIME fixSystemTime(SYSTEMTIME st){
 	TCHAR szTemp[13]; wsprintf(szTemp, L"000000000000");
@@ -287,7 +364,9 @@ exit_regReadDbgLevel:
 int regReadKeys(){
 	int iRet = 0;
 	DWORD dwDbgLevel=regReadDbgLevel();
-	
+#if DEBUG
+	dwDbgLevel=5;
+#endif
 	TCHAR subkey[MAX_PATH];
 	memset(&subkey, 0, sizeof(TCHAR)*MAX_PATH);
 	wsprintf(subkey, L"%s", _szRegKey);
@@ -403,8 +482,8 @@ int regReadKeys(){
 			if(_dbgLevel>4) nclog(L"\tregReadKeys: error in read 'args' entry!\n");
 			wsprintf(_Tasks[i].szArgs, L"");
 		}
-
-		SYSTEMTIME st;
+//####### read times
+		struct tm tmTemp;
 		//change for v2.2: always only read start/stop values and use NextStart and NextStop only as info
 		dwSize=sizeof(TCHAR)*MAX_PATH;
 		dwType=REG_SZ;
@@ -412,9 +491,9 @@ int regReadKeys(){
 		if(rc==0){
 			if(_dbgLevel>4) 
 				nclog(L"\tregReadKeys: 'start' entry is '%s'\n", szVal);
-			iRes=getSTfromString(&st, szVal);
+			iRes=getTMfromString(&tmTemp, szVal);
 			if(iRes==0){
-				_Tasks[i].stStartTime=fixSystemTime(st);
+				_Tasks[i].stStartTime=fixTM(tmTemp);
 				if(_dbgLevel>4) 
 					nclog(L"\tregReadKeys: task.stStartTime entry set\n");
 			}
@@ -440,11 +519,11 @@ int regReadKeys(){
 		rc=RegQueryValueEx(hKey, L"stop", 0, &dwType, (LPBYTE) &szVal, &dwSize);
 		if(rc==0){
 			if(_dbgLevel>4) nclog(L"\tregReadKeys: 'stop' entry is '%s'\n", szVal);
-			iRes=getSTfromString(&st, szVal);
+			iRes=getTMfromString(&tmTemp, szVal);
 			if(iRes==0){
 				if(_dbgLevel>4) 
 					nclog(L"\tregReadKeys: task.stStopTime entry set\n");
-				_Tasks[i].stStopTime=fixSystemTime(st);
+				_Tasks[i].stStopTime=fixTM(tmTemp);
 			}
 			else{
 				_Tasks[i].iActive = 0;
@@ -468,17 +547,17 @@ int regReadKeys(){
 		if(rc==0){
 			if(_dbgLevel>4) 
 				nclog(L"\tregReadKeys: 'interval' entry is '%s'\n", szVal);
-			iRes=getSTfromString(&st, szVal);
+			iRes=getTMfromString(&tmTemp, szVal);
 			if(iRes==0){
 				if(_dbgLevel>4) 
-					nclog(L"\tregReadKeys: 'interval' using %02i:%02i\n", st.wHour, st.wMinute);
-				if(st.wHour==0 && st.wMinute==0 && st.wDay==0){ //interval 000000 not supported
+					nclog(L"\tregReadKeys: 'interval' using %02i:%02i\n", tmTemp.tm_hour, tmTemp.tm_min);
+				if(tmTemp.tm_hour==0 && tmTemp.tm_min==0 && tmTemp.tm_mday==0){ //interval 000000 not supported
 					_Tasks[i].iActive = 0;
 					nclog(L"interval = 0 is NOT supported\n");
 					iRet=-99; //can not read exe entry
 					goto exit_readallkeys;
 				}
-				_Tasks[i].stDiffTime=st;
+				_Tasks[i].stDiffTime=tmTemp;
 			}
 			else{
 				if(_dbgLevel>4) nclog(L"\tregReadKeys: error in read 'interval' entry. Using Active=FALSE\n");
@@ -621,7 +700,7 @@ int regSetStartTime(int iTask, struct tm pStartTime){
 
 	rc = RegSetValueEx(hKey, L"start", 0, dwType, (LPBYTE)szVal, dwSize);
 	if(rc == 0)
-		DEBUGMSG(1, (L"regSetStartTime: OK. Debug Level is %s\n", szVal));
+		DEBUGMSG(1, (L"regSetStartTime: OK. START is %s\n", szVal));
 	else{
 		DEBUGMSG(1, (L"regSetStartTime: FAILED %i\n", rc));
 	}
@@ -683,7 +762,7 @@ int regSetStartTime(int iTask, SYSTEMTIME pStartTime){
 
 	rc = RegSetValueEx(hKey, L"start", 0, dwType, (LPBYTE)szVal, dwSize);
 	if(rc == 0)
-		DEBUGMSG(1, (L"regSetStartTime: OK. Debug Level is %s\n", szVal));
+		DEBUGMSG(1, (L"regSetStartTime: OK. START is %s\n", szVal));
 	else{
 		DEBUGMSG(1, (L"regSetStartTime: FAILED %i\n", rc));
 	}
@@ -744,7 +823,7 @@ int regSetStopTime(int iTask, struct tm pStopTime){
 
 	rc = RegSetValueEx(hKey, L"start", 0, dwType, (LPBYTE)szVal, dwSize);
 	if(rc == 0)
-		DEBUGMSG(1, (L"regSetStopTime: OK. Debug Level is %s\n", szVal));
+		DEBUGMSG(1, (L"regSetStopTime: OK. START is %s\n", szVal));
 	else{
 		DEBUGMSG(1, (L"regSetStopTime: FAILED %i\n", rc));
 	}
@@ -807,7 +886,7 @@ int regSetStopTime(int iTask, SYSTEMTIME pStopTime){
 
 	rc = RegSetValueEx(hKey, L"stop", 0, dwType, (LPBYTE)szVal, dwSize);
 	if(rc == 0)
-		DEBUGMSG(1, (L"regSetStopTime: OK. Debug Level is %s\n", szVal));
+		DEBUGMSG(1, (L"regSetStopTime: OK. STOP is %s\n", szVal));
 	else{
 		DEBUGMSG(1, (L"regSetStopTime: FAILED %i\n", rc));
 	}
@@ -897,7 +976,7 @@ void setUpdateAll()
 	rc = RegSetValueEx(	hKey, L"UpdateAll", NULL, dwType, (LPBYTE) &dwVal, dwSize); 
 
 	if(rc == 0)
-		DEBUGMSG(1, (L"setUpdateAll: OK. Debug Level is %i\n", dwVal));
+		DEBUGMSG(1, (L"setUpdateAll: OK. UpdateAll is %i\n", dwVal));
 	else
 		DEBUGMSG(1, (L"setUpdateAll: FAILED %i\n", rc));
 
@@ -929,7 +1008,7 @@ void unsetUpdateAll()
 	rc = RegSetValueEx(	hKey, L"UpdateAll", NULL, dwType, (LPBYTE) &dwVal, dwSize); 
 
 	if(rc == 0)
-		DEBUGMSG(1, (L"unsetUpdateAll: OK. Debug Level is %i\n", dwVal));
+		DEBUGMSG(1, (L"unsetUpdateAll: OK. UpdateAll is %i\n", dwVal));
 	else
 		DEBUGMSG(1, (L"unsetUpdateAll: FAILED %i\n", rc));
 
@@ -993,7 +1072,7 @@ int writeMaxDelay(UINT uDelay)
 	rc = RegSetValueEx(	hKey, L"maxDelay", NULL, dwType, (LPBYTE) &dwVal, dwSize); 
 
 	if(rc == 0)
-		DEBUGMSG(1, (L"writeMaxDelay: OK. Debug Level is %i\n", dwVal));
+		DEBUGMSG(1, (L"writeMaxDelay: OK. maxDelay is %i\n", dwVal));
 	else{
 		DEBUGMSG(1, (L"writeMaxDelay: FAILED %i\n", rc));
 		iRes=-2;
