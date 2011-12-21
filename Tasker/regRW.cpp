@@ -27,32 +27,6 @@ int getTaskNumber(TCHAR* _sTask){
 	return iRet-1;
 }
 
-
-///convert a HourMinute string (ie "1423) to a systemtime
-int getSTfromString(SYSTEMTIME* sysTime /*in,out*/, TCHAR* sStr /*in*/){
-
-	if(_dbgLevel>4) 
-		nclog(L"getSTfromString: ...\n");
-	int iRet=-1;
-	if(wcslen(sStr)!=4){
-		if(_dbgLevel>4) nclog(L"getSTfromString: failure, string len not equal to 4\n");
-		return -1;	//string to short
-	}
-	extern SYSTEMTIME g_CurrentStartTime;
-	memcpy(sysTime, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	//GetLocalTime(sysTime); //v2.28
-	int iTime = _wtoi(sStr);
-	//v2.30: removed testing if 0
-	//if(iTime == 0)
-	//	return -2;	//string not a number
-	int iHour = iTime/100;
-	int iMinute = iTime % 100;
-	sysTime->wHour=iHour;
-	sysTime->wMinute=iMinute;
-	if(_dbgLevel>4) nclog(L"getSTfromString: return with '%s'\n", sStr);
-	return 0;
-}
-
 ///convert a HourMinute string (ie "1423) to a systemtime
 int getTMfromString(struct tm* tmTime /*in,out*/, TCHAR* sStr /*in*/){
 
@@ -119,77 +93,6 @@ int getStrFromSysTime(SYSTEMTIME sysTime, TCHAR sStr[4+1]){
 	}
 }
 
-///convert a YearMonthDayHourMinute string (ie "201110201423) to a systemtime
-int getSTfromLongString(SYSTEMTIME * sysTime /*in,out*/, TCHAR* sStr /*in*/){
-	int iRet=-1;
-	if(wcslen(sStr) != 12){
-		return -1;	//string to short
-	}
-	extern SYSTEMTIME g_CurrentStartTime;
-	memcpy(sysTime, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	//GetLocalTime(sysTime); //v2.28
-	//
-	TCHAR* pStr = sStr;
-	TCHAR sYear[MAX_PATH];
-	int iYear = -1;
-	TCHAR sMonth[MAX_PATH];
-	int iMonth = -1;
-	TCHAR sDay[MAX_PATH];
-	int iDay = -1;
-	TCHAR sHour[MAX_PATH];
-	int iHour = -1;
-	TCHAR sMinute[MAX_PATH];
-	int iMinute = -1;
-
-	wcsncpy(sYear, pStr, 4);	pStr+=4;
-	wcsncpy(sMonth, pStr, 2);		pStr+=2;
-	wcsncpy(sDay, pStr, 2);	pStr+=2;
-	wcsncpy(sHour, pStr, 2);	pStr+=2;
-	wcsncpy(sMinute, pStr, 2);	pStr+=4;
-
-	if((iYear=_wtoi(sYear))<0)
-		return -11;
-	if((iMonth=_wtoi(sMonth))<0)
-		return -12;
-	if((iDay=_wtoi(sDay))<0)
-		return -13;
-	if((iHour=_wtoi(sHour))<0)
-		return -14;
-	if((iMinute=_wtoi(sMinute))<0)
-		return -15;
-	sysTime->wYear=iYear;
-	sysTime->wMonth=iMonth;
-	sysTime->wDay=iDay;
-	sysTime->wHour=iHour;
-	sysTime->wMinute=iMinute;
-	sysTime->wSecond=0;
-	sysTime->wMilliseconds=0;
-
-	return 0;
-}
-
-///convert a systemtime to a YearMonthDayHourMinute string (ie "201112241423")
-int getLongStrFromSysTime(SYSTEMTIME sysTime, TCHAR* sStr){
-	int iRet=-1;
-	wsprintf(sStr, L"000000000000");
-	int iSize = wcslen(sStr);
-	if(iSize != 12){
-		if(_dbgLevel>4) nclog(L"getLongStrFromSysTime: str len not equal 12\n");
-		return -1;	//string to short
-	}
-	TCHAR sTemp[12+1];
-	wsprintf(sTemp, L"%04i%02i%02i%02i%02i", 
-		sysTime.wYear,
-		sysTime.wMonth,
-		sysTime.wDay,
-		sysTime.wHour, 
-		sysTime.wMinute);
-	wsprintf(sStr, L"%s", sTemp);
-	if(_dbgLevel>4) nclog(L"getLongStrFromSysTime: returning with '%s'\n", sStr);
-	return 0; //no Error
-
-}
-
 int getLongStrFromTM(struct tm tmTime, TCHAR* sStr){
 	int iRet=-1;
 	wsprintf(sStr, L"000000000000");
@@ -222,17 +125,6 @@ TCHAR* getLongStrFromTM(struct tm tmTime){
 		return sTemp; //no Error
 }
 
-TCHAR* getLongStrFromSysTime2(SYSTEMTIME sysTime){
-		TCHAR* sTemp = new TCHAR[12+1];
-		wsprintf(sTemp, L"%04i%02i%02i%02i%02i", 
-			sysTime.wYear,
-			sysTime.wMonth,
-			sysTime.wDay,
-			sysTime.wHour, 
-			sysTime.wMinute);
-		wsprintf(sTemp, L"%s", sTemp);
-		return sTemp; //no Error
-}
 //normalize a tm, ie, if hours is > 24
 struct tm fixTM(struct tm tmIn){
 	TCHAR szTemp[13]; wsprintf(szTemp, L"000000000000");
@@ -263,37 +155,6 @@ struct tm fixTM(struct tm tmIn){
 	getLongStrFromTM(tmReturn, szTemp);
 	if(_dbgLevel>4) nclog(L"fixTM: returning with '%s'\n", szTemp);
 	return tmReturn;
-}
-//normalize a SYSTEMTIME, ie, if hours is > 24
-SYSTEMTIME fixSystemTime(SYSTEMTIME st){
-	TCHAR szTemp[13]; wsprintf(szTemp, L"000000000000");
-	getLongStrFromSysTime(st, szTemp);
-	if(_dbgLevel>4) 
-		nclog(L"fixSystemTime: started with '%s'\n", szTemp);
-
-	short shMin=st.wMinute;
-	//minutes above 60? add to hours
-	if(shMin>=60){
-		st.wHour+=shMin/60;
-		shMin=shMin%60;
-	}
-	short shHour = st.wHour;
-	//hours above 24? add to days
-	if(shHour>24)
-	{
-		st.wDay+=shHour/24;
-		shHour=shHour%24;
-	}
-
-	SYSTEMTIME stReturn;
-	memcpy(&stReturn, &st, sizeof(SYSTEMTIME));
-
-	stReturn.wMinute=shMin;
-	stReturn.wHour=shHour;
-
-	getLongStrFromSysTime(stReturn, szTemp);
-	if(_dbgLevel>4) nclog(L"fixSystemTime: returning with '%s'\n", szTemp);
-	return stReturn;
 }
 
 int regWriteDbgLevel(DWORD dwDbgLevel)
@@ -731,67 +592,6 @@ exit_regSetStartTime2:
 	return iRet;
 }
 
-int regSetStartTime(int iTask, SYSTEMTIME pStartTime){
-	TCHAR subkey[MAX_PATH];
-	TCHAR szVal[MAX_PATH];
-	DWORD dwSize=0;
-	DWORD dwType=REG_SZ;
-	HKEY hKey=NULL;
-
-	//convert systemtime to HHmm
-	TCHAR* szHM = new TCHAR[4+1];
-	szHM = (TCHAR*)memset(szHM, 0, 4+1);
-	wsprintf(szHM, L"0000");
-	int iRet=0;
-
-	if((iRet=getStrFromSysTime(pStartTime, szHM))!=0)
-		goto exit_regSetStartTime;
-
-	//prepare subkey to read
-	wsprintf(subkey, L"%s\\%s", _szRegKey, _szRegSubKeys[iTask]);
-	LONG rc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, subkey, 0, KEY_SET_VALUE | KEY_QUERY_VALUE, &hKey);
-	if (rc != ERROR_SUCCESS){
-		nclog(L"regSetStartTime: FATAL cannot open key '%s': %u\n", subkey, rc);
-		iRet=-1;
-		goto exit_regSetStartTime;
-	}
-	//change for v2.2: always only read start/start values and use NextStart and NextStart only as info
-	wsprintf(szVal, L"%s", szHM);
-	dwSize=wcslen(szHM)*sizeof(TCHAR);
-	dwType=REG_SZ;
-
-	rc = RegSetValueEx(hKey, L"start", 0, dwType, (LPBYTE)szVal, dwSize);
-	if(rc == 0)
-		DEBUGMSG(1, (L"regSetStartTime: OK. START is %s\n", szVal));
-	else{
-		DEBUGMSG(1, (L"regSetStartTime: FAILED %i\n", rc));
-	}
-
-	TCHAR sNextStart[13]; 
-	wsprintf(sNextStart, L"000000000000");
-	if(getLongStrFromSysTime(pStartTime, sNextStart)==0){
-		wsprintf(szVal, L"%s", sNextStart);
-		dwSize=sizeof(TCHAR)*wcslen(szVal);
-		rc = RegSetValueEx(hKey, L"NextStart", 0, dwType, (LPBYTE)szVal, dwSize);
-		if(rc == 0){
-			DEBUGMSG(1,(L"regSetStartTime: changed NextStart reg for task%i to '%s'\n", iTask+1, sNextStart));
-			iRet=10;
-		}
-		else
-			DEBUGMSG(1, (L"regSetStartTime: changing start reg for task%i to '%s' Failed: %i\n", iTask+1, szHM, rc));
-	}
-	else{
-		DEBUGMSG(1, (L"regSetStartTime: -getLongStrFromSysTime() failed\n"));
-	}
-
-exit_regSetStartTime:
-	if(hKey!=NULL)
-		RegFlushKey(hKey);
-	RegCloseKey(hKey);
-	delete(szHM);
-	return iRet;
-}
-
 int regSetStopTime(int iTask, struct tm pStopTime){
 	TCHAR subkey[MAX_PATH];
 	TCHAR szVal[MAX_PATH];
@@ -854,105 +654,6 @@ exit_regSetStopTime2:
 	return iRet;
 
 }
-
-int regSetStopTime(int iTask, SYSTEMTIME pStopTime){
-	TCHAR subkey[MAX_PATH];
-	TCHAR szVal[MAX_PATH];
-	DWORD dwSize=0;
-	DWORD dwType=REG_SZ;
-	HKEY hKey=NULL;
-
-	//convert systemtime to HHmm
-	TCHAR* szHM = new TCHAR[4+1];
-	szHM = (TCHAR*)memset(szHM, 0, 4+1);
-	wsprintf(szHM, L"0000");
-	int iRet=0;
-
-	if((iRet=getStrFromSysTime(pStopTime, szHM))!=0)
-		goto exit_regSetStopTime;
-
-	//prepare subkey to read
-	wsprintf(subkey, L"%s\\%s", _szRegKey, _szRegSubKeys[iTask]);
-	LONG rc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, subkey, 0, KEY_SET_VALUE | KEY_QUERY_VALUE, &hKey);
-	if (rc != ERROR_SUCCESS){
-		nclog(L"regSetStopTime: FATAL cannot open key '%s': %u\n", subkey, rc);
-		iRet=-1;
-		goto exit_regSetStopTime;
-	}
-	//change for v2.2: always only read start/stop values and use NextStart and NextStop only as info
-	wsprintf(szVal, L"%s", szHM);
-	dwSize=wcslen(szHM)*sizeof(TCHAR);
-	dwType=REG_SZ;
-
-	rc = RegSetValueEx(hKey, L"stop", 0, dwType, (LPBYTE)szVal, dwSize);
-	if(rc == 0)
-		DEBUGMSG(1, (L"regSetStopTime: OK. STOP is %s\n", szVal));
-	else{
-		DEBUGMSG(1, (L"regSetStopTime: FAILED %i\n", rc));
-	}
-
-	TCHAR sNextStop[13]; 
-	wsprintf(sNextStop, L"000000000000");
-	if(getLongStrFromSysTime(pStopTime, sNextStop)==0){
-		wsprintf(szVal, L"%s", sNextStop);
-		dwSize=sizeof(TCHAR)*wcslen(szVal);
-		rc = RegSetValueEx(hKey, L"NextStop", 0, dwType, (LPBYTE)szVal, dwSize);
-		if(rc == 0){
-			DEBUGMSG(1,(L"regSetStopTime: changed NextStop reg for task%i to '%s'\n", iTask+1, sNextStop));
-			iRet=10;
-		}
-		else
-			DEBUGMSG(1, (L"regSetStopTime: changing stop reg for task%i to '%s' Failed: %i\n", iTask+1, szHM, rc));
-	}
-	else{
-		DEBUGMSG(1, (L"regSetStopTime: -getLongStrFromSysTime() failed\n"));
-	}
-
-exit_regSetStopTime:
-	if(hKey!=NULL)
-		RegFlushKey(hKey);
-	RegCloseKey(hKey);
-	delete(szHM);
-	return iRet;
-}
-
-//BOOL getUpdateAll()
-//{
-//	int iRes=0;
-//	DWORD dwVal=0, dwSize=sizeof(DWORD);
-//	DWORD dwType = REG_DWORD;
-//	DWORD dwReturn=FALSE;
-//	TCHAR subkey[MAX_PATH];
-//	//prepare subkey to read
-//	HKEY hKey=NULL;
-//	wsprintf(subkey, L"%s", _szRegKey);
-//	LONG rc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, subkey, 0, KEY_QUERY_VALUE, &hKey);
-//	if (rc != ERROR_SUCCESS){
-//		nclog(L"getUpdateAll: FATAL cannot open key '%s': %u. Using default 0\n", subkey, rc);
-//		dwReturn=FALSE;
-//		goto exit_getUpdateAll;
-//	}
-//	//read value
-//	rc = RegQueryValueEx(hKey, L"UpdateAll", NULL, &dwType, (LPBYTE) &dwVal, &dwSize);
-//
-//	if(rc == 0){
-//		DEBUGMSG(1, (L"getUpdateAll: OK. Version is %u\n", dwVal));
-//		if(dwVal)
-//			dwReturn=TRUE;
-//		else
-//			dwReturn=FALSE;
-//	}
-//	else{
-//		dwReturn=FALSE;
-//		DEBUGMSG(1, (L"getUpdateAll: FAILED %u\n", rc));
-//	}
-//exit_getUpdateAll:
-//	RegCloseKey(hKey);
-//
-//	setUpdateAll();
-//
-//	return dwReturn;
-//}
 
 void setUpdateAll()
 {
