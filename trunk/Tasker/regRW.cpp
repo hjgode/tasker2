@@ -18,6 +18,12 @@ int _dbgLevel = 0;
 static TCHAR* _szRegKey = L"Software\\tasker";
 TCHAR _szRegSubKeys[10][MAX_PATH];
 
+//--------------------------------------------------------------------
+// Function name  : getTaskNumber
+// Description    : extract the task number from reg based taskX string 
+// Argument       : TCHAR* _sTask
+// Return type    : the task number
+//--------------------------------------------------------------------
 int getTaskNumber(TCHAR* _sTask){
 	TCHAR* sTemp = new TCHAR[wcslen(_sTask)+1];
 	int iPos = wcslen(_sTask) - wcslen(L"Task");
@@ -28,6 +34,13 @@ int getTaskNumber(TCHAR* _sTask){
 }
 
 ///convert a HourMinute string (ie "1423) to a systemtime
+//--------------------------------------------------------------------
+// Function name  : getTMfromString
+// Description    : convert a 'hhmm' string to a struct tm value
+// Argument       : struct tm* tmTime /*in,out*/, the var to store the value
+// Argument       : TCHAR* sStr, the string to convert 
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int getTMfromString(struct tm* tmTime /*in,out*/, TCHAR* sStr /*in*/){
 
 	if(_dbgLevel>4) 
@@ -52,6 +65,13 @@ int getTMfromString(struct tm* tmTime /*in,out*/, TCHAR* sStr /*in*/){
 	return 0;
 }
 
+//--------------------------------------------------------------------
+// Function name  : getStrFromTM
+// Description    : convert a struct tm value to a 'hhmm' string 
+// Argument       : struct tm tmTime /*in*/, the var to convert
+// Argument       : TCHAR* sStr, the string to return 
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int getStrFromTM(struct tm sysTime, TCHAR sStr[4+1]){
 	if(_dbgLevel>4) 
 		nclog(L"getStrFromTM: ...\n");
@@ -72,27 +92,13 @@ int getStrFromTM(struct tm sysTime, TCHAR sStr[4+1]){
 	}
 }
 
-///convert a systemtime to a HourMinute string (ie "1423")
-int getStrFromSysTime(SYSTEMTIME sysTime, TCHAR sStr[4+1]){
-	if(_dbgLevel>4) 
-		nclog(L"getSTfromString2: ...\n");
-	int iRet=-1;
-	if(wcslen(sStr)!=4){
-		if(_dbgLevel>4) nclog(L"getSTfromString2: failure, string len not equal to 4\n");
-		return -1;	//string to short
-	}
-	TCHAR sTemp[4+1];
-	wsprintf(sTemp, L"%02i%02i", sysTime.wHour, sysTime.wMinute);
-	if(wcsncpy(sStr, sTemp, 4)==NULL){
-		if(_dbgLevel>4) nclog(L"getSTfromString2: returning with error for '%s'\n", sTemp);
-		return -1;
-	}
-	else{
-		if(_dbgLevel>4) nclog(L"getSTfromString2: returning with '%s'\n", sStr);
-		return 0; //no Error
-	}
-}
-
+//--------------------------------------------------------------------
+// Function name  : getLongStrFromTM
+// Description    : convert a struct tm value to a 'YYYMMMDDhhmm' string 
+// Argument       : struct tm tmTime /*in*/, the var to convert
+// Argument       : TCHAR* sStr, the string to return 
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int getLongStrFromTM(struct tm tmTime, TCHAR* sStr){
 	int iRet=-1;
 	wsprintf(sStr, L"000000000000");
@@ -113,6 +119,12 @@ int getLongStrFromTM(struct tm tmTime, TCHAR* sStr){
 	return 0; //no Error
 }
 
+//--------------------------------------------------------------------
+// Function name  : getLongStrFromTM
+// Description    : convert a struct tm value to a 'YYYMMMDDhhmm' string 
+// Argument       : struct tm tmTime /*in*/, the var to convert
+// Return type    : TCHAR*
+//--------------------------------------------------------------------
 TCHAR* getLongStrFromTM(struct tm tmTime){
 		TCHAR* sTemp = new TCHAR[12+1];
 		wsprintf(sTemp, L"%04i%02i%02i%02i%02i", 
@@ -126,6 +138,12 @@ TCHAR* getLongStrFromTM(struct tm tmTime){
 }
 
 //normalize a tm, ie, if hours is > 24
+//--------------------------------------------------------------------
+// Function name  : fixTM
+// Description    : normalize a struct tm value, overflow mins and days 
+// Argument       : struct tm tmIN, the time to fix
+// Return type    : struct tm
+//--------------------------------------------------------------------
 struct tm fixTM(struct tm tmIn){
 	TCHAR szTemp[13]; wsprintf(szTemp, L"000000000000");
 	getLongStrFromTM(tmIn, szTemp);
@@ -157,6 +175,12 @@ struct tm fixTM(struct tm tmIn){
 	return tmReturn;
 }
 
+//--------------------------------------------------------------------
+// Function name  : regWriteDbgLevel
+// Description    : write actual debug level to registry
+// Argument       : DWORD dwDbgLevel
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int regWriteDbgLevel(DWORD dwDbgLevel)
 {
 	int iRes=0;
@@ -190,6 +214,11 @@ exit_regWriteDbgLevel:
 	return iRes;
 }
 
+//--------------------------------------------------------------------
+// Function name  : regReadDbgLevel
+// Description    : read desired debug level from registry
+// Return type    : DWORD dwDbgLevel
+//--------------------------------------------------------------------
 DWORD regReadDbgLevel(){
 	int iRes=0;
 	DWORD dwVal=0, dwSize=sizeof(DWORD);
@@ -222,6 +251,11 @@ exit_regReadDbgLevel:
 	return _dbgLevel;
 }
 
+//--------------------------------------------------------------------
+// Function name  : regReadKeys
+// Description    : read all registry entries into task var array
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int regReadKeys(){
 	int iRet = 0;
 	DWORD dwDbgLevel=regReadDbgLevel();
@@ -460,6 +494,12 @@ exit_readallkeys:
 	return iRet;
 }
 
+//--------------------------------------------------------------------
+// Function name  : regDisableTask
+// Description    : disable a task by writing 0 to reg for 'active' 
+// Argument       : int iTask, the task to disable via the registry
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int regDisableTask(int iTask){
 	int iRes=0;
 	TCHAR subkey[MAX_PATH];
@@ -495,6 +535,12 @@ exit_regDisableTask:
 	return iRes;
 }
 
+//--------------------------------------------------------------------
+// Function name  : regEnableTask
+// Description    : enable a task by writing 1 to reg for 'active' 
+// Argument       : int iTask, the task to enable via the registry
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int regEnableTask(int iTask){
 	int iRes=0;
 	TCHAR subkey[MAX_PATH];
@@ -530,6 +576,13 @@ exit_regEnableTask:
 	return iRes;
 }
 
+//--------------------------------------------------------------------
+// Function name  : regSetStartTime
+// Description    : write next start time of a task to registry
+// Argument       : int iTask, the task to set
+// Argument       : struct tm pStartTime, the next time to start
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int regSetStartTime(int iTask, struct tm pStartTime){
 	TCHAR subkey[MAX_PATH];
 	TCHAR szVal[MAX_PATH];
@@ -592,6 +645,13 @@ exit_regSetStartTime2:
 	return iRet;
 }
 
+//--------------------------------------------------------------------
+// Function name  : regSetStopTime
+// Description    : write next stop time of a task to registry
+// Argument       : int iTask, the task to set
+// Argument       : struct tm pStartTime, the next time to start
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int regSetStopTime(int iTask, struct tm pStopTime){
 	TCHAR subkey[MAX_PATH];
 	TCHAR szVal[MAX_PATH];
@@ -655,70 +715,12 @@ exit_regSetStopTime2:
 
 }
 
-void setUpdateAll()
-{
-	int iRes=0;
-	TCHAR subkey[MAX_PATH];
-	HKEY hKey=NULL;
-	DWORD dwVal=0;
-	DWORD dwSize=sizeof(DWORD);
-	DWORD dwType = REG_DWORD;
-
-	//prepare subkey to write
-	wsprintf(subkey, L"%s", _szRegKey);
-	LONG rc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, subkey, 0, KEY_SET_VALUE | KEY_QUERY_VALUE, &hKey);
-	if(rc != 0){
-		nclog(L"setUpdateAll: Could not write %s\n", subkey);
-		iRes=-1;
-		goto exit_setUpdateAll;
-	}
-
-	dwVal=1;
-	rc = RegSetValueEx(	hKey, L"UpdateAll", NULL, dwType, (LPBYTE) &dwVal, dwSize); 
-
-	if(rc == 0)
-		DEBUGMSG(1, (L"setUpdateAll: OK. UpdateAll is %i\n", dwVal));
-	else
-		DEBUGMSG(1, (L"setUpdateAll: FAILED %i\n", rc));
-
-exit_setUpdateAll:
-	if(hKey!=NULL)
-		RegFlushKey(hKey);
-	RegCloseKey(hKey);
-}
-
-void unsetUpdateAll()
-{
-	int iRes=0;
-	TCHAR subkey[MAX_PATH];
-	HKEY hKey=NULL;
-	DWORD dwVal=0;
-	DWORD dwSize=sizeof(DWORD);
-	DWORD dwType = REG_DWORD;
-
-	//prepare subkey to write
-	wsprintf(subkey, L"%s", _szRegKey);
-	LONG rc = RegOpenKeyEx(HKEY_LOCAL_MACHINE, subkey, 0, KEY_SET_VALUE | KEY_QUERY_VALUE, &hKey);
-	if(rc != 0){
-		nclog(L"unsetUpdateAll: Could not write %s\n", subkey);
-		iRes=-1;
-		goto exit_unsetUpdateAll;
-	}
-
-	dwVal=0;
-	rc = RegSetValueEx(	hKey, L"UpdateAll", NULL, dwType, (LPBYTE) &dwVal, dwSize); 
-
-	if(rc == 0)
-		DEBUGMSG(1, (L"unsetUpdateAll: OK. UpdateAll is %i\n", dwVal));
-	else
-		DEBUGMSG(1, (L"unsetUpdateAll: FAILED %i\n", rc));
-
-exit_unsetUpdateAll:
-	if(hKey!=NULL)
-		RegFlushKey(hKey);
-	RegCloseKey(hKey);
-}
-
+//--------------------------------------------------------------------
+// OBSOLETE
+// Function name  : getVersion
+// Description    : read version from registry
+// Return type    : DWORD with version number, default 200
+//--------------------------------------------------------------------
 DWORD getVersion()
 {
 	int iRes=0;
@@ -751,6 +753,12 @@ exit_getVersion:
 	return dwVal;
 }
 
+//--------------------------------------------------------------------
+// FOR TEST USE ONLY
+// Function name  : writeMaxDelay
+// Description    : write actual maxDelay to registry
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int writeMaxDelay(UINT uDelay)
 {
 	int iRes=0;
@@ -789,6 +797,11 @@ exit_writeMaxDelay:
 /*
 	read max allowed DeltaTime for ecognizing a delayed schedule
 */
+//--------------------------------------------------------------------
+// Function name  : getMaxDelay
+// Description    : get maxDelay value from registry
+// Return type    : int, 1 default
+//--------------------------------------------------------------------
 int getMaxDelay(){
 	int iRes=0;
 	DWORD dwVal=0, dwSize=sizeof(DWORD);
@@ -820,6 +833,12 @@ exit_regReadDbgLevel:
 	return dwReturn;
 }
 
+//--------------------------------------------------------------------
+// Function name  : writeVersion
+// Description    : write version number to registry
+// Argument       : DWORD newVersion, the version number to store
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int writeVersion(DWORD newVersion)
 {
 	int iRes=0;
