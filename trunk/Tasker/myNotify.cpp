@@ -8,10 +8,6 @@
 
 #pragma comment(lib, "toolhelp.lib")
 
-//extern SYSTEMTIME g_CurrentStartTime;
-
-//#include "pkfuncs.h"
-
 TCHAR str[MAX_PATH];
 
 /*
@@ -38,6 +34,11 @@ TCHAR str[MAX_PATH];
       DEBUGMSG(1, ( L"_mktime64 failed" ) );
 */
 
+//--------------------------------------------------------------------
+// Function name  : getLocalTime
+// Description    : return the current local time
+// Return type    : struct tm
+//--------------------------------------------------------------------
 struct tm getLocalTime(tm* pLocalTime){
 	// START ----------- store the start time in a global var
 	__time64_t now;
@@ -49,6 +50,13 @@ struct tm getLocalTime(tm* pLocalTime){
 	return *pLocalTime;
 }
 
+//--------------------------------------------------------------------
+// Function name  : convertTM2SYSTEMTIME
+// Description    : convert a struct tm to SYSTEMTIME
+// Argument       : SYSTEMTIME *systemTime
+// Argument       : struct tm *tmTime
+// Return type    : SYSTEMTIME
+//--------------------------------------------------------------------
 SYSTEMTIME convertTM2SYSTEMTIME(SYSTEMTIME *systemTime, struct tm *tmTime){
 	systemTime->wDay	= tmTime->tm_mday;
 	systemTime->wDayOfWeek	= (tmTime->tm_wday);
@@ -61,6 +69,13 @@ SYSTEMTIME convertTM2SYSTEMTIME(SYSTEMTIME *systemTime, struct tm *tmTime){
 	return *systemTime;
 }
 
+//--------------------------------------------------------------------
+// Function name  : convertSystemTime2TM
+// Description    : convert a SYSTEMTIME to a struct tm
+// Argument       : struct tm *tmTime
+// Argument       : SYSTEMTIME *systemTime
+// Return type    : struct tm
+//--------------------------------------------------------------------
 struct tm convertSystemTime2TM( struct tm *tmTime, SYSTEMTIME *systemTime){
 	tmTime->tm_mday		= systemTime->wDay;
 	tmTime->tm_wday		= systemTime->wDayOfWeek;
@@ -73,6 +88,14 @@ struct tm convertSystemTime2TM( struct tm *tmTime, SYSTEMTIME *systemTime){
 	return *tmTime;
 }
 
+//--------------------------------------------------------------------
+// Function name  : wasctime_s
+// Description    : return a string representating the time
+// Argument       : TCHAR* buf
+// Argument       : const __time64_t* time64
+// Argument       : int dwSize
+// Return type    : TCHAR*
+//--------------------------------------------------------------------
 TCHAR* wasctime_s(TCHAR* buf, const __time64_t* time64, int dwSize){
 	struct tm tmTime;
 	error_status_t eStat;
@@ -85,6 +108,11 @@ TCHAR* wasctime_s(TCHAR* buf, const __time64_t* time64, int dwSize){
 	return buf;
 }
 
+//--------------------------------------------------------------------
+// Function name  : isACpowered
+// Description    : return if device is powered externally
+// Return type    : BOOL
+//--------------------------------------------------------------------
 BOOL isACpowered(){
 	nclog(L"\tchecking AC line status\n");
 #ifndef INTERMEC
@@ -114,97 +142,15 @@ BOOL isACpowered(){
 #endif
 }
 
-
-double minutes_between(const FILETIME & from, const FILETIME & to)
-{
-	/*
-	stStartTime = '201111160615', current time = '201111160611'
-	interval is: 0d00h10m
-	delta is -8 minutes
-	*/
-	enum {
-		TICKS_PER_DAY = 60 * 10000000,
-	};
-	if( ((__int64 *) & to) > ((__int64 *) & from) )
-		return double((*(__int64 *) & to) - (*(__int64 *) & from)) / TICKS_PER_DAY;
-	else
-		return double((*(__int64 *) & from) - (*(__int64 *) & to)) / TICKS_PER_DAY;
-}
-
-// test if st1 is before st2(current time)
-int /*int*/ stDeltaMinutes(const SYSTEMTIME st1, const SYSTEMTIME st2)
-{
-	int iDelta=0;
-	if(st1.wYear != st2.wYear)
-		return 9999;
-	if(st1.wMonth!=st2.wMonth)
-		return 8888;
-	if(st1.wDay != st2.wDay)
-		return 7777;
-
-	DWORD dwMin1 = st1.wHour * 60 + st1.wMinute;
-	DWORD dwMin2 = st2.wHour * 60 + st2.wMinute;
-	//if(dwMin1>dwMin2)
-	//	iDelta = dwMin1-dwMin2;
-	//else
-	//	iDelta = dwMin2-dwMin1;
-	iDelta = dwMin2 - dwMin1; //uhrzeit 2 ist später als uhrzeit 1 dann positiv (delayed schedule)
-
-	DEBUGMSG(1, (L"DEBUG: Time diff in minutes: %i\n", iDelta));
-    return iDelta;// abs(iTimeDelta/60);
-}
-
-/*
-	compare two SYSTEMTIME values
-	return 0, if both are equal
-	return -1, if first time is before second time
-	return 1, if first time is after second time
-	        ............stFirst..........
-	stSecond    -1         0        +1
-	like wcscmp(...)
-*/
-
-int isNewer2(SYSTEMTIME stFirst, SYSTEMTIME stSecond){
-	int iReturn=0;
-	// 201112011415 01.12.2011 14:15 , 12 digits
-	double dFirst = stFirst.wYear * 100000000 + stFirst.wMonth * 1000000 + stFirst.wDay * 10000 + stFirst.wHour * 100 + stFirst.wMinute;
-	double dSecond = stSecond.wYear * 100000000 + stSecond.wMonth * 1000000 + stSecond.wDay * 10000 + stSecond.wHour * 100 + stSecond.wMinute;
-	if(dSecond==dFirst)
-		iReturn=0;
-	if(dFirst<dSecond)
-		iReturn=-1;
-	else if (dFirst>dSecond)
-		iReturn=1;
-	return iReturn;
-}
-
-
-BOOL isNewer(SYSTEMTIME stNew, SYSTEMTIME stCompare){
-	BOOL bRet=FALSE;
-	//compare two dates by converting them first to a number like yyyyMMdd
-	UINT dateNew = stNew.wYear * 10000 + stNew.wMonth * 100 + stNew.wDay;
-	UINT dateCompare = stCompare.wYear * 10000 + stCompare.wMonth * 100 + stCompare.wDay;
-	if(dateNew > dateCompare)
-		return TRUE;
-	
-	//compare two times by converting them first to a number like hhmm
-	UINT timeNew		= stNew.wHour * 100 + stNew.wMinute ;// + stNew.wSecond;
-	UINT timeCompare	= stCompare.wHour * 100 + stCompare.wMinute ;// + stCompare.wSecond;
-
-	if(timeNew > timeCompare){
-		DEBUGMSG(1, (L"stNew is newer than stCompare\n"));
-		return TRUE;
-	}
-	DEBUGMSG(1, (L"stNew is newer than stCompare\n"));
-	return FALSE;
-}
-
-
-
-HRESULT ScheduleRunApp(
-  LPCTSTR szExeName,
-  LPCTSTR szArgs,
-  SYSTEMTIME stTime)
+//--------------------------------------------------------------------
+// Function name  : ScheduleRunApp
+// Description    : add a schedule for exe with args at the time
+// Argument       : LPCTSTR szExeName
+// Argument       : LPCTSTR szArgs
+// Argument       : struct tm tmTime
+// Return type    : HRESULT, 0 for no error
+//--------------------------------------------------------------------
+HRESULT ScheduleRunApp(LPCTSTR szExeName, LPCTSTR szArgs, struct tm tmTime)
 {
 	HRESULT hr = S_OK;
 	HANDLE hNotify = NULL;
@@ -218,15 +164,7 @@ HRESULT ScheduleRunApp(
 	SYSTEMTIME st = {0};
 	//GetLocalTime(&st); //v.2.28
 
-	/*
-	st = DT_AddDiff(nano100SecInDay, 1, &st);
-	st.wHour = 3;
-	st.wMinute=0;
-	st.wSecond=33;
-	*/
-	//st = AddDiff(&st, 3); //wake in 3 minutes
-	//st = DT_AddDiff(nano100SecInDay, 1, &stTime); //add one day
-	st = stTime; //use provided new datetime
+	st = convertTM2SYSTEMTIME(&st, &tmTime); //use provided new datetime
 
 	wsprintf(str, L"Next run at: %02i.%02i.%02i %02i:%02i:%02i", 
 										st.wDay, st.wMonth , st.wYear, 
@@ -253,71 +191,14 @@ HRESULT ScheduleRunApp(
 	return hr;
 } 
 
-/*
-HRESULT ScheduleRunApp(
-  LPCTSTR szExeName,
-  LPCTSTR szArgs)
-{
-	//do not add a schedule if actual date is 21.3.2003
-	SYSTEMTIME t;
-	memset(&t, 0, sizeof(SYSTEMTIME));
-	memcpy(&t, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	//GetLocalTime(&t); //v.2.28
-	//check if the system clock is at factory default, device specific!
-	if ( (t.wYear == 2003) && (t.wMonth == 3) && (t.wDay == 21) )
-	{
-		nclog(L"ScheduleRunApp2: # no next run schedule as date is 21.03.2003!\n");
-		return NOERROR;
-	}
 
-	
-
-	HRESULT hr = S_OK;
-	HANDLE hNotify = NULL;
-
-	// set a CE_NOTIFICATION_TRIGGER
-	CE_NOTIFICATION_TRIGGER notifTrigger;
-	memset(&notifTrigger, 0, sizeof(CE_NOTIFICATION_TRIGGER));
-	notifTrigger.dwSize = sizeof(CE_NOTIFICATION_TRIGGER);
-
-	// calculate time
-	SYSTEMTIME st = {0};
-	memcpy(&st, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	//GetLocalTime(&st);
-
-	
-	//st = DT_AddDiff(nano100SecInDay, 1, &st);
-	//st.wHour = 3;
-	//st.wMinute=0;
-	//st.wSecond=33;
-	
-	st = AddDiff(&st, 3); //wake in 3 minutes
-	wsprintf(str, L"ScheduleRunApp2: Next run at: %02i.%02i.%02i %02i:%02i:%02i", 
-										st.wDay, st.wMonth , st.wYear, 
-										st.wHour , st.wMinute , st.wSecond );
-	nclog(L"ScheduleRunApp2: %s\n", str);
-	
-	notifTrigger.dwType = CNT_TIME;
-	notifTrigger.stStartTime = st;
-
-	// timer: execute an exe at specified time
-	notifTrigger.lpszApplication = (LPTSTR)szExeName;
-	notifTrigger.lpszArguments = (LPTSTR)szArgs;
-
-	hNotify = CeSetUserNotificationEx(0, &notifTrigger, NULL);
-	// NULL because we do not care the action
-	if (!hNotify) {
-		hr = E_FAIL;
-		nclog(L"ScheduleRunApp2: CeSetUserNotificationEx FAILED...\n");
-	} else {
-		// close the handle as we do not need to use it further
-		CloseHandle(hNotify);
-		nclog(L"ScheduleRunApp2: CeSetUserNotificationEx succeeded...\n");
-	}  
-	return hr;
-} 
-*/
-
+//--------------------------------------------------------------------
+// Function name  : notiClearRunApp
+// Description    : remove a schedule for exe with args 
+// Argument       : LPCTSTR szExeName
+// Argument       : LPCTSTR szArgs
+// Return type    : HRESULT, 0 for no error
+//--------------------------------------------------------------------
 HRESULT notiClearRunApp(LPCTSTR szExeName, LPCTSTR szArgs)
 {
 	HRESULT hr = S_OK;
@@ -392,6 +273,12 @@ HRESULT notiClearRunApp(LPCTSTR szExeName, LPCTSTR szArgs)
 	return lRes;
 }
 
+//--------------------------------------------------------------------
+// Function name  : notiClearRunApp
+// Description    : remove a schedule for exe 
+// Argument       : LPCTSTR szExeName
+// Return type    : HRESULT, 0 for no error
+//--------------------------------------------------------------------
 HRESULT notiClearRunApp(LPCTSTR szExeName)
 {
 	HRESULT hr = S_OK;
@@ -460,9 +347,12 @@ HRESULT notiClearRunApp(LPCTSTR szExeName)
 	return lRes; //hr;
 }
 
-/*
-	clear all event based schedules
-*/
+//--------------------------------------------------------------------
+// Function name  : ClearRunAppAtTimeChangeEvents
+// Description    : remove all EVENT schedules for the filename 
+// Argument       : TCHAR FileName[MAX_PATH+1]
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int ClearRunAppAtTimeChangeEvents(TCHAR FileName[MAX_PATH+1]){
 	int iRet = 0;
 	nclog(L"Clearing Event Notifications...");
@@ -476,9 +366,12 @@ int ClearRunAppAtTimeChangeEvents(TCHAR FileName[MAX_PATH+1]){
 	return iRet;
 }
 
-/*
-	delete and create new Time_Change and TZ_Change notifications
-*/
+//--------------------------------------------------------------------
+// Function name  : RunAppAtTimeChangeEvents
+// Description    : delete and create new Time_Change and TZ_Change notifications 
+// Argument       : TCHAR FileName[MAX_PATH+1]
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int RunAppAtTimeChangeEvents(TCHAR FileName[MAX_PATH+1]){
 	int iRet = 0;
 	nclog(L"Clearing Event Notifications...");
@@ -499,64 +392,13 @@ int RunAppAtTimeChangeEvents(TCHAR FileName[MAX_PATH+1]){
 	return iRet;
 }
 
-/*
-void ClearRunAppAtTime(TCHAR FileName[MAX_PATH+1])
-{
-	CeRunAppAtTime(FileName, 0);
-}
-*/
-
-/////start app next day at 00:59:59
-//int RunAppAtTime(TCHAR FileName[MAX_PATH+1])
-//{
-//	//get actual time
-//	SYSTEMTIME t;
-//	memset(&t, 0, sizeof(SYSTEMTIME));
-//	memcpy(&t, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-//	//GetLocalTime(&t); //v2.28
-//
-//	SYSTEMTIME newTime;
-//	//add one day
-//	newTime = DT_AddDiff(nano100SecInDay, 1, &t);
-//
-//	newTime.wHour = 0;
-//	newTime.wMinute = 59;
-//	newTime.wSecond = 59;
-//
-//	wsprintf(str, L"Next run at: %02i.%02i.%02i %02i:%02i:%02i", 
-//										newTime.wDay, newTime.wMonth , newTime.wYear, 
-//										newTime.wHour , newTime.wMinute , newTime.wSecond );
-//	nclog(L"RunAppAtTime(): %s\n", str);
-//
-//	return CeRunAppAtTime(FileName, &t);
-//
-//}
-
-///start app in one day at same time
-int RunAppAtTime(TCHAR FileName[MAX_PATH+1], SYSTEMTIME nextTime)
-{
-	//get actual time
-	//SYSTEMTIME t;
-	//memset(&t, 0, sizeof(SYSTEMTIME));
-	//GetLocalTime(&t);
-
-	SYSTEMTIME newTime;
-	//add one day
-	newTime = DT_AddDiff(nano100SecInDay, 1, &nextTime);
-
-	//newTime.wHour = 0;
-	//newTime.wMinute = 59;
-	//newTime.wSecond = 59;
-
-	wsprintf(str, L"Next run at: %02i.%02i.%02i %02i:%02i:%02i", 
-										newTime.wDay, newTime.wMonth , newTime.wYear, 
-										newTime.wHour , newTime.wMinute , newTime.wSecond );
-	nclog(L"RunAppAtTime2(): %s\n", str);
-
-	return CeRunAppAtTime(FileName, &newTime);
-
-}
-
+//--------------------------------------------------------------------
+// Function name  : runExe
+// Description    : start the exe using CreateProcess 
+// Argument       : TCHAR* szExe
+// Argument       : TCHAR* szArg
+// Return type    : int, 0 for no error
+//--------------------------------------------------------------------
 int runExe(TCHAR* szExe, TCHAR* szArg)
 {
 	PROCESS_INFORMATION pi;
@@ -579,6 +421,12 @@ int runExe(TCHAR* szExe, TCHAR* szArg)
 //				Kill process stuff
 //##############################################
 
+//--------------------------------------------------------------------
+// Function name  : GetProcessHandle
+// Description    : find the handle for a process 
+// Argument       : WCHAR *wszProcessName
+// Return type    : HANDLE
+//--------------------------------------------------------------------
 HANDLE GetProcessHandle(WCHAR *wszProcessName)
 {
     HANDLE hTH= CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS | TH32CS_SNAPNOHEAPS, 0 );
@@ -627,6 +475,12 @@ public:
     }
 };
 
+//--------------------------------------------------------------------
+// Function name  : killExe
+// Description    : terminate a process 
+// Argument       : TCHAR *szExe
+// Return type    : DWORD, 0 for success
+//--------------------------------------------------------------------
 DWORD killExe(TCHAR* szExe){
 	//cut path from szExe
 	TCHAR* strNew = wcsrchr(szExe, L'\\');
@@ -650,6 +504,11 @@ DWORD killExe(TCHAR* szExe){
 	return res;
 }
 
+//--------------------------------------------------------------------
+// Function name  : listNotifications
+// Description    : dump actual known schedules with nclog 
+// Return type    : VOID
+//--------------------------------------------------------------------
 void listNotifications(){
 	HRESULT hr = S_OK;
 	LONG lRes=0; //count deleted entries
@@ -775,199 +634,14 @@ void listNotifications(){
 	return;// lRes; //hr;
 }
 
-// save inTime, get LocalTime and then set DAY, hour and minute of inTime
-// added support for negaitive days, hours and minutes in v2.34
-SYSTEMTIME DT_Add(SYSTEMTIME& Date, short Years, short Months, short Days, short Hours, short Minutes, short Seconds, short Milliseconds) {
-	FILETIME ft; SYSTEMTIME st; ULARGE_INTEGER ul1;
-	
-	SYSTEMTIME inTime;
-	memcpy(&inTime, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	inTime.wDay = Date.wDay;
-	inTime.wHour = Date.wHour;
-	inTime.wMinute = Date.wMinute;
-	inTime.wSecond=0;
-	inTime.wMilliseconds=0;
 
-	memcpy((void*)&Date, &inTime, sizeof(SYSTEMTIME));
-
-	if (!SystemTimeToFileTime(&Date, &ft))
-	{
-		DEBUGMSG(1, (L"DT_Add: error in SystemTimeToFileTime: %i\n", GetLastError()));
-		return Date;
-	}
-	ul1.HighPart = ft.dwHighDateTime;
-	ul1.LowPart = ft.dwLowDateTime;
-	 
-	if (Milliseconds) 
-		ul1.QuadPart += (Milliseconds * 10000); 
-
-	if (Seconds)
-		ul1.QuadPart += (Seconds * (__int64)10000000); 
-
-	if (Minutes>0)
-		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
-	else if (Minutes<0)
-		ul1.QuadPart += (Minutes * (__int64)10000000 * 60); 
-
-	if (Hours>0) 
-		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
-	else if (Hours<0)
-		ul1.QuadPart += (Hours * (__int64)10000000 * 60 * 60);
-
-	if (Days>0)
-		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
-	else if (Days<0)
-		ul1.QuadPart += (Days * (__int64)10000000 * 60 * 60 * 24); 
-	 
-	ft.dwHighDateTime = ul1.HighPart;
-	ft.dwLowDateTime = ul1.LowPart;
-	 
-	if (!FileTimeToSystemTime(&ft,&st)) {
-		return Date;
-	}
-	 
-	if (Months>0) {
-		if ((Months += st.wMonth) <= 0) {
-			Months *= (-1);
-			st.wYear -= ((Months / 12) + 1);
-			st.wMonth = 12 - (Months % 12);
-		} else {
-			st.wMonth = Months % 12;
-			st.wYear += Months / 12;
-		}
-		while (!SystemTimeToFileTime(&st, &ft)) {
-			st.wDay -= 1;
-		}
-	}
-	return st;
-}
-
-
-SYSTEMTIME DT_AddDay(const SYSTEMTIME st){
-	SYSTEMTIME stNow;
-	extern SYSTEMTIME g_CurrentStartTime;//v2.28 
-	memcpy(&stNow, &g_CurrentStartTime, sizeof(SYSTEMTIME));
-	//GetLocalTime(&stNow);
-	
-	stNow.wHour=st.wHour;
-	stNow.wMinute=st.wMinute;
-	stNow.wSecond=st.wSecond;
-
-	SYSTEMTIME stNew = DT_AddDiff(nano100SecInDay, 1, &stNow);
-
-	return stNew;
-}
-
-////////////
-//equivalent of DATEADD function from SQLServer
-//Returns a new datetime value based on adding an interval
-// to the specified date.
-////////////*/
-SYSTEMTIME /*new datetime*/
-DT_AddDiff
-			(	const __int64 datepart, /*datepart with we want to manipulate, 
-			{nano100SecInDay ...}*/
-			const __int64 num, /*value used to increment/decrement datepart*/
-			const SYSTEMTIME* pst /*valid datetime which we want change*/
-			)
-{
-	FILETIME ft;
-	SYSTEMTIME st;
-	__int64* pi; 
-
-	SystemTimeToFileTime (pst,&ft); 
-	pi = (__int64*)&ft; 
-	(*pi) += (__int64)num*datepart; 
-
-	/*convert FILETIME to SYSTEMTIME*/
-	FileTimeToSystemTime (&ft,&st); 
-
-	/*now, st contain new valid datetime, so return it*/
-	return st;
-}
-
-SYSTEMTIME AddDiff(SYSTEMTIME* pst, int minutes){
-	FILETIME ft;
-	SYSTEMTIME st;
-	__int64* pi; 
-	//LARGE_INTEGER li;
-
-	/*convert SYSTEMTIME to FILETIME*/
-	SystemTimeToFileTime (pst,&ft); 
-
-	SystemTimeToFileTime (pst,&ft); 
-
-	pi = (__int64*)&ft; 
-	(*pi) += (__int64)minutes*(__int64)10000000*60; 
-    
-	//li.LowPart = ft.dwLowDateTime;
-    //li.HighPart = ft.dwHighDateTime;
-
-	/*convert FAILETIME to SYSTEMTIME*/
-	FileTimeToSystemTime (&ft,&st); 
-
-	/*now, st contain new valid datetime, so return it*/
-	return st;
-
-}
-
-SYSTEMTIME& newSystemTime(SYSTEMTIME& systemTime, LPCWSTR strDateTime)
-{
-	SYSTEMTIME st;
-	TCHAR szDateTime[MAX_PATH];
-	TCHAR szTemp[MAX_PATH];
-	//should be yyyyMMddhhmm, ie 201112011650
-	wsprintf(szDateTime, L"%s", strDateTime);
-	//create a pointer for szDateTime
-	TCHAR* pszDateTime = szDateTime;
-
-	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
-	wcsncpy(szTemp, pszDateTime, 4);
-	int iYear;
-	iYear=_wtoi(szTemp);
-	//if(iYear==0)
-	//	iRet = -1;
-
-	pszDateTime+=4;
-	
-	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
-	wcsncpy(szTemp, pszDateTime, 2);
-	int iMonth;
-	iMonth=_wtoi(szTemp);
-	//if(iMonth==0)
-	//	iRet = -2;
-	pszDateTime+=2;
-
-	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
-	wcsncpy(szTemp, pszDateTime, 2);
-	int iDay;
-	iDay=_wtoi(szTemp);
-	//if(iDay==0)
-	//	iRet = -3;
-	pszDateTime+=2;
-
-	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
-	wcsncpy(szTemp, pszDateTime, 2);
-	int iHour;
-	iHour=_wtoi(szTemp);
-	pszDateTime+=2;
-
-	memset(szTemp, 0, sizeof(TCHAR)*MAX_PATH);
-	wcsncpy(szTemp, pszDateTime, 2);
-	int iMin;
-	iMin=_wtoi(szTemp);
-
-	memset(&st, 0, sizeof(SYSTEMTIME));
-	st.wDay=iDay;
-	st.wMonth=iMonth;
-	st.wYear=iYear;
-	st.wHour=iHour;
-	st.wMinute=iMin;	
-
-	memcpy(&systemTime, &st, sizeof(SYSTEMTIME));
-	return systemTime;
-}
-
+//--------------------------------------------------------------------
+// Function name  : dumpTT64
+// Description    : dump a __time64_t to DEBUG out 
+// Argument       : TCHAR *szNote, string to prepend to output
+// Argument       : __time64_t ttTime, the time_t to dump
+// Return type    : VOID
+//--------------------------------------------------------------------
 void dumpTT64(TCHAR* szNote, __time64_t ttTime){
 #if !DEBUG
 	return;
@@ -982,6 +656,13 @@ void dumpTT64(TCHAR* szNote, __time64_t ttTime){
 	DEBUGMSG(1, (L"%s: %s\n", szNote, szStr));
 }
 
+//--------------------------------------------------------------------
+// Function name  : dumpTM
+// Description    : dump a 'struct tm' to DEBUG out 
+// Argument       : TCHAR *szNote, string to prepend to output
+// Argument       : struct tm tmTime, the time to dump
+// Return type    : VOID
+//--------------------------------------------------------------------
 void dumpTM(TCHAR* szNote, struct tm tmTime){
 #if !DEBUG
 	return;
@@ -993,6 +674,13 @@ void dumpTM(TCHAR* szNote, struct tm tmTime){
 	DEBUGMSG(1, (L"%s: %s\n", szNote, szStr));
 }
 
+//--------------------------------------------------------------------
+// Function name  : dumpST
+// Description    : dump a SYSTEMTIME to DEBUG out 
+// Argument       : TCHAR *szNote, string to prepend to output
+// Argument       : SYSTEMTIME st, the time to dump
+// Return type    : VOID
+//--------------------------------------------------------------------
 void dumpST(TCHAR* szNote, SYSTEMTIME st){
 #if !DEBUG
 	return;
@@ -1003,6 +691,13 @@ void dumpST(TCHAR* szNote, SYSTEMTIME st){
 		st.wHour, st.wMinute, st.wSecond);
 	DEBUGMSG(1, (L"%s: %s\n", szNote, szStr));
 }
+
+//--------------------------------------------------------------------
+// Function name  : dumpST
+// Description    : dump a SYSTEMTIME to DEBUG out 
+// Argument       : SYSTEMTIME st, the time to dump
+// Return type    : VOID
+//--------------------------------------------------------------------
 void dumpST(SYSTEMTIME st){
 #if !DEBUG
 	return;
@@ -1018,6 +713,15 @@ void dumpST(SYSTEMTIME st){
 //	createNextSchedule
 //	calculate the next schedule based on time and interval values
 ////////////////////////////////////////////////////////////////////
+//--------------------------------------------------------------------
+// Function name  : createNextSchedule
+// Description    : calculate the next time starting at tmNext using days, hours and minutes 
+// Argument       : struct tm *tmNext
+// Argument       : short shDays
+// Argument       : short shHour
+// Argument       : short shMin
+// Return type    : struct tm*, the calculated next time
+//--------------------------------------------------------------------
 struct tm *createNextSchedule(struct tm *tmNext, short shDays, short shHour, short shMin){
 	TCHAR szTime[24] = {0};
 
@@ -1062,6 +766,15 @@ struct tm *createNextSchedule(struct tm *tmNext, short shDays, short shHour, sho
 	return tmNext;
 }
 
+//--------------------------------------------------------------------
+// Function name  : createNextSchedule
+// Description    : calculate the next time starting at tmNext using days, hours and minutes 
+// Argument       : struct tm tmNext
+// Argument       : short shDays
+// Argument       : short shHour
+// Argument       : short shMin
+// Return type    : struct tm, the calculated next time
+//--------------------------------------------------------------------
 struct tm createNextSchedule(struct tm tmNext, short shDays, short shHour, short shMin){
 	TCHAR szTime[24] = {0};
 	struct tm tmReturn;
@@ -1108,169 +821,3 @@ struct tm createNextSchedule(struct tm tmNext, short shDays, short shHour, short
 	return tmReturn;
 }
 
-/*
-	return time of next schedule in future that meets the given interval
-*/
-SYSTEMTIME createNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin){
-	
-	//v2.30, always test for delayed schedule
-	//v2.31 removed 	//return createDelayedNextSchedule(stNext, shDays, shHour, shMin);
-
-	//SYSTEMTIME stCurrentTime;
-	//GetLocalTime(&stCurrentTime);
-	
-	//cleanup, done now at startup
-	//stCurrentTime.wSecond=0;
-	//stCurrentTime.wMilliseconds=0;
-
-	TCHAR szTime[24] = {0};
-
-	if(shMin>=60){
-		shHour += (short)(shMin / 60);
-		shMin = (short)(shMin % 60);
-	}
-	if(shHour>=24){	//hour interval value is one day or more
-		shDays = (short) (shHour / 24);
-		shHour = (short) (shHour % 24);
-	}
-
-	nclog(L"\tcalculating new schedule for '%s'...\n", getLongStrFromSysTime2(stNext));
-	nclog(L"\tinterval is: %id%02ih%02im\n", shDays, shHour, shMin);
-#if DEBUG
-	dumpST(L"stNext", stNext);
-	dumpST(L"stCurrentTime", g_CurrentStartTime);
-#endif
-	if(!isNewer(stNext, g_CurrentStartTime)){
-		do{
-			//add interval to stNewTime
-			stNext = DT_Add(stNext, 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
-		}while (!isNewer(stNext, g_CurrentStartTime));
-	}
-	nclog(L"\tschedule adjusted to '%s'\n", getLongStrFromSysTime2(stNext));
-	//else
-	//	nclog(L"\tno schedule adjustement needed.\n");
-
-	return stNext;
-}
-
-/*
-	return the next time (hhmm) that is past stBegin with a given interval
-	subtract interval as long as stStart>stBegin and finally add one interval
-
-	stStart is the current schedule time
-	stBegin is the current time
-*/
-SYSTEMTIME getNextTime(SYSTEMTIME stStart, SYSTEMTIME stBegin, int iIntervalDays, int iIntervalHours, int iIntervalMinutes){
-	SYSTEMTIME stStart1; 
-	//memset(&stStart1, 0, sizeof(SYSTEMTIME));
-	memcpy(&stStart1, &stStart, sizeof(SYSTEMTIME));
-	//DEBUGMSG(1, (L"BEFORE: wDay=%02i, wHour=%02i, wMinute=%02i\n", stStart1.wDay, stStart1.wHour, stStart1.wMinute));
-	dumpST(L"stStart1", stStart1);
-	dumpST(L"stBegin", stBegin);
-
-	int iCompareTimes = isNewer2(stStart1, stBegin);
-	if(iCompareTimes==0) //both times are equal
-	{
-		//simply add one interval
-		stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes, 0, 0);
-		////if stStart is in the future of stBegin?
-		//do{
-		//	//subtract interval from stStart until before stBegin
-		//	stStart1 = DT_Add(stStart1, 0, 0, -iIntervalDays, -iIntervalHours, -iIntervalMinutes, 0, 0); 
-		//	dumpST(L"stStart1", stStart1);
-		//	dumpST(L"stBegin", stBegin);
-		//}while (isNewer(stStart1, stBegin));// (uStart>uBegin);
-		////add one interval
-		//stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
-	}
-	else if(iCompareTimes==-1) //first time before second time, stBegin is current
-	{
-		//if stStart is before stBegin
-		//start with current date and use scheduled hour and minute
-		stStart1.wYear=stBegin.wYear;
-		stStart1.wMonth=stBegin.wMonth;
-		stStart1.wDay=stBegin.wDay;
-		while (isNewer2(stStart1, stBegin) != 1){
-			//add interval onto stStart as long as we are before stBegin
-			stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
-			dumpST(L"stStart1", stStart1);
-			dumpST(L"stBegin", stBegin);
-			iCompareTimes = isNewer2(stStart1, stBegin);
-		};// (uStart>uBegin);
-	}
-	else if(iCompareTimes==1) //stStart is after stBegin 
-	{
-		//if stStart is after stBegin
-		//start with current date and use scheduled hour and minute
-		stStart1.wYear=stBegin.wYear;
-		stStart1.wMonth=stBegin.wMonth;
-		stStart1.wDay=stBegin.wDay;
-		while (isNewer2(stStart1, stBegin) != -1){
-			//add interval from stStart until before stBegin
-			stStart1 = DT_Add(stStart1, 0, 0, -iIntervalDays, -iIntervalHours, -iIntervalMinutes,0,0); 
-			dumpST(L"stStart1", stStart1);
-			dumpST(L"stBegin", stBegin);
-			iCompareTimes = isNewer2(stStart1, stBegin);
-		};// (uStart>uBegin);
-		//ADD one interval
-		stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
-		if(isNewer2(stStart1, stBegin) ==0) // add one more interval is equal current time
-			stStart1 = DT_Add(stStart1, 0, 0, iIntervalDays, iIntervalHours, iIntervalMinutes,0,0); 
-	}
-	dumpST(L"stStart1", stStart1);
-	dumpST(L"stBegin", stBegin);
-
-	//DEBUGMSG(1, (L"AFTER: wDay=%02i, wHour=%02i, wMinute=%02i\n", stStart1.wDay, stStart1.wHour, stStart1.wMinute));
-	return stStart1;
-}
-
-/*
-	return time of next schedule in future that meets the given interval
-	stNext is the actual time of the schedule
-	shDays, shHour and shMin define the interval for the schedule
-*/
-SYSTEMTIME createDelayedNextSchedule(SYSTEMTIME stNext, short shDays, short shHour, short shMin){
-	nclog(L"+++ createDelayedNextSchedule: delayed schedule recalculation...\n");
-	//SYSTEMTIME stCurrentTime;
-	//GetLocalTime(&stCurrentTime);
-	
-	//cleanup, v2.28 now done in main
-	//stCurrentTime.wSecond=0;
-	//stCurrentTime.wMilliseconds=0;
-
-	TCHAR szTime[24] = {0};
-
-	if(shMin>=60){
-		shHour += (short)(shMin / 60);
-		shMin = (short)(shMin % 60);
-	}
-	if(shHour>=24){	//hour interval value is one day or more
-		shDays = (short) (shHour / 24);
-		shHour = (short) (shHour % 24);
-	}
-
-	nclog(L"\tcalculating new schedule for '%s'...\n", getLongStrFromSysTime2(stNext));
-	nclog(L"\tinterval is: %id%02ih%02im\n", shDays, shHour, shMin);
-#if DEBUG
-	dumpST(L"stNext", stNext);
-	dumpST(L"stCurrentTime", g_CurrentStartTime);
-#endif
-	//for delayed schedules 
-	//example: stStopTime = '200902011205' and current time = '200902010000' and interval is: 0d00h10m
-	//we need to get to stNext = '200902010005'
-	SYSTEMTIME stNextNew = getNextTime(stNext, g_CurrentStartTime, shDays, shHour, shMin);
-	stNext=stNextNew;
-	nclog(L"\tschedule adjusted to '%s'\n", getLongStrFromSysTime2(stNext));
-	//if(!isNewer(stNext, stCurrentTime)){
-	//	do{
-	//		//add interval to stNewTime
-	//		stNext = DT_Add(stNext, 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
-	//	}while (!isNewer(stNext, stCurrentTime));
-	//	nclog(L"\tschedule adjusted to '%s'\n", getLongStrFromSysTime2(stNext));
-	//}
-	//else
-	//	nclog(L"\tno schedule adjustement needed.\n");
-
-	nclog(L"--- createDelayedNextSchedule: delayed schedule recalculation finished.\n");
-	return stNext;
-}

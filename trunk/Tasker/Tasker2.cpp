@@ -2,7 +2,10 @@
 //
 // use test mode to disable the creation of new schedules and control 
 // everything with just calling Tasker2 with args manually
+
 #define TESTMODE
+
+#pragma warning (once : 4244)
 
 #include "stdafx.h"
 #include "task.h"
@@ -327,54 +330,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			//just sleep 15 seconds for testing mutex
 			nclog(L"test mode...\n");
 
-			SYSTEMTIME stSched, stActual, stNew;
-			GetLocalTime(&stActual);
-			memcpy(&stSched, &stActual, sizeof(SYSTEMTIME));
-
-   struct tm  when;
-   __time64_t now, result;
-   int        days;
-   TCHAR       buff[80];
-
-   _time64( &now );	//get the system time
-   _localtime64_s( &when, &now );	//convert a system time to a local tm time and correct for local time zone
-   
-   wprintf( L"Current time is %s\n", wasctime_s(buff, &now, 80));// L"_wasctime not implemented" );
-   days = 20;
-   int hours = 24;
-   when.tm_mday = when.tm_mday + days;
-   if( (result = _mktime64( &when )) != (time_t)-1 ) { //convert local tm time to calendar time
-      wprintf( L"In %d days the time will be %s\n", days, wasctime_s(buff, &result, 80) );
-   } else
-      DEBUGMSG(1, ( L"_mktime64 failed" ) );
-   when.tm_hour = when.tm_hour + hours;
-   if( (result = _mktime64( &when )) != (time_t)-1 ) { //convert local tm time to calendar time
-      wprintf( L"In %d hours the time will be %s\n", hours, wasctime_s(buff, &result, 80) );
-   } else
-      DEBUGMSG(1, ( L"_mktime64 failed" ) );
-
-
-			stNew = newSystemTime(stNew, L"201112131425");
-			DEBUGMSG(1, (L"schedule is one day in future"));
-			stSched = DT_Add(stActual,0,0,1,0,0,0,0);	//add one day
-			stNew = getNextTime(stSched, stActual, 0, 1, 0); //get next schedule for 1 hour interval
-			dumpST(L"old sched   = ", stSched);
-			dumpST(L"actual time = ", stActual);
-			dumpST(L"new sched   = ", stNew);
-
-			DEBUGMSG(1, (L"schedule is one day in past"));
-			stSched = DT_Add(stActual,0,0,-2,0,0,0,0);	//minus two days
-			stNew = getNextTime(stSched, stActual, 0, 1, 0);
-			dumpST(L"old sched   = ", stSched);
-			dumpST(L"actual time = ", stActual);
-			dumpST(L"new sched   = ", stNew);
-			
-			DEBUGMSG(1, (L"schedule is one day in past, interval is 1 day"));
-			stSched = DT_Add(stActual,0,0,-2,0,0,0,0);	//minus two days
-			stNew = getNextTime(stSched, stActual, 1, 0, 0);
-			dumpST(L"old sched   = ", stSched);
-			dumpST(L"actual time = ", stActual);
-			dumpST(L"new sched   = ", stNew);
+			nclog(L"\t Nothing currently implemented!\n");
 
 			nclog(L"... test mode ended\n");
 		}
@@ -445,7 +401,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			//stNewTime = DT_Add(_Tasks[iTask].stStartTime, 0, 0, 0, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
 			
 #ifndef TESTMODE
-			ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime);
+			ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime);
 #endif			
 			//the new kill task
 			wsprintf(strTaskCmdLine, L"-k task%i", iTask+1); //the KILL cmdLine for tasker.exe for this task	
@@ -466,7 +422,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				tmNewTime=createNextSchedule(tmNewTime, shDays, shHour, shMin);
 				//stNewTime = DT_Add(_Tasks[iTask].stStopTime, 0, 0, 0, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
 #ifndef TESTMODE
-				ScheduleRunApp(szTaskerEXE, strTaskCmdLine, stNewTime);
+				ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime);
 #endif
 			_Tasks[iTask].iActive=1;
 			//write change to registry
