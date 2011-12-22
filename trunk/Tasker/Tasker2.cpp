@@ -101,7 +101,7 @@ int scheduleAllTasks(){
 			tmNewTime.tm_hour = _Tasks[iTask].stStartTime.tm_hour ;// shHour;
 			tmNewTime.tm_min  = _Tasks[iTask].stStartTime.tm_min;// shMin;
 
-			createNextSchedule(&tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
+			tmNewTime = createNextSchedule(tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
 #ifndef TESTMODE
 			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime)==0)
 				iRet++;
@@ -124,7 +124,7 @@ int scheduleAllTasks(){
 			tmNewTime.tm_hour = _Tasks[iTask].stStopTime.tm_hour;
 			tmNewTime.tm_min  = _Tasks[iTask].stStopTime.tm_min;
 
-			createNextSchedule(&tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
+			tmNewTime = createNextSchedule(tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
 #ifndef TESTMODE
 			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime)==0)
 				iRet++;
@@ -179,10 +179,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	////v2.28: use only one current time, the time the exe has been started
 	g_tmCurrentStartTime = getLocalTime(&g_tmCurrentStartTime);
 
-	nclog(L"Using launch time %02i.%02i.%04i, %02i:%02i\n",
-		g_tmCurrentStartTime.tm_mday, g_tmCurrentStartTime.tm_mon+1, g_tmCurrentStartTime.tm_year +1900,
-		g_tmCurrentStartTime.tm_hour, g_tmCurrentStartTime.tm_min);
-	
 	nclog(L"CmdLine = \n");
 	for(int x=1; x<argc; x++){
 		nclog(L"\targv[%i]: '%s'\n", x, argv[x]);
