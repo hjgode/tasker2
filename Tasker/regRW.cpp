@@ -12,7 +12,7 @@ extern struct tm g_tmCurrentStartTime;
 TASK _Tasks[iMaxTasks];
 int iTaskCount=0;
 
-DWORD _dwVersion = 234L;
+DWORD _dwVersion = 300L;
 int _dbgLevel = 0;
 
 static TCHAR* _szRegKey = L"Software\\tasker";
