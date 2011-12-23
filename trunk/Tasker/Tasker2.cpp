@@ -3,7 +3,7 @@
 // use test mode to disable the creation of new schedules and control 
 // everything with just calling Tasker2 with args manually
 
-#define TESTMODE
+//#define TESTMODE
 
 #pragma warning (once : 4244)
 
