@@ -533,8 +533,12 @@ int processStartStopCmd(TCHAR* argv[]){
 			}
 			else{ // a stop task			
 				//now kill the task's exe				
-				nclog(L"Killing exe '%s'\n", _Tasks[iTask].szExeName);
-				DWORD iKillRes = killExe(_Tasks[iTask].szExeName);
+				nclog(L"Killing exe '%s'...\n", _Tasks[iTask].szExeName);
+				//get only the process name without path
+				TCHAR* strNew = wcsrchr(_Tasks[iTask].szExeName, L'\\');
+				strNew++;
+				nclog(L"\tTerminate process: '%s'\n", strNew);
+				DWORD iKillRes = killExe( strNew ) ;//_Tasks[iTask].szExeName);
 				switch (iKillRes){
 					case ERROR_NOT_FOUND:
 						nclog(L"\texe not running\n");
@@ -546,6 +550,7 @@ int processStartStopCmd(TCHAR* argv[]){
 						nclog(L"unable to kill exe. GetLastError=%08x\n", iKillRes);
 						break;
 				}
+
 			}
 		}
 		else{

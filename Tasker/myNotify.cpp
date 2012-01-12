@@ -488,13 +488,13 @@ public:
 //--------------------------------------------------------------------
 DWORD killExe(TCHAR* szExe){
 	//cut path from szExe
-	TCHAR* strNew = wcsrchr(szExe, L'\\');
-	strNew++;
+//	TCHAR* strNew = wcsrchr(szExe, L'\\');
+//	strNew++;
 
-	KernelMode _km;
+//	KernelMode _km;
 
     HANDLE hProc;
-    hProc= GetProcessHandle(strNew);
+    hProc= GetProcessHandle(szExe);// strNew);
 
     if (hProc==NULL || hProc==INVALID_HANDLE_VALUE) {
         return ERROR_NOT_FOUND;
@@ -505,7 +505,7 @@ DWORD killExe(TCHAR* szExe){
 		res= GetLastError();
 	}
     CloseHandle(hProc);
-
+//	_km.~KernelMode();
 	return res;
 }
 
