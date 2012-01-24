@@ -4,6 +4,16 @@
 
 Tasker2 - a tool to schedule start and kill applications
 
+v3.00
+	removed kernaleMode calls in KillExe()
+	added new bStopActive element, usage: disable kill command with the use of reg_sz:"stop"="none"
+	changed code to only calc and schedule active kill schedules
+	changed code to timeOut after 30 seconds on Mutex wait
+	changed createNextSchedule to recalc future schedules backwards to next possible schedule
+	fixed a bug in createNextSchedule with 2400 interval!
+	
+^======== CHANGED CODE TO USE struct tm instead of systemtime for time diff calculations =======^
+
 v2.33
 	added isNewer2
 	changed getNextTime
