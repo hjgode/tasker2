@@ -414,18 +414,34 @@ int regReadKeys(){
 		rc=RegQueryValueEx(hKey, L"stop", 0, &dwType, (LPBYTE) &szVal, &dwSize);
 		if(rc==0){
 			if(_dbgLevel>4) nclog(L"\tregReadKeys: 'stop' entry is '%s'\n", szVal);
-			iRes=getTMfromString(&tmTemp, szVal);
-			if(iRes==0){
-				if(_dbgLevel>4) 
-					nclog(L"\tregReadKeys: task.stStopTime entry set\n");
-				_Tasks[i].stStopTime=fixTM(tmTemp);
+			if(wcsicmp(szVal, L"none")==0)
+				_Tasks[i].bStopActive=FALSE;
+			else
+				_Tasks[i].bStopActive=TRUE;
+			if(_Tasks[i].bStopActive){	//is stop active
+				iRes=getTMfromString(&tmTemp, szVal);
+				if(iRes==0){
+					if(_dbgLevel>4) 
+						nclog(L"\tregReadKeys: task.stStopTime entry set\n");
+					_Tasks[i].stStopTime=fixTM(tmTemp);
+				}
+				else{
+					_Tasks[i].iActive = 0;
+					if(_dbgLevel>4) 
+						nclog(L"\tregReadKeys: task.stStopTime could not be set, iRes=%i\n", iRes);
+					iRet=-8; //can not read exe entry
+					goto exit_readallkeys;
+				}
 			}
-			else{
-				_Tasks[i].iActive = 0;
-				if(_dbgLevel>4) 
-					nclog(L"\tregReadKeys: task.stStopTime could not be set, iRes=%i\n", iRes);
-				iRet=-8; //can not read exe entry
-				goto exit_readallkeys;
+			else{ //bStopActive
+				iRes = getTMfromString(&tmTemp, L"0000");
+				if(iRes==0)
+					_Tasks[i].stStopTime=fixTM(tmTemp);
+				else{
+					struct tm tmTemp1;
+					memset(&tmTemp1, 0, sizeof(tm));
+					_Tasks[i].stStopTime=tmTemp1;
+				}
 			}
 		}
 		else
@@ -452,7 +468,8 @@ int regReadKeys(){
 					iRet=-99; //can not read exe entry
 					goto exit_readallkeys;
 				}
-				_Tasks[i].stDiffTime=tmTemp;
+				
+				_Tasks[i].stDiffTime=fixTM(tmTemp);
 			}
 			else{
 				if(_dbgLevel>4) nclog(L"\tregReadKeys: error in read 'interval' entry. Using Active=FALSE\n");

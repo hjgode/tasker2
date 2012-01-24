@@ -83,7 +83,7 @@ int scheduleAllTasks(){
 			nclog(L"Creating new Start Task schedule for '%s' in Task%i\n", _Tasks[iTask].szExeName, iTask+1);
 			//use the interval settings
 			short shHourIntvl	=	_Tasks[iTask].stDiffTime.tm_hour ;
-			short shMinIntvl		=	_Tasks[iTask].stDiffTime.tm_min;
+			short shMinIntvl	=	_Tasks[iTask].stDiffTime.tm_min;
 			short shDaysIntvl	=   0;
 
 			if(shHourIntvl>=24){	//hour interval value is one day or more
@@ -110,7 +110,7 @@ int scheduleAllTasks(){
 			regSetStartTime(iTask, tmNewTime);
 
 			//################ create a new KILL schedule for taskX
-			wsprintf(strTaskCmdLine, L"-k task%i", iTask+1); //the cmdLine for tasker.exe for this task	
+			wsprintf(strTaskCmdLine, L"-k task%i", iTask+1); //the cmdLine for tasker.exe for this task
 			nclog(L"Creating new Kill Task schedule for '%s' in Task%i\n", _Tasks[iTask].szExeName, iTask+1);
 			shHourIntvl	=	_Tasks[iTask].stDiffTime.tm_hour;
 			shMinIntvl	=	_Tasks[iTask].stDiffTime.tm_min;
@@ -121,16 +121,21 @@ int scheduleAllTasks(){
 				shHourIntvl = (short) (shHourIntvl % 24);
 			}				
 			tmNewTime=g_tmCurrentStartTime;
-			tmNewTime.tm_hour = _Tasks[iTask].stStopTime.tm_hour;
-			tmNewTime.tm_min  = _Tasks[iTask].stStopTime.tm_min;
+			if(_Tasks[iTask].bStopActive){
+				tmNewTime.tm_hour = _Tasks[iTask].stStopTime.tm_hour;
+				tmNewTime.tm_min  = _Tasks[iTask].stStopTime.tm_min;
 
-			tmNewTime = createNextSchedule(tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
-#ifndef TESTMODE
-			if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime)==0)
-				iRet++;
-#endif				
-			////save new changed stoptime
-			regSetStopTime(iTask, tmNewTime);
+				tmNewTime = createNextSchedule(tmNewTime, shDaysIntvl, shHourIntvl, shMinIntvl);
+	#ifndef TESTMODE
+				if(ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime)==0)
+					iRet++;
+	#endif				
+				////save new changed stoptime
+				regSetStopTime(iTask, tmNewTime);
+			}
+			else{	//bStopActive
+				nclog(L"\tKill Task schedule for '%s' in Task%i is Disabled\n", _Tasks[iTask].szExeName, iTask+1);
+			}
 		}
 	}
 	nclog(L"scheduleAllTasks: scheduled %i new tasks\n", iRet);
@@ -141,6 +146,8 @@ int scheduleAllTasks(){
 int _tmain(int argc, _TCHAR* argv[])
 {
 	DEBUGMSG(1, (L"here we are: '%s'\n", argv[0]));
+	
+//	InitializeCriticalSection(pCriticalAction);
 
 	nclog(L"++++++++++++++++ Tasker v%i started +++++++++++++++++++\n", _dwVersion);
 #ifdef DEBUG
@@ -163,8 +170,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	if(dwLast== ERROR_ALREADY_EXISTS){//mutex already exists, wait for mutex release
 		nclog(L"\tAttached to existing mutex\n");
 		nclog(L"................ Waiting for mutex release......\n");
-		WaitForSingleObject( hMutex, INFINITE );
-		nclog(L"++++++++++++++++ Mutex released. +++++++++++++++\n");
+		DWORD dwWait = WaitForSingleObject( hMutex, 30000);//INFINITE );
+		switch(dwWait){
+			case WAIT_OBJECT_0:
+				//normal signaled end
+				nclog(L"++++++++++++++++ Mutex wait released. +++++++++++++++\n");
+				break;
+			case WAIT_TIMEOUT:
+				nclog(L"++++++++++++++++ Mutex wait timed out. +++++++++++++++\n");
+				goto exit_main;
+				break;
+			default:
+				nclog(L"++++++++++++++++ Mutex wait unknown return code: %i +++++++++++++++\n", dwWait);
+				goto exit_main;
+				break;
+		}
 	}
 	else{
 		nclog(L"\tCreated new mutex\n");
@@ -273,12 +293,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	if(argc==3){	// we got called by the scheduler with either "-s taskX" or "-k taskX", "-r taskX" and "-a taskX" can be used manually
 		DEBUGMSG(1, (L"two args: '%s', '%s'\n", argv[1], argv[2]));
+		int iTask = getTaskNumber(argv[2]);
 
-		if ( (wcsicmp(argv[1], L"-s")==0) || (wcsicmp(argv[1], L"-k")==0) ){	//start taskX app
+		if (wcsicmp(argv[1], L"-s")==0) {	//start taskX app
 			processStartStopCmd(argv);
 		}
+		else if ( (wcsicmp(argv[1], L"-k")==0) && (_Tasks[iTask].bStopActive) ){	//is kill task AND bStopActive is set
+			processStartStopCmd(argv);
+		}
+		else if ( (wcsicmp(argv[1], L"-k")==0) && (!_Tasks[iTask].bStopActive) ){	//is kill task AND NOT bStopActive is set
+			nclog(L"Skipping disabled kill Task schedule for Task%i\n", iTask+1);
+		}
 		else if(wcsicmp(argv[1], L"-r")==0){	//remove schedules for taskX
-			int iTask = getTaskNumber(argv[2]);
 			//create cmd line for tasker
 			nclog(L"Clearing all Tasker schedules for Task%i\n", iTask+1);
 			TCHAR strTaskCmdLine[MAX_PATH];
@@ -354,11 +380,16 @@ int _tmain(int argc, _TCHAR* argv[])
 				shDays = (short) (shHour / 24);
 				shHour = (short) (shHour % 24);
 			}			
-			tmNewTime=_Tasks[iTask].stStopTime;
-			tmNewTime=createNextSchedule(tmNewTime, shDays, shHour, shMin);
-#ifndef TESTMODE
-			ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime);
-#endif
+			if(_Tasks[iTask].bStopActive){
+				tmNewTime=_Tasks[iTask].stStopTime;
+				tmNewTime=createNextSchedule(tmNewTime, shDays, shHour, shMin);
+	#ifndef TESTMODE
+				ScheduleRunApp(szTaskerEXE, strTaskCmdLine, tmNewTime);
+	#endif
+			}
+			else{
+				nclog(L"\tKill schedule for '%s' in Task%i is DISABLED\n", _Tasks[iTask].szExeName, iTask+1);
+			}
 			_Tasks[iTask].iActive=1;
 			//write change to registry
 			nclog(L"Setting Task%i to active\n", iTask+1);
@@ -369,7 +400,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				nclog(L"\tFAILED: %i\n", iRes);
 		}
 	}
-
+exit_main:
 	nclog(L"\tReleaseMutex...");
 	ReleaseMutex(MY_MUTEX);
 	if(CloseHandle(hMutex))
@@ -378,6 +409,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		nclog(L"FALSE, lastError=%i\n", GetLastError());
 	}
 	nclog(L"++++++++++++++++++ Tasker2 ended +++++++++++++++++++\n");
+
+//	DeleteCriticalSection(pCriticalAction);
+
 	return 0;
 }
 

@@ -14,6 +14,8 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+//LPCRITICAL_SECTION pCriticalAction;
+
 #ifdef USEWINSOCK
 static SOCKET wsa_socket=INVALID_SOCKET;
 #pragma comment(lib , "winsock")
@@ -173,6 +175,9 @@ TCHAR* logDateTime(){
 }
 
 static int writefile(TCHAR *filetext){
+
+//	EnterCriticalSection(pCriticalAction);
+
 	/* File Write Function, written by professor chemicalX */
 	FILE	*fp;						/* Declare FILE structure */
 	TCHAR  szTemp[255];
@@ -204,6 +209,9 @@ static int writefile(TCHAR *filetext){
 	fclose(fp); /* Remember to close the file stream after calling file functions, */
 
 	/* otherwise the file wont be created. */
+
+//	LeaveCriticalSection(pCriticalAction);
+
 	return 0;
 }
 //========================== end of file stuff =============================
@@ -229,7 +237,9 @@ void nclog (const wchar_t *fmt, ...)
 #ifdef USEWINSOCK
 		wsa_send(bufOutA);
 #endif
-		writefile(bufW);
+
+			writefile(bufW);
+
 #ifdef DEBUG
 		DEBUGMSG(1, (bufW));
 #else

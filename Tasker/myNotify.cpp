@@ -805,16 +805,24 @@ struct tm createNextSchedule(struct tm tmNext, short shDays, short shHour, short
 	dumpTT64(L"current time: ", ttCurr);
 	dumpTT64(L"next time:    ", ttNext);
 	//double dTime = difftime(mktime(&tmNext), mktime(&g_tmCurrentStartTime)); //difftime(endingTime, startTime)
-	//is the next schedule in future?
-	if(ttNext <= ttCurr){
+	
+	if(ttNext <= ttCurr){//is the next schedule in past?
 		if(shDays>0){
 			//if we have a day interval we start with current day and add shDays
-			int iHH=tmNext.tm_hour; int iMM=tmNext.tm_min;
+			int iHH=tmNext.tm_hour; 
+			int iMM=tmNext.tm_min;
 			tmNext=g_tmCurrentStartTime;
 			//apply hour and min and then add hh and mm interval
 			tmNext.tm_hour	=iHH + shHour;
 			tmNext.tm_min	=iMM + shMin;
 			tmNext.tm_mday	+=shDays;
+			ttNext=_mktime64(&tmNext);
+			while(ttNext<=ttCurr){
+				tmNext.tm_hour+=shHour;
+				tmNext.tm_min+=shMin;
+				tmNext.tm_yday+=shDays;
+				ttNext=_mktime64(&tmNext);
+			}
 		}
 		else{
 			do{
@@ -825,6 +833,47 @@ struct tm createNextSchedule(struct tm tmNext, short shDays, short shHour, short
 				ttNext=_mktime64(&tmNext);
 				//ttNext = DT_Add(tmNext->tm_mday+shDays , 0, 0, shDays, shHour, shMin, 0, 0);// DT_AddDay(_Tasks[iTask].stStartTime);
 			}while (ttNext <= ttCurr);
+		}
+	}//is the next schedule in past?
+	else{//next schedule is in future!
+
+		//check if scheduled time - timeInterval is in future
+		//if yes, subtract timeInterval of scheduled time
+		//repeat until scheduled time is in past of actual time
+		if(shDays>0){
+			//if we have a day interval we start with current day and add shDays
+			int iHH=tmNext.tm_hour; 
+			int iMM=tmNext.tm_min;
+			tmNext=g_tmCurrentStartTime;
+			//apply hour and min and then add hh and mm interval
+			tmNext.tm_hour	=iHH + shHour;
+			tmNext.tm_min	=iMM + shMin;
+			tmNext.tm_mday	+=shDays;
+			while(ttNext>ttCurr){
+				tmNext.tm_hour-=shHour;
+				tmNext.tm_min-=shMin;
+				tmNext.tm_year-=shDays;
+				ttNext=_mktime64(&tmNext);
+			}
+			//we are before current time, add one interval
+			tmNext.tm_hour+=shHour;
+			tmNext.tm_min+=shMin;
+			tmNext.tm_year+=shDays;
+			ttNext=_mktime64(&tmNext);
+
+		}
+		else{
+			do{
+				int iHH=tmNext.tm_hour; 
+				int iMM=tmNext.tm_min;
+
+				tmNext.tm_hour-=shHour;
+				tmNext.tm_min-=shMin;
+				ttNext=_mktime64(&tmNext);
+			}while(ttNext > ttCurr);
+			//now add one interval on top of the next schedule
+			tmNext.tm_hour+=shHour;
+			tmNext.tm_min+=shMin;
 		}
 	}
 	ttNext=_mktime64(&tmNext);
