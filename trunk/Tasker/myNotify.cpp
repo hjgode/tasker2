@@ -541,6 +541,7 @@ void listNotifications(){
 	// Notice: We do not care about the status of the notification.
 	// Just clear it even if it is not filed??
 	nclog(L"========= List of Notification entries: ===============\n");
+	nclog(L"found %i entries\n", nNumHandlers+1);
 	for (i=0; i<nNumHandlers; i++) {
 		// query info for this specific handler
 		BOOL bClearThis = FALSE;
@@ -595,17 +596,18 @@ void listNotifications(){
 		//get time entries
 		TCHAR strTimes[MAX_PATH]; wsprintf(strTimes, L"");
 
-		TCHAR strTemp[MAX_PATH]; wsprintf(strTemp, L"");
+		TCHAR strTemp[MAX_PATH]; 
+		wsprintf(strTemp, L"");
 		if(pNotifTrigger->dwType==CNT_TIME || pNotifTrigger->dwType==CNT_CLASSICTIME || pNotifTrigger->dwType==CNT_PERIOD){
 			SYSTEMTIME st = pNotifTrigger->stStartTime;
-			wsprintf(strTemp, L"Start: %02i.%02i.%04i/%02i:%02i, ",
+			wsprintf(strTemp, L"Start: %02i.%02i.%04i/%02i:%02i:%02i, ",
 				st.wDay, st.wMonth, st.wYear,
-				st.wHour,st.wMinute);
+				st.wHour,st.wMinute, st.wSecond);
 			wcscat(strTimes, strTemp);
 			st = pNotifTrigger->stEndTime;
-			wsprintf(strTemp, L"End: %02i.%02i.%04i/%02i:%02i",
+			wsprintf(strTemp, L"End: %02i.%02i.%04i/%02i:%02i:%02i",
 				st.wDay, st.wMonth, st.wYear,
-				st.wHour,st.wMinute);
+				st.wHour,st.wMinute, st.wSecond);
 			wcscat(strTimes, strTemp);
 		}
 
@@ -621,6 +623,7 @@ void listNotifications(){
 		else
 			wsprintf(strArgs, L"-no args-");
 
+		nclog(L"Notification entry %i\n", i);
 		nclog(L"\tType:   %s\n", strType[pNotifTrigger->dwType] );
 		nclog(L"\tAction: %s\n", strAction);
 		nclog(L"\tTimes:  %s\n", strTimes);
