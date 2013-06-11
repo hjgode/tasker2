@@ -823,7 +823,7 @@ struct tm createNextSchedule(struct tm tmNext, short shDays, short shHour, short
 			while(ttNext<=ttCurr){
 				tmNext.tm_hour+=shHour;
 				tmNext.tm_min+=shMin;
-				tmNext.tm_yday+=shDays;
+				tmNext.tm_mday+=shDays;
 				ttNext=_mktime64(&tmNext);
 			}
 		}
@@ -855,13 +855,13 @@ struct tm createNextSchedule(struct tm tmNext, short shDays, short shHour, short
 			while(ttNext>ttCurr){
 				tmNext.tm_hour-=shHour;
 				tmNext.tm_min-=shMin;
-				tmNext.tm_year-=shDays;
+				tmNext.tm_mday-=shDays;
 				ttNext=_mktime64(&tmNext);
 			}
 			//we are before current time, add one interval
 			tmNext.tm_hour+=shHour;
 			tmNext.tm_min+=shMin;
-			tmNext.tm_year+=shDays;
+			tmNext.tm_mday+=shDays;
 			ttNext=_mktime64(&tmNext);
 
 		}

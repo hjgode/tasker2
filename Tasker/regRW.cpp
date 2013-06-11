@@ -698,7 +698,7 @@ int regSetStopTime(int iTask, struct tm pStopTime){
 	dwSize=wcslen(szHM)*sizeof(TCHAR);
 	dwType=REG_SZ;
 
-	rc = RegSetValueEx(hKey, L"start", 0, dwType, (LPBYTE)szVal, dwSize);
+	rc = RegSetValueEx(hKey, L"stop", 0, dwType, (LPBYTE)szVal, dwSize);
 	if(rc == 0)
 		DEBUGMSG(1, (L"regSetStopTime: OK. START is %s\n", szVal));
 	else{
