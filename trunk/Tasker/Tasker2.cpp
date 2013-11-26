@@ -476,7 +476,7 @@ int processStartStopCmd(TCHAR* argv[]){
 
 		if(thisTaskType==stopTask){
 			//difftime(timer1, timer0) returns the elapsed time in seconds, from timer0 to timer1
-			iDeltaMinutes = difftime(ttCurr, ttStop)/60;// stDeltaMinutes(_Tasks[iTask].stStopTime, g_CurrentStartTime);
+			iDeltaMinutes = (int)(difftime(ttCurr, ttStop)/60);// stDeltaMinutes(_Tasks[iTask].stStopTime, g_CurrentStartTime);
 			nclog(L"stStopTime = '%s', ", getLongStrFromTM(_Tasks[iTask].stStopTime));
 		}
 		else{

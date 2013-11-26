@@ -6,6 +6,10 @@
 #include "notify.h"
 #include "tlhelp32.h"
 
+#ifndef TH32CS_SNAPNOHEAPS
+	#define TH32CS_SNAPNOHEAPS  0x40000000	// optimization to not snapshot heaps
+#endif
+
 #pragma comment(lib, "toolhelp.lib")
 
 TCHAR str[MAX_PATH];
@@ -43,7 +47,9 @@ struct tm getLocalTime(struct tm* pLocalTime){
 	nclog(L"~~~ using actual localtime:\n");
 	// START ----------- store the start time in a global var
 	__time64_t now;
+#if _WIN32_WCE < 0x600
 	_tzset();
+#endif
     // Get UNIX-style time
 	_time64( &now );	//get the system time
 	_localtime64_s( pLocalTime, &now );	// convert to local time
