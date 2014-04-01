@@ -22,9 +22,12 @@
 
 #include <windows.h>
 
-#include <aygshell.h>
-#pragma comment(lib, "aygshell.lib") 
-
+#ifdef WINCE
+	#pragma comment(linker, "/nodefaultlib:secchk.lib")
+#else
+#endif
+	#include <aygshell.h>
+	#pragma comment(lib, "aygshell.lib") 
 
 
 #include <stdio.h>

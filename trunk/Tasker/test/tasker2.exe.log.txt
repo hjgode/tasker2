@@ -1,5 +1,183 @@
-0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0x15e6ec7a:              TESTMODE !
-0x15e6ec7a: Checking for Mutex (single instance allowed only)...
-0x15e6ec7a: 	Attached to existing mutex
-0x15e6ec7a: ................ Waiting for mutex release......
+0x5998e87e: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x5998e87e: Checking for Mutex (single instance allowed only)...
+0x5998e87e: 	Created new mutex
+0x5998e87e: ~~~ using actual localtime:
+0x5998e87e: 	 01.12.2011, 01:00
+0x5998e87e: CmdLine = 
+0x5998e87e: 	argv[1]: 'AppRunAfterTimeChange'
+0x5998e87e: Checking for valid date/time...
+0x5998e87e: Date/Time after 11 2011. OK
+0x5998e87e: got 'AppRunAfterTimeChange' signaled
+0x5998e87e: ~~~ using actual localtime:
+0x5998e87e: 	 01.12.2011, 01:00
+0x5998e87e: Checking for valid date/time...
+0x5998e87e: Date/Time after 11 2011. OK
+0x5998e87e: Clearing Event Notifications...0x5998e87e: OK
+0x5998e87e: ClearRunApp(): ...
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3a000027
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3f000023
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3600001e
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3400000b
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x39000022
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3e000017
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3d00001f
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3a00001b
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3200001d
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3f00001a
+0x5998e87e: ClearRunApp(): returns 10 
+0x5998e87e: Cleared 10 Tasker schedules
+0x5998e87e: scheduleAllTasks: ClearAllSchedules for 10 tasks
+0x5998e87e: Clearing Event Notifications...0x5998e87e: Clearing Event Notifications...0x5998e87e: OK
+0x5998e87e: Adding Time_Change Event Notification...0x5998e87e: OK
+0x5998e87e: Adding TZ_Change Event Notification...0x5998e87e: OK
+0x5998e87e: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x5998e87e: 	calculating new schedule for '201112010600'...
+0x5998e87e: 	interval is: 1d00h00m
+0x5998e87e: 	schedule adjusted to '201112020600'
+0x5998e87e: 	ScheduleRunApp: Next run at: 02.12.2011 06:00:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x5998e87e: 	calculating new schedule for '201112010600'...
+0x5998e87e: 	interval is: 1d00h00m
+0x5998e87e: 	schedule adjusted to '201112020600'
+0x5998e87e: 	ScheduleRunApp: Next run at: 02.12.2011 06:00:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x5998e87e: 	calculating new schedule for '201112010010'...
+0x5998e87e: 	interval is: 0d00h10m
+0x5998e87e: 	schedule adjusted to '201112010110'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 01:10:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x5998e87e: 	calculating new schedule for '201112010110'...
+0x5998e87e: 	interval is: 0d00h10m
+0x5998e87e: 	schedule adjusted to '201112010110'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 01:10:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x5998e87e: 	calculating new schedule for '201112010050'...
+0x5998e87e: 	interval is: 0d01h10m
+0x5998e87e: 	schedule adjusted to '201112010200'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 02:00:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x5998e87e: 	calculating new schedule for '201112011230'...
+0x5998e87e: 	interval is: 0d01h10m
+0x5998e87e: 	schedule adjusted to '201112010200'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 02:00:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x5998e87e: 	calculating new schedule for '201112010410'...
+0x5998e87e: 	interval is: 0d12h00m
+0x5998e87e: 	schedule adjusted to '201112010410'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 04:10:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x5998e87e: 	calculating new schedule for '201112011610'...
+0x5998e87e: 	interval is: 0d12h00m
+0x5998e87e: 	schedule adjusted to '201112010410'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 04:10:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x5998e87e: 	calculating new schedule for '201112010015'...
+0x5998e87e: 	interval is: 0d00h15m
+0x5998e87e: 	schedule adjusted to '201112010115'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 01:15:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x5998e87e: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x5998e87e: scheduleAllTasks: scheduled 9 new tasks
+0x5998e87e: Scheduled 9 Tasks
+0x5998e87e: 	ReleaseMutex...0x5998e87e: OK
+0x5998e87e: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x76cb204a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x76cb204a: Checking for Mutex (single instance allowed only)...
+0x76cb204a: 	Created new mutex
+0x76cb204a: ~~~ using actual localtime:
+0x76cb204a: 	 01.12.2011, 01:00
+0x76cb204a: CmdLine = 
+0x76cb204a: 	argv[1]: 'AppRunAfterTimeChange'
+0x76cb204a: Checking for valid date/time...
+0x76cb204a: Date/Time after 11 2011. OK
+0x76cb204a: got 'AppRunAfterTimeChange' signaled
+0x76cb204a: ~~~ using actual localtime:
+0x76cb204a: 	 01.12.2011, 01:00
+0x76cb204a: Checking for valid date/time...
+0x76cb204a: Date/Time after 11 2011. OK
+0x76cb204a: Clearing Event Notifications...0x76cb204a: OK
+0x76cb204a: ClearRunApp(): ...
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3d00002b
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3f000017
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3a000022
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3e00002a
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x34000024
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3d000028
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3a000018
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x30000021
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3b00001b
+0x76cb204a: ClearRunApp(): returns 9 
+0x76cb204a: Cleared 9 Tasker schedules
+0x76cb204a: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x76cb204a: Clearing Event Notifications...0x76cb204a: Clearing Event Notifications...0x76cb204a: OK
+0x76cb204a: Adding Time_Change Event Notification...0x76cb204a: OK
+0x76cb204a: Adding TZ_Change Event Notification...0x76cb204a: OK
+0x76cb204a: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x76cb204a: 	calculating new schedule for '201112010600'...
+0x76cb204a: 	interval is: 1d00h00m
+0x76cb204a: 	schedule adjusted to '201112020600'
+0x76cb204a: 	ScheduleRunApp: Next run at: 02.12.2011 06:00:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x76cb204a: 	calculating new schedule for '201112010600'...
+0x76cb204a: 	interval is: 1d00h00m
+0x76cb204a: 	schedule adjusted to '201112020600'
+0x76cb204a: 	ScheduleRunApp: Next run at: 02.12.2011 06:00:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x76cb204a: 	calculating new schedule for '201112010110'...
+0x76cb204a: 	interval is: 0d00h10m
+0x76cb204a: 	schedule adjusted to '201112010110'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 01:10:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x76cb204a: 	calculating new schedule for '201112010110'...
+0x76cb204a: 	interval is: 0d00h10m
+0x76cb204a: 	schedule adjusted to '201112010110'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 01:10:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x76cb204a: 	calculating new schedule for '201112010200'...
+0x76cb204a: 	interval is: 0d01h10m
+0x76cb204a: 	schedule adjusted to '201112010200'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 02:00:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x76cb204a: 	calculating new schedule for '201112011230'...
+0x76cb204a: 	interval is: 0d01h10m
+0x76cb204a: 	schedule adjusted to '201112010200'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 02:00:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x76cb204a: 	calculating new schedule for '201112010410'...
+0x76cb204a: 	interval is: 0d12h00m
+0x76cb204a: 	schedule adjusted to '201112010410'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 04:10:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x76cb204a: 	calculating new schedule for '201112011610'...
+0x76cb204a: 	interval is: 0d12h00m
+0x76cb204a: 	schedule adjusted to '201112010410'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 04:10:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x76cb204a: 	calculating new schedule for '201112010115'...
+0x76cb204a: 	interval is: 0d00h15m
+0x76cb204a: 	schedule adjusted to '201112010115'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 01:15:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x76cb204a: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x76cb204a: scheduleAllTasks: scheduled 9 new tasks
+0x76cb204a: Scheduled 9 Tasks
+0x76cb204a: 	ReleaseMutex...0x76cb204a: OK
+0x76cb204a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
