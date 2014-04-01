@@ -14,21 +14,25 @@ pregutl @tasker2.reg >>test_run.txt
 
 pdel \tasker2.exe.log.txt >NUL
 pput -f ./tasker2.exe \tasker2.exe
+pdel \setDateTime.exe.log.txt >NUL
+pput -f ./setDateTime.exe \setDateTime.exe
 
 ECHO TEST1...
 ECHO 	set time manually to 01.01.2003 12:00
+echo    simulate a tasker call after cleanboot
 echo 	run tasker2.exe
 ECHO ++++++++++++++ TEST1 ++++++++++++++++ >>test_run.txt
 pregutl HKLM\Software\Tasker  >>test_run.txt
 ECHO ------------------------------------- >>test_run.txt
 ECHO set time manually to 01.01.2003 12:00 >>test_run.txt
+echo    simulate a tasker call after cleanboot >>test_run.txt
 ECHO ------------------------------------- >>test_run.txt
 prun \SetDateTime.exe 200301011200
 CALL :MYWAIT
 prun \tasker2.exe
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 1 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -41,13 +45,14 @@ echo 	run tasker2.exe
 ECHO ++++++++++++++ TEST2 ++++++++++++++++ >>test_run.txt
 ECHO ------------------------------------- >>test_run.txt
 ECHO set time manually to 01.02.2009 12:00 >>test_run.txt
+echo    simulate a tasker call before valid date >>test_run.txt
 ECHO ------------------------------------- >>test_run.txt
 prun \SetDateTime.exe 200902011200
 CALL :MYWAIT
 prun \tasker2.exe
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG  test 2 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -67,7 +72,7 @@ CALL :MYWAIT
 prun \tasker2.exe AppRunAfterTimeChange
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 3 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -87,7 +92,7 @@ CALL :MYWAIT
 prun \tasker2.exe AppRunAfterTimeChange
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG  test 4 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -109,7 +114,7 @@ CALL :MYWAIT
 prun \tasker2.exe -s task2
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 5 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -131,7 +136,7 @@ CALL :MYWAIT
 prun \tasker2.exe -s task3
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 6 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -153,7 +158,7 @@ CALL :MYWAIT
 prun \tasker2.exe -k task1
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 7 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -169,14 +174,14 @@ ECHO ++++++++++++++ TEST8 ++++++++++++++++ >>test_run.txt
 ECHO ------------------------------------- >>test_run.txt
 echo ###	simulates a scheduler call at correct time  >>test_run.txt
 echo set time manually to 03.12.2011 0605  >>test_run.txt
-echo 	tasker.exe -k task1  >>test_run.txt
+echo 	tasker.exe -k task2  >>test_run.txt
 ECHO ------------------------------------- >>test_run.txt
 prun \SetDateTime.exe 201112030605
 CALL :MYWAIT
 prun \tasker2.exe -k task2
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 8 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -211,7 +216,7 @@ prun \tasker2.exe -k task2
 prun \tasker2.exe AppRunAfterTimeChange
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 9 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -224,7 +229,7 @@ echo 	set time manually to 04.12.2011 0000
 echo 	tasker.exe AppRunAfterTimeChange
 ECHO ++++++++++++++ TEST10 ++++++++++++++++ >>test_run.txt
 ECHO ------------------------------------- >>test_run.txt
-echo ###	simululates a delayed call  >>test_run.txt
+echo ###	simululates a premature TimeChangeEvent  >>test_run.txt
 echo set time manually to 04.12.2011 0000  >>test_run.txt
 echo 	tasker2.exe AppRunAfterTimeChange  >>test_run.txt
 ECHO ------------------------------------- >>test_run.txt
@@ -233,7 +238,7 @@ CALL :MYWAIT
 prun \tasker2.exe AppRunAfterTimeChange
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 10 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
@@ -255,18 +260,18 @@ CALL :MYWAIT
 prun \tasker2.exe AppRunAfterTimeChange
 ECHO "############# Result:" >>test_run.txt
 pregutl HKLM\Software\Tasker >>test_run.txt
-ECHO *************** LOG  **************** >>test_run.txt
+ECHO *************** LOG test 11 **************** >>test_run.txt
 pget -f \tasker2.exe.log.txt
 type tasker2.exe.log.txt >>test_run.txt
 pdel \tasker2.exe.log.txt
-ECHO ---------------TEST10  --------------- >>test_run.txt
+ECHO ---------------TEST11  --------------- >>test_run.txt
 ECHO .>>test_run.txt
 
 findstr /g:find_start.txt tasker2.exe.log.txt
 GOTO MYEND
 
 :MYWAIT
-echo Sleeping...
+echo Sleeping 5 sec ...
 PING 1.1.1.1 -n 1 -w 5000 >NUL
 echo ...continue
 GOTO :eof

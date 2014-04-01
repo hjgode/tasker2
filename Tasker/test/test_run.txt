@@ -10,54 +10,89 @@ set value HKLM\Software\Tasker\Task1  stop : "0600"
 set value HKLM\Software\Tasker\Task1  interval : "2400"
 set value HKLM\Software\Tasker\Task1  startOnAConly : dword:00000001
 set value HKLM\Software\Tasker\Task1  active : dword:00000001
-set value HKLM\Software\Tasker\Task2  exe : "\Program Files\INcontrol\Athena\tclient.exe"
-set value HKLM\Software\Tasker\Task2  args : "-hidden"
-set value HKLM\Software\Tasker\Task2  start : "1955"
-set value HKLM\Software\Tasker\Task2  stop : "0605"
-set value HKLM\Software\Tasker\Task2  interval : "2400"
+set value HKLM\Software\Tasker\Task2  exe : "\Windows\notes.exe"
+set value HKLM\Software\Tasker\Task2  args : ""
+set value HKLM\Software\Tasker\Task2  start : "0010"
+set value HKLM\Software\Tasker\Task2  stop : "0110"
+set value HKLM\Software\Tasker\Task2  interval : "0010"
 set value HKLM\Software\Tasker\Task2  startOnAConly : dword:00000001
 set value HKLM\Software\Tasker\Task2  active : dword:00000001
-set value HKLM\Software\Tasker\Task3  exe : "\Windows\notepad.exe"
+set value HKLM\Software\Tasker\Task3  exe : "\Windows\notes.exe"
 set value HKLM\Software\Tasker\Task3  args : ""
-set value HKLM\Software\Tasker\Task3  start : "0010"
-set value HKLM\Software\Tasker\Task3  stop : "0110"
-set value HKLM\Software\Tasker\Task3  interval : "0010"
+set value HKLM\Software\Tasker\Task3  start : "1210"
+set value HKLM\Software\Tasker\Task3  stop : "1230"
+set value HKLM\Software\Tasker\Task3  interval : "0070"
 set value HKLM\Software\Tasker\Task3  startOnAConly : dword:00000001
 set value HKLM\Software\Tasker\Task3  active : dword:00000001
+set value HKLM\Software\Tasker\Task4  exe : "\Windows\notes.exe"
+set value HKLM\Software\Tasker\Task4  args : ""
+set value HKLM\Software\Tasker\Task4  start : "1600"
+set value HKLM\Software\Tasker\Task4  stop : "1610"
+set value HKLM\Software\Tasker\Task4  interval : "3600"
+set value HKLM\Software\Tasker\Task4  startOnAConly : dword:00000001
+set value HKLM\Software\Tasker\Task4  active : dword:00000001
+set value HKLM\Software\Tasker\Task5  exe : "\Windows\fexplore.exe"
+set value HKLM\Software\Tasker\Task5  args : "\My Documents"
+set value HKLM\Software\Tasker\Task5  start : "1600"
+set value HKLM\Software\Tasker\Task5  stop : "none"
+set value HKLM\Software\Tasker\Task5  interval : "0015"
+set value HKLM\Software\Tasker\Task5  startOnAConly : dword:00000001
+set value HKLM\Software\Tasker\Task5  active : dword:00000001
 ++++++++++++++ TEST1 ++++++++++++++++ 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112201420"
 UpdateAll=dword:00000001
-Version=dword:000000e4
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112030615"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="1600"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112031600"
+NextStop="201112031610"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
+exe="\Windows\notes.exe"
+interval="3600"
+start="1600"
+startOnAConly=dword:00000001
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112030620"
+NextStop="201112030640"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="1210"
+startOnAConly=dword:00000001
+stop="1230"
+
+[HKLM\Software\Tasker\Task2]
+Default="stop"="0335"
+NextStart="201112030610"
+NextStop="201112030610"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
 interval="0010"
 start="0010"
 startOnAConly=dword:00000001
 stop="0110"
 
-[HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
-startOnAConly=dword:00000001
-stop="0605"
-
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112042000"
+NextStop="201112040600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -71,38 +106,59 @@ set time manually to 01.01.2003 12:00
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112201420"
 UpdateAll=dword:00000001
-Version=dword:000000e4
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112030615"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="1600"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112031600"
+NextStop="201112031610"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
+exe="\Windows\notes.exe"
+interval="3600"
+start="1600"
+startOnAConly=dword:00000001
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112030620"
+NextStop="201112030640"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="1210"
+startOnAConly=dword:00000001
+stop="1230"
+
+[HKLM\Software\Tasker\Task2]
+Default="stop"="0335"
+NextStart="201112030610"
+NextStop="201112030610"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
 interval="0010"
 start="0010"
 startOnAConly=dword:00000001
 stop="0110"
 
-[HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
-startOnAConly=dword:00000001
-stop="0605"
-
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112042000"
+NextStop="201112040600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -112,17 +168,33 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x55e8716e: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0x55e8716e:              TESTMODE !
-0x55e8716e: Checking for Mutex (single instance allowed only)...
-0x55e8716e: 	Created new mutex
-0x55e8716e: Using launch time 01.01.2003, 12:00
-0x55e8716e: CmdLine = 
-0x55e8716e: Checking for valid date/time...
-0x55e8716e: scheduling event notifications
-0x55e8716e: Date/Time not valid!
+0x165c51fa: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x165c51fa: Checking for Mutex (single instance allowed only)...
+0x165c51fa: 	Created new mutex
+0x165c51fa: ~~~ using actual localtime:
+0x165c51fa: 	 01.01.2003, 12:00
+0x165c51fa: CmdLine = 
+0x165c51fa: 	argv[1]: 'AppRunAfterTimeChange'
+0x165c51fa: Checking for valid date/time...
+0x165c51fa: scheduling event notifications
+0x165c51fa: Clearing Event Notifications...0x165c51fa: Clearing Event Notifications...0x165c51fa: OK
+0x165c51fa: Adding Time_Change Event Notification...0x165c51fa: OK
+0x165c51fa: Adding TZ_Change Event Notification...0x165c51fa: OK
+0x165c51fa: Date/Time not valid!
 *********** END ************
-0x55e8716e: nclog goes down
+0x5a400712: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x5a400712: Checking for Mutex (single instance allowed only)...
+0x5a400712: 	Created new mutex
+0x5a400712: ~~~ using actual localtime:
+0x5a400712: 	 01.01.2003, 12:00
+0x5a400712: CmdLine = 
+0x5a400712: Checking for valid date/time...
+0x5a400712: scheduling event notifications
+0x5a400712: Clearing Event Notifications...0x5a400712: Clearing Event Notifications...0x5a400712: OK
+0x5a400712: Adding Time_Change Event Notification...0x5a400712: OK
+0x5a400712: Adding TZ_Change Event Notification...0x5a400712: OK
+0x5a400712: Date/Time not valid!
+*********** END ************
 ---------------TEST1  --------------- 
 .
 ++++++++++++++ TEST2 ++++++++++++++++ 
@@ -131,38 +203,59 @@ set time manually to 01.02.2009 12:00
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112201420"
 UpdateAll=dword:00000001
-Version=dword:000000e4
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112030615"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="1600"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112031600"
+NextStop="201112031610"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
+exe="\Windows\notes.exe"
+interval="3600"
+start="1600"
+startOnAConly=dword:00000001
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112030620"
+NextStop="201112030640"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="1210"
+startOnAConly=dword:00000001
+stop="1230"
+
+[HKLM\Software\Tasker\Task2]
+Default="stop"="0335"
+NextStart="201112030610"
+NextStop="201112030610"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
 interval="0010"
 start="0010"
 startOnAConly=dword:00000001
 stop="0110"
 
-[HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
-active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
-startOnAConly=dword:00000001
-stop="0605"
-
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112042000"
+NextStop="201112040600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
@@ -172,17 +265,33 @@ startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x15e96e26: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0x15e96e26:              TESTMODE !
-0x15e96e26: Checking for Mutex (single instance allowed only)...
-0x15e96e26: 	Created new mutex
-0x15e96e26: Using launch time 01.02.2009, 12:00
-0x15e96e26: CmdLine = 
-0x15e96e26: Checking for valid date/time...
-0x15e96e26: scheduling event notifications
-0x15e96e26: Date/Time not valid!
+0x5987585a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x5987585a: Checking for Mutex (single instance allowed only)...
+0x5987585a: 	Created new mutex
+0x5987585a: ~~~ using actual localtime:
+0x5987585a: 	 01.02.2009, 12:00
+0x5987585a: CmdLine = 
+0x5987585a: 	argv[1]: 'AppRunAfterTimeChange'
+0x5987585a: Checking for valid date/time...
+0x5987585a: scheduling event notifications
+0x5987585a: Clearing Event Notifications...0x5987585a: Clearing Event Notifications...0x5987585a: OK
+0x5987585a: Adding Time_Change Event Notification...0x5987585a: OK
+0x5987585a: Adding TZ_Change Event Notification...0x5987585a: OK
+0x5987585a: Date/Time not valid!
 *********** END ************
-0x15e96e26: nclog goes down
+0xb8dda8d6: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xb8dda8d6: Checking for Mutex (single instance allowed only)...
+0xb8dda8d6: 	Created new mutex
+0xb8dda8d6: ~~~ using actual localtime:
+0xb8dda8d6: 	 01.02.2009, 12:00
+0xb8dda8d6: CmdLine = 
+0xb8dda8d6: Checking for valid date/time...
+0xb8dda8d6: scheduling event notifications
+0xb8dda8d6: Clearing Event Notifications...0xb8dda8d6: Clearing Event Notifications...0xb8dda8d6: OK
+0xb8dda8d6: Adding Time_Change Event Notification...0xb8dda8d6: OK
+0xb8dda8d6: Adding TZ_Change Event Notification...0xb8dda8d6: OK
+0xb8dda8d6: Date/Time not valid!
+*********** END ************
 ---------------TEST2  --------------- 
 .
 ++++++++++++++ TEST3 ++++++++++++++++ 
@@ -192,52 +301,250 @@ set time manually to 02.12.2011 15:00
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112021510"
-UpdateAll=dword:00000000
-Version=dword:000000e4
+UpdateAll=dword:00000001
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112021515"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="1515"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112021610"
+NextStop="201112021610"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1420"
+exe="\Windows\notes.exe"
+interval="3600"
+start="1610"
 startOnAConly=dword:00000001
-stop="1510"
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112021600"
+NextStop="201112021600"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="1600"
+startOnAConly=dword:00000001
+stop="1230"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
+Default="stop"="0335"
+NextStart="201112021510"
+NextStop="201112021510"
 active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="1510"
 startOnAConly=dword:00000001
-stop="0605"
+stop="0110"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112030600"
+NextStop="201112030600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
 interval="2400"
-start="2000"
+start="0600"
 startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0xd5e96426: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0xd5e96426:              TESTMODE !
-0xd5e96426: Checking for Mutex (single instance allowed only)...
-0xd5e96426: 	Attached to existing mutex
-0xd5e96426: ................ Waiting for mutex release......
+0x98a43da2: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x98a43da2: Checking for Mutex (single instance allowed only)...
+0x98a43da2: 	Created new mutex
+0x98a43da2: ~~~ using actual localtime:
+0x98a43da2: 	 02.12.2011, 15:00
+0x98a43da2: CmdLine = 
+0x98a43da2: 	argv[1]: 'AppRunAfterTimeChange'
+0x98a43da2: Checking for valid date/time...
+0x98a43da2: Date/Time after 11 2011. OK
+0x98a43da2: got 'AppRunAfterTimeChange' signaled
+0x98a43da2: ~~~ using actual localtime:
+0x98a43da2: 	 02.12.2011, 15:00
+0x98a43da2: Checking for valid date/time...
+0x98a43da2: Date/Time after 11 2011. OK
+0x98a43da2: Clearing Event Notifications...0x98a43da2: OK
+0x98a43da2: ClearRunApp(): ...
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x3c000019
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x3e000018
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x30000016
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x3e000027
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x38000020
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x30000017
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x3500001a
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x3200002c
+0x98a43da2: ClearRunApp(): CeClearUserNotification for handle: 0x32000029
+0x98a43da2: ClearRunApp(): returns 9 
+0x98a43da2: Cleared 9 Tasker schedules
+0x98a43da2: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x98a43da2: Clearing Event Notifications...0x98a43da2: Clearing Event Notifications...0x98a43da2: OK
+0x98a43da2: Adding Time_Change Event Notification...0x98a43da2: OK
+0x98a43da2: Adding TZ_Change Event Notification...0x98a43da2: OK
+0x98a43da2: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x98a43da2: 	calculating new schedule for '201112022000'...
+0x98a43da2: 	interval is: 1d00h00m
+0x98a43da2: 	schedule adjusted to '201112032000'
+0x98a43da2: 	ScheduleRunApp: Next run at: 03.12.2011 20:00:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x98a43da2: 	calculating new schedule for '201112020600'...
+0x98a43da2: 	interval is: 1d00h00m
+0x98a43da2: 	schedule adjusted to '201112030600'
+0x98a43da2: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x98a43da2: 	calculating new schedule for '201112020010'...
+0x98a43da2: 	interval is: 0d00h10m
+0x98a43da2: 	schedule adjusted to '201112021510'
+0x98a43da2: 	ScheduleRunApp: Next run at: 02.12.2011 15:10:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x98a43da2: 	calculating new schedule for '201112020110'...
+0x98a43da2: 	interval is: 0d00h10m
+0x98a43da2: 	schedule adjusted to '201112021510'
+0x98a43da2: 	ScheduleRunApp: Next run at: 02.12.2011 15:10:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x98a43da2: 	calculating new schedule for '201112021210'...
+0x98a43da2: 	interval is: 0d01h10m
+0x98a43da2: 	schedule adjusted to '201112021540'
+0x98a43da2: 	ScheduleRunApp: Next run at: 02.12.2011 15:40:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x98a43da2: 	calculating new schedule for '201112021230'...
+0x98a43da2: 	interval is: 0d01h10m
+0x98a43da2: 	schedule adjusted to '201112021600'
+0x98a43da2: 	ScheduleRunApp: Next run at: 02.12.2011 16:00:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x98a43da2: 	calculating new schedule for '201112021600'...
+0x98a43da2: 	interval is: 0d12h00m
+0x98a43da2: 	schedule adjusted to '201112021600'
+0x98a43da2: 	ScheduleRunApp: Next run at: 02.12.2011 16:00:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x98a43da2: 	calculating new schedule for '201112021610'...
+0x98a43da2: 	interval is: 0d12h00m
+0x98a43da2: 	schedule adjusted to '201112021610'
+0x98a43da2: 	ScheduleRunApp: Next run at: 02.12.2011 16:10:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x98a43da2: 	calculating new schedule for '201112021600'...
+0x98a43da2: 	interval is: 0d00h15m
+0x98a43da2: 	schedule adjusted to '201112021515'
+0x98a43da2: 	ScheduleRunApp: Next run at: 02.12.2011 15:15:00
+0x98a43da2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x98a43da2: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x98a43da2: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x98a43da2: scheduleAllTasks: scheduled 9 new tasks
+0x98a43da2: Scheduled 9 Tasks
+0x98a43da2: 	ReleaseMutex...0x98a43da2: OK
+0x98a43da2: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x19405152: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x19405152: Checking for Mutex (single instance allowed only)...
+0x19405152: 	Created new mutex
+0x19405152: ~~~ using actual localtime:
+0x19405152: 	 02.12.2011, 15:00
+0x19405152: CmdLine = 
+0x19405152: 	argv[1]: 'AppRunAfterTimeChange'
+0x19405152: Checking for valid date/time...
+0x19405152: Date/Time after 11 2011. OK
+0x19405152: got 'AppRunAfterTimeChange' signaled
+0x19405152: ~~~ using actual localtime:
+0x19405152: 	 02.12.2011, 15:00
+0x19405152: Checking for valid date/time...
+0x19405152: Date/Time after 11 2011. OK
+0x19405152: Clearing Event Notifications...0x19405152: OK
+0x19405152: ClearRunApp(): ...
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x3300001f
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x39000020
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x3f000018
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x30000028
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x3600000b
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x3f000027
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x31000016
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x31000017
+0x19405152: ClearRunApp(): CeClearUserNotification for handle: 0x3e00001c
+0x19405152: ClearRunApp(): returns 9 
+0x19405152: Cleared 9 Tasker schedules
+0x19405152: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x19405152: Clearing Event Notifications...0x19405152: Clearing Event Notifications...0x19405152: OK
+0x19405152: Adding Time_Change Event Notification...0x19405152: OK
+0x19405152: Adding TZ_Change Event Notification...0x19405152: OK
+0x19405152: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x19405152: 	calculating new schedule for '201112020600'...
+0x19405152: 	interval is: 1d00h00m
+0x19405152: 	schedule adjusted to '201112030600'
+0x19405152: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x19405152: 	calculating new schedule for '201112020600'...
+0x19405152: 	interval is: 1d00h00m
+0x19405152: 	schedule adjusted to '201112030600'
+0x19405152: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x19405152: 	calculating new schedule for '201112021510'...
+0x19405152: 	interval is: 0d00h10m
+0x19405152: 	schedule adjusted to '201112021510'
+0x19405152: 	ScheduleRunApp: Next run at: 02.12.2011 15:10:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x19405152: 	calculating new schedule for '201112020110'...
+0x19405152: 	interval is: 0d00h10m
+0x19405152: 	schedule adjusted to '201112021510'
+0x19405152: 	ScheduleRunApp: Next run at: 02.12.2011 15:10:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x19405152: 	calculating new schedule for '201112021600'...
+0x19405152: 	interval is: 0d01h10m
+0x19405152: 	schedule adjusted to '201112021600'
+0x19405152: 	ScheduleRunApp: Next run at: 02.12.2011 16:00:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x19405152: 	calculating new schedule for '201112021230'...
+0x19405152: 	interval is: 0d01h10m
+0x19405152: 	schedule adjusted to '201112021600'
+0x19405152: 	ScheduleRunApp: Next run at: 02.12.2011 16:00:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x19405152: 	calculating new schedule for '201112021610'...
+0x19405152: 	interval is: 0d12h00m
+0x19405152: 	schedule adjusted to '201112021610'
+0x19405152: 	ScheduleRunApp: Next run at: 02.12.2011 16:10:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x19405152: 	calculating new schedule for '201112021610'...
+0x19405152: 	interval is: 0d12h00m
+0x19405152: 	schedule adjusted to '201112021610'
+0x19405152: 	ScheduleRunApp: Next run at: 02.12.2011 16:10:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x19405152: 	calculating new schedule for '201112021515'...
+0x19405152: 	interval is: 0d00h15m
+0x19405152: 	schedule adjusted to '201112021515'
+0x19405152: 	ScheduleRunApp: Next run at: 02.12.2011 15:15:05
+0x19405152: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x19405152: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x19405152: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x19405152: scheduleAllTasks: scheduled 9 new tasks
+0x19405152: Scheduled 9 Tasks
+0x19405152: 	ReleaseMutex...0x19405152: OK
+0x19405152: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
 ---------------TEST3  --------------- 
 .
 ++++++++++++++ TEST4 ++++++++++++++++ 
@@ -247,52 +554,444 @@ set time manually to 02.12.2011 19:52
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112021510"
-UpdateAll=dword:00000000
-Version=dword:000000e4
+UpdateAll=dword:00000001
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112022000"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="2000"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112030410"
+NextStop="201112030410"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1420"
+exe="\Windows\notes.exe"
+interval="3600"
+start="0410"
 startOnAConly=dword:00000001
-stop="1510"
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112022040"
+NextStop="201112022040"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="2040"
+startOnAConly=dword:00000001
+stop="1230"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
+Default="stop"="0335"
+NextStart="201112022000"
+NextStop="201112022000"
 active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="2000"
 startOnAConly=dword:00000001
-stop="0605"
+stop="0110"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112030600"
+NextStop="201112030600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
 interval="2400"
-start="2000"
+start="0600"
 startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0xb5e6ef96: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0xb5e6ef96:              TESTMODE !
-0xb5e6ef96: Checking for Mutex (single instance allowed only)...
-0xb5e6ef96: 	Attached to existing mutex
-0xb5e6ef96: ................ Waiting for mutex release......
+0xb89c4cde: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xb89c4cde: Checking for Mutex (single instance allowed only)...
+0xb89c4cde: 	Created new mutex
+0xb89c4cde: ~~~ using actual localtime:
+0xb89c4cde: 	 02.12.2011, 19:52
+0xb89c4cde: CmdLine = 
+0xb89c4cde: 	argv[1]: '-k'
+0xb89c4cde: 	argv[2]: 'task2'
+0xb89c4cde: Checking for valid date/time...
+0xb89c4cde: Date/Time after 11 2011. OK
+0xb89c4cde: Clearing all schedules for Task2 with '-k task2'
+0xb89c4cde: 	ClearRunApp2: ...
+0xb89c4cde: 	ClearRunApp2: CeClearUserNotification for handle: 0x31000028
+0xb89c4cde: 	ClearRunApp2: returning with 1
+0xb89c4cde: 	checking for delayed schedule...
+0xb89c4cde: stStopTime = '201112020110', 0xb89c4cde: current time = '201112021952'
+0xb89c4cde: interval is: 0d00h10m
+0xb89c4cde: 	delta is 1122 minutes
+0xb89c4cde: 	max allowed diff for delayed schedule recognition is plus 5
+0xb89c4cde: *** delayed schedule *** recognized
+0xb89c4cde: 	calculating new schedule for '201112020110'...
+0xb89c4cde: 	interval is: 0d00h10m
+0xb89c4cde: 	schedule adjusted to '201112022000'
+0xb89c4cde: Creating new schedule for '\Windows\notes.exe' in Task2
+0xb89c4cde: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:00
+0xb89c4cde: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb89c4cde: Exec/Kill skipped as this is a delayed schedule
+0xb89c4cde: 	ReleaseMutex...0xb89c4cde: OK
+0xb89c4cde: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x793d0d7a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x793d0d7a: Checking for Mutex (single instance allowed only)...
+0x793d0d7a: 	Created new mutex
+0x793d0d7a: ~~~ using actual localtime:
+0x793d0d7a: 	 02.12.2011, 19:52
+0x793d0d7a: CmdLine = 
+0x793d0d7a: 	argv[1]: '-s'
+0x793d0d7a: 	argv[2]: 'task2'
+0x793d0d7a: Checking for valid date/time...
+0x793d0d7a: Date/Time after 11 2011. OK
+0x793d0d7a: Clearing all schedules for Task2 with '-s task2'
+0x793d0d7a: 	ClearRunApp2: ...
+0x793d0d7a: 	ClearRunApp2: returning with 0
+0x793d0d7a: 	checking for delayed schedule...
+0x793d0d7a: stStartTime = '201112022000', 0x793d0d7a: current time = '201112021952'
+0x793d0d7a: interval is: 0d00h10m
+0x793d0d7a: 	delta is 8 minutes
+0x793d0d7a: 	max allowed diff for delayed schedule recognition is plus 5
+0x793d0d7a: *** delayed schedule *** recognized
+0x793d0d7a: 	calculating new schedule for '201112022000'...
+0x793d0d7a: 	interval is: 0d00h10m
+0x793d0d7a: 	schedule adjusted to '201112022000'
+0x793d0d7a: Creating new schedule for '\Windows\notes.exe' in Task2
+0x793d0d7a: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:00
+0x793d0d7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xf5e166fe: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xf5e166fe: Checking for Mutex (single instance allowed only)...
+0xf5e166fe: 	Attached to existing mutex
+0xf5e166fe: ................ Waiting for mutex release......
+0x793d0d7a: Exec/Kill skipped as this is a delayed schedule
+0x793d0d7a: 	ReleaseMutex...0x793d0d7a: OK
+0x793d0d7a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xf5e166fe: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xf5e166fe: ~~~ using actual localtime:
+0xf5e166fe: 	 02.12.2011, 19:52
+0xf5e166fe: CmdLine = 
+0xf5e166fe: 	argv[1]: '-s'
+0xf5e166fe: 	argv[2]: 'task5'
+0xb65c51fa: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xb65c51fa: Checking for Mutex (single instance allowed only)...
+0xb65c51fa: 	Attached to existing mutex
+0xb65c51fa: ................ Waiting for mutex release......
+0xf5e166fe: Checking for valid date/time...
+0xf5e166fe: Date/Time after 11 2011. OK
+0xf5e166fe: Clearing all schedules for Task5 with '-s task5'
+0xf5e166fe: 	ClearRunApp2: ...
+0xf5e166fe: 	ClearRunApp2: returning with 0
+0xf5e166fe: 	checking for delayed schedule...
+0xf5e166fe: stStartTime = '201112021515', 0xf5e166fe: current time = '201112021952'
+0xf5e166fe: interval is: 0d00h15m
+0xf5e166fe: 	delta is -277 minutes
+0xf5e166fe: 	calculating new schedule for '201112021515'...
+0xf5e166fe: 	interval is: 0d00h15m
+0xf5e166fe: 	schedule adjusted to '201112022000'
+0xf5e166fe: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:01
+0xf5e166fe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xf5e166fe: *** re-scheduled future task *** 
+0xf5e166fe: 	ReleaseMutex...0xf5e166fe: OK
+0xf5e166fe: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xb65c51fa: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xb65c51fa: ~~~ using actual localtime:
+0xb65c51fa: 	 02.12.2011, 19:52
+0xb65c51fa: CmdLine = 
+0xb65c51fa: 	argv[1]: '-s'
+0xb65c51fa: 	argv[2]: 'task3'
+0xb65c51fa: Checking for valid date/time...
+0xb65c51fa: Date/Time after 11 2011. OK
+0xb65c51fa: Clearing all schedules for Task3 with '-s task3'
+0xb65c51fa: 	ClearRunApp2: ...
+0xb65c51fa: 	ClearRunApp2: returning with 0
+0xb65c51fa: 	checking for delayed schedule...
+0xb65c51fa: stStartTime = '201112021600', 0xb65c51fa: current time = '201112021952'
+0xb65c51fa: interval is: 0d01h10m
+0xb65c51fa: 	delta is -232 minutes
+0xb65c51fa: 	calculating new schedule for '201112021600'...
+0xb65c51fa: 	interval is: 0d01h10m
+0xb65c51fa: 	schedule adjusted to '201112022040'
+0x92b82d8e: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xb65c51fa: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:02
+0xd758dac6: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x92b82d8e: Checking for Mutex (single instance allowed only)...
+0xb65c51fa: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x92b82d8e: 	Attached to existing mutex
+started +++++++++++++++++0xb60xd758dac6: 	Attached to existing mutex
+
+0xb65c51fa: 	ReleaseMutex... Waiting for mutex release......
+++++++
+0xb4424b4a: Checking for Mutex (single instance allowed only).0xb65c51fa: OK
+0xb65c51fa: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xb4424b4a: ................ Waiting for mutex release......
+0x92b82d8e: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x92b82d8e: ~~~ using actual localtime:
+0x92b82d8e: 	 02.12.2011, 19:52
+0x92b82d8e: CmdLine = 
+0x92b82d8e: 	argv[1]: '-k'
+0x92b82d8e: 	argv[2]: 'task3'
+0x92b82d8e: Checking for valid date/time...
+0x92b82d8e: Date/Time after 11 2011. OK
+0x92b82d8e: Clearing all schedules for Task3 with '-k task3'
+0x92b82d8e: 	ClearRunApp2: ...
+0x92b82d8e: 	ClearRunApp2: returning with 0
+0x92b82d8e: 	checking for delayed schedule...
+0x92b82d8e: stStopTime = '201112021230', 0x92b82d8e: current time = '201112021952'
+0x92b82d8e: interval is: 0d01h10m
+0x92b82d8e: 	delta is 442 minutes
+0x92b82d8e: 	max allowed diff for delayed schedule recognition is plus 5
+0x92b82d8e: *** delayed schedule *** recognized
+0x92b82d8e: 	calculating new schedule for '201112021230'...
+0x92b82d8e: 	interval is: 0d01h10m
+0x92b82d8e: 	schedule adjusted to '201112022040'
+0x92b82d8e: Creating new schedule for '\Windows\notes.exe' in Task3
+0x92b82d8e: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:03
+0x92b82d8e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x92b82d8e: Exec/Kill skipped as this is a delayed schedule
+0x92b82d8e: 	ReleaseMutex...0x92b82d8e: OK
+0x92b82d8e: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xd758dac6: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xd758dac6: ~~~ using actual localtime:
+0xd758dac6: 	 02.12.2011, 19:52
+0xd758dac6: CmdLine = 
+0xd758dac6: 	argv[1]: '-s'
+0xd758dac6: 	argv[2]: 'task4'
+0xd758dac6: Checking for valid date/time...
+0xd758dac6: Date/Time after 11 2011. OK
+0xd758dac6: Clearing all schedules for Task4 with '-s task4'
+0xd758dac6: 	ClearRunApp2: ...
+0xd758dac6: 	ClearRunApp2: returning with 0
+0xd758dac6: 	checking for delayed schedule...
+0xd758dac6: stStartTime = '201112021610', 0xd758dac6: current time = '201112021952'
+0xd758dac6: interval is: 0d12h00m
+0xd758dac6: 	delta is -222 minutes
+0xd758dac6: 	calculating new schedule for '201112021610'...
+0xd758dac6: 	interval is: 0d12h00m
+0xd758dac6: 	schedule adjusted to '201112030410'
+0xd758dac6: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:04
+0xd758dac6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd758dac6: *** re-scheduled future task *** 
+0xd758dac6: 	ReleaseMutex...0xd758dac6: OK
+0xd758dac6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x18337dc6: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x18337dc6: ~~~ using actual localtime:
+0x18337dc6: 	 02.12.2011, 19:52
+0x18337dc6: CmdLine = 
+0x18337dc6: 	argv[1]: '-k'
+0x18337dc6: 	argv[2]: 'task4'
+0x18337dc6: Checking for valid date/time...
+0x18337dc6: Date/Time after 11 2011. OK
+0x18337dc6: Clearing all schedules for Task4 with '-k task4'
+0x18337dc6: 	ClearRunApp2: ...
+0x18337dc6: 	ClearRunApp2: returning with 0
+0x18337dc6: 	checking for delayed schedule...
+0x18337dc6: stStopTime = '201112021610', 0x18337dc6: current time = '201112021952'
+0x18337dc6: interval is: 0d12h00m
+0x18337dc6: 	delta is 222 minutes
+0x18337dc6: 	max allowed diff for delayed schedule recognition is plus 5
+0x18337dc6: *** delayed schedule *** recognized
+0x18337dc6: 	calculating new schedule for '201112021610'...
+0x18337dc6: 	interval is: 0d12h00m
+0x18337dc6: 	schedule adjusted to '201112030410'
+0x18337dc6: Creating new schedule for '\Windows\notes.exe' in Task4
+0x18337dc6: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:04
+0x18337dc6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18337dc6: Exec/Kill skipped as this is a delayed schedule
+0x18337dc6: 	ReleaseMutex...0x18337dc6: OK
+0x18337dc6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xb4424b4a: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xb4424b4a: ~~~ using actual localtime:
+0xb4424b4a: 	 02.12.2011, 19:52
+0xb4424b4a: CmdLine = 
+0xb4424b4a: 	argv[1]: 'AppRunAfterTimeChange'
+0xb4424b4a: Checking for valid date/time...
+0xb4424b4a: Date/Time after 11 2011. OK
+0xb4424b4a: got 'AppRunAfterTimeChange' signaled
+0xb4424b4a: ~~~ using actual localtime:
+0xb4424b4a: 	 02.12.2011, 19:52
+0xb4424b4a: Checking for valid date/time...
+0xb4424b4a: Date/Time after 11 2011. OK
+0xb4424b4a: Clearing Event Notifications...0xb4424b4a: OK
+0xb4424b4a: ClearRunApp(): ...
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x3800000b
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x32000028
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x31000018
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x3e000022
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x3800001d
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x38000015
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x3400002b
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x32000016
+0xb4424b4a: ClearRunApp(): CeClearUserNotification for handle: 0x30000027
+0xb4424b4a: ClearRunApp(): returns 9 
+0xb4424b4a: Cleared 9 Tasker schedules
+0xb4424b4a: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0xb4424b4a: Clearing Event Notifications...0xb4424b4a: Clearing Event Notifications...0xb4424b4a: OK
+0xb4424b4a: Adding Time_Change Event Notification...0xb4424b4a: OK
+0xb4424b4a: Adding TZ_Change Event Notification...0xb4424b4a: OK
+0xb4424b4a: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xb4424b4a: 	calculating new schedule for '201112020600'...
+0xb4424b4a: 	interval is: 1d00h00m
+0xb4424b4a: 	schedule adjusted to '201112030600'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:05
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xb4424b4a: 	calculating new schedule for '201112020600'...
+0xb4424b4a: 	interval is: 1d00h00m
+0xb4424b4a: 	schedule adjusted to '201112030600'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:05
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0xb4424b4a: 	calculating new schedule for '201112022000'...
+0xb4424b4a: 	interval is: 0d00h10m
+0xb4424b4a: 	schedule adjusted to '201112022000'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:05
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0xb4424b4a: 	calculating new schedule for '201112020110'...
+0xb4424b4a: 	interval is: 0d00h10m
+0xb4424b4a: 	schedule adjusted to '201112022000'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:05
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0xb4424b4a: 	calculating new schedule for '201112022040'...
+0xb4424b4a: 	interval is: 0d01h10m
+0xb4424b4a: 	schedule adjusted to '201112022040'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:05
+0xb8bd0dbe: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xb8bd0dbe: Checking for Mutex (single instance allowed only)...
+0xb8bd0dbe: 	Attached to existing mutex
+0xb8bd0dbe: ................ Waiting for mutex release......
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0xb4424b4a: 	calculating new schedule for '201112021230'...
+0xb4424b4a: 	interval is: 0d01h10m
+0xb4424b4a: 	schedule adjusted to '201112022040'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:05
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0xb4424b4a: 	calculating new schedule for '201112020410'...
+0xb4424b4a: 	interval is: 0d12h00m
+0xb4424b4a: 	schedule adjusted to '201112030410'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:05
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0xb4424b4a: 	calculating new schedule for '201112021610'...
+0xb4424b4a: 	interval is: 0d12h00m
+0xb4424b4a: 	schedule adjusted to '201112030410'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:05
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0xb4424b4a: 	calculating new schedule for '201112021515'...
+0xb4424b4a: 	interval is: 0d00h15m
+0xb4424b4a: 	schedule adjusted to '201112022000'
+0xb4424b4a: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:05
+0xb4424b4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb4424b4a: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0xb4424b4a: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0xb4424b4a: scheduleAllTasks: scheduled 9 new tasks
+0xb4424b4a: Scheduled 9 Tasks
+0xb4424b4a: 	ReleaseMutex...0xb4424b4a: OK
+0xb4424b4a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xb8bd0dbe: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xb8bd0dbe: ~~~ using actual localtime:
+0xb8bd0dbe: 	 02.12.2011, 19:52
+0xb8bd0dbe: CmdLine = 
+0xb8bd0dbe: 	argv[1]: 'AppRunAfterTimeChange'
+0xb8bd0dbe: Checking for valid date/time...
+0xb8bd0dbe: Date/Time after 11 2011. OK
+0xb8bd0dbe: got 'AppRunAfterTimeChange' signaled
+0xb8bd0dbe: ~~~ using actual localtime:
+0xb8bd0dbe: 	 02.12.2011, 19:52
+0xb8bd0dbe: Checking for valid date/time...
+0xb8bd0dbe: Date/Time after 11 2011. OK
+0xb8bd0dbe: Clearing Event Notifications...0xb8bd0dbe: OK
+0xb8bd0dbe: ClearRunApp(): ...
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x3f000022
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x3900001d
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x3000001c
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x32000018
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x33000028
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x33000017
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x3900000b
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x3500002b
+0xb8bd0dbe: ClearRunApp(): CeClearUserNotification for handle: 0x39000015
+0xb8bd0dbe: ClearRunApp(): returns 9 
+0xb8bd0dbe: Cleared 9 Tasker schedules
+0xb8bd0dbe: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0xb8bd0dbe: Clearing Event Notifications...0xb8bd0dbe: Clearing Event Notifications...0xb8bd0dbe: OK
+0xb8bd0dbe: Adding Time_Change Event Notification...0xb8bd0dbe: OK
+0xb8bd0dbe: Adding TZ_Change Event Notification...0xb8bd0dbe: OK
+0xb8bd0dbe: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xb8bd0dbe: 	calculating new schedule for '201112020600'...
+0xb8bd0dbe: 	interval is: 1d00h00m
+0xb8bd0dbe: 	schedule adjusted to '201112030600'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xb8bd0dbe: 	calculating new schedule for '201112020600'...
+0xb8bd0dbe: 	interval is: 1d00h00m
+0xb8bd0dbe: 	schedule adjusted to '201112030600'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0xb8bd0dbe: 	calculating new schedule for '201112022000'...
+0xb8bd0dbe: 	interval is: 0d00h10m
+0xb8bd0dbe: 	schedule adjusted to '201112022000'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0xb8bd0dbe: 	calculating new schedule for '201112020110'...
+0xb8bd0dbe: 	interval is: 0d00h10m
+0xb8bd0dbe: 	schedule adjusted to '201112022000'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0xb8bd0dbe: 	calculating new schedule for '201112022040'...
+0xb8bd0dbe: 	interval is: 0d01h10m
+0xb8bd0dbe: 	schedule adjusted to '201112022040'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0xb8bd0dbe: 	calculating new schedule for '201112021230'...
+0xb8bd0dbe: 	interval is: 0d01h10m
+0xb8bd0dbe: 	schedule adjusted to '201112022040'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0xb8bd0dbe: 	calculating new schedule for '201112020410'...
+0xb8bd0dbe: 	interval is: 0d12h00m
+0xb8bd0dbe: 	schedule adjusted to '201112030410'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0xb8bd0dbe: 	calculating new schedule for '201112021610'...
+0xb8bd0dbe: 	interval is: 0d12h00m
+0xb8bd0dbe: 	schedule adjusted to '201112030410'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0xb8bd0dbe: 	calculating new schedule for '201112022000'...
+0xb8bd0dbe: 	interval is: 0d00h15m
+0xb8bd0dbe: 	schedule adjusted to '201112022000'
+0xb8bd0dbe: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:08
+0xb8bd0dbe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb8bd0dbe: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0xb8bd0dbe: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0xb8bd0dbe: scheduleAllTasks: scheduled 9 new tasks
+0xb8bd0dbe: Scheduled 9 Tasks
+0xb8bd0dbe: 	ReleaseMutex...0xb8bd0dbe: OK
+0xb8bd0dbe: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
 ---------------TEST4  --------------- 
 .
 ++++++++++++++ TEST5 ++++++++++++++++ 
@@ -303,52 +1002,191 @@ set time manually to 02.12.2011 19:55
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112021510"
-UpdateAll=dword:00000000
-Version=dword:000000e4
+UpdateAll=dword:00000001
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112022000"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="2000"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112030410"
+NextStop="201112030410"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1420"
+exe="\Windows\notes.exe"
+interval="3600"
+start="0410"
 startOnAConly=dword:00000001
-stop="1510"
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112022040"
+NextStop="201112022040"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="2040"
+startOnAConly=dword:00000001
+stop="1230"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
+Default="stop"="0335"
+NextStart="201112022000"
+NextStop="201112022000"
 active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="2000"
 startOnAConly=dword:00000001
-stop="0605"
+stop="0110"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112030600"
+NextStop="201112030600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
 interval="2400"
-start="2000"
+start="0600"
 startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0x15e6ec7a:              TESTMODE !
-0x15e6ec7a: Checking for Mutex (single instance allowed only)...
-0x15e6ec7a: 	Attached to existing mutex
-0x15e6ec7a: ................ Waiting for mutex release......
+0x16d066be: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x16d066be: Checking for Mutex (single instance allowed only)...
+0x16d066be: 	Created new mutex
+0x16d066be: ~~~ using actual localtime:
+0x16d066be: 	 02.12.2011, 19:55
+0x16d066be: CmdLine = 
+0x16d066be: 	argv[1]: 'AppRunAfterTimeChange'
+0x16d066be: Checking for valid date/time...
+0x16d066be: Date/Time after 11 2011. OK
+0x16d066be: got 'AppRunAfterTimeChange' signaled
+0x16d066be: ~~~ using actual localtime:
+0x16d066be: 	 02.12.2011, 19:55
+0x16d066be: Checking for valid date/time...
+0x16d066be: Date/Time after 11 2011. OK
+0x16d066be: Clearing Event Notifications...0x16d066be: OK
+0x16d066be: ClearRunApp(): ...
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x33000018
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x34000028
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x32000027
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x3100001c
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x3a00001d
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x34000016
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x30000022
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x3a00000b
+0x16d066be: ClearRunApp(): CeClearUserNotification for handle: 0x34000017
+0x16d066be: ClearRunApp(): returns 9 
+0x16d066be: Cleared 9 Tasker schedules
+0x16d066be: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x16d066be: Clearing Event Notifications...0x16d066be: Clearing Event Notifications...0x16d066be: OK
+0x16d066be: Adding Time_Change Event Notification...0x16d066be: OK
+0x16d066be: Adding TZ_Change Event Notification...0x16d066be: OK
+0x16d066be: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x16d066be: 	calculating new schedule for '201112020600'...
+0x16d066be: 	interval is: 1d00h00m
+0x16d066be: 	schedule adjusted to '201112030600'
+0x16d066be: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x16d066be: 	calculating new schedule for '201112020600'...
+0x16d066be: 	interval is: 1d00h00m
+0x16d066be: 	schedule adjusted to '201112030600'
+0x16d066be: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x16d066be: 	calculating new schedule for '201112022000'...
+0x16d066be: 	interval is: 0d00h10m
+0x16d066be: 	schedule adjusted to '201112022000'
+0x16d066be: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x16d066be: 	calculating new schedule for '201112020110'...
+0x16d066be: 	interval is: 0d00h10m
+0x16d066be: 	schedule adjusted to '201112022000'
+0x16d066be: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x16d066be: 	calculating new schedule for '201112022040'...
+0x16d066be: 	interval is: 0d01h10m
+0x16d066be: 	schedule adjusted to '201112022040'
+0x16d066be: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x16d066be: 	calculating new schedule for '201112021230'...
+0x16d066be: 	interval is: 0d01h10m
+0x16d066be: 	schedule adjusted to '201112022040'
+0x16d066be: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x16d066be: 	calculating new schedule for '201112020410'...
+0x16d066be: 	interval is: 0d12h00m
+0x16d066be: 	schedule adjusted to '201112030410'
+0x16d066be: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x16d066be: 	calculating new schedule for '201112021610'...
+0x16d066be: 	interval is: 0d12h00m
+0x16d066be: 	schedule adjusted to '201112030410'
+0x16d066be: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x16d066be: 	calculating new schedule for '201112022000'...
+0x16d066be: 	interval is: 0d00h15m
+0x16d066be: 	schedule adjusted to '201112022000'
+0x16d066be: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:00
+0x16d066be: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x16d066be: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x16d066be: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x16d066be: scheduleAllTasks: scheduled 9 new tasks
+0x16d066be: Scheduled 9 Tasks
+0x16d066be: 	ReleaseMutex...0x16d066be: OK
+0x16d066be: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x53d9af4a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x53d9af4a: Checking for Mutex (single instance allowed only)...
+0x53d9af4a: 	Created new mutex
+0x53d9af4a: ~~~ using actual localtime:
+0x53d9af4a: 	 02.12.2011, 19:55
+0x53d9af4a: CmdLine = 
+0x53d9af4a: 	argv[1]: '-s'
+0x53d9af4a: 	argv[2]: 'task2'
+0x53d9af4a: Checking for valid date/time...
+0x53d9af4a: Date/Time after 11 2011. OK
+0x53d9af4a: Clearing all schedules for Task2 with '-s task2'
+0x53d9af4a: 	ClearRunApp2: ...
+0x53d9af4a: 	ClearRunApp2: CeClearUserNotification for handle: 0x3b00000b
+0x53d9af4a: 	ClearRunApp2: returning with 1
+0x53d9af4a: 	checking for delayed schedule...
+0x53d9af4a: stStartTime = '201112022000', 0x53d9af4a: current time = '201112021955'
+0x53d9af4a: interval is: 0d00h10m
+0x53d9af4a: 	delta is 5 minutes
+0x53d9af4a: 	max allowed diff for delayed schedule recognition is plus 5
+0x53d9af4a: *** NO delayed schedule *** recognized
+0x53d9af4a: 	calculating new schedule for '201112022000'...
+0x53d9af4a: 	interval is: 0d00h10m
+0x53d9af4a: 	schedule adjusted to '201112022000'
+0x53d9af4a: Creating new schedule for '\Windows\notes.exe' in Task2
+0x53d9af4a: 	ScheduleRunApp: Next run at: 02.12.2011 20:00:04
+0x53d9af4a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x53d9af4a: Not a delayed schedule
+0x53d9af4a: 	checking AC line status
+0x53d9af4a: Starting exe '\Windows\notes.exe' as on AC power
+0x53d9af4a: runExe OK for '\Windows\notes.exe'
+0x53d9af4a: 	ReleaseMutex...0x53d9af4a: OK
+0x53d9af4a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
 ---------------TEST5  --------------- 
 .
 ++++++++++++++ TEST6 ++++++++++++++++ 
@@ -359,52 +1197,251 @@ set time manually to 02.12.2011 20:00
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112021510"
-UpdateAll=dword:00000000
-Version=dword:000000e4
+UpdateAll=dword:00000001
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112022015"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="2015"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112030410"
+NextStop="201112030410"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1420"
+exe="\Windows\notes.exe"
+interval="3600"
+start="0410"
 startOnAConly=dword:00000001
-stop="1510"
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112022040"
+NextStop="201112022040"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="2040"
+startOnAConly=dword:00000001
+stop="1230"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
+Default="stop"="0335"
+NextStart="201112022010"
+NextStop="201112022010"
 active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="2010"
 startOnAConly=dword:00000001
-stop="0605"
+stop="0110"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112030600"
+NextStop="201112030600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
 interval="2400"
-start="2000"
+start="0600"
 startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0x15e6ec7a:              TESTMODE !
-0x15e6ec7a: Checking for Mutex (single instance allowed only)...
-0x15e6ec7a: 	Attached to existing mutex
-0x15e6ec7a: ................ Waiting for mutex release......
+0x15be7752: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x15be7752: Checking for Mutex (single instance allowed only)...
+0x15be7752: 	Created new mutex
+0x15be7752: ~~~ using actual localtime:
+0x15be7752: 	 02.12.2011, 20:00
+0x15be7752: CmdLine = 
+0x15be7752: 	argv[1]: '-k'
+0x15be7752: 	argv[2]: 'task2'
+0x15be7752: Checking for valid date/time...
+0x15be7752: Date/Time after 11 2011. OK
+0x15be7752: Clearing all schedules for Task2 with '-k task2'
+0x15be7752: 	ClearRunApp2: ...
+0x15be7752: 	ClearRunApp2: returning with 0
+0x15be7752: 	checking for delayed schedule...
+0x15be7752: stStopTime = '201112020110', 0x15be7752: current time = '201112022000'
+0x15be7752: interval is: 0d00h10m
+0x15be7752: 	delta is 1130 minutes
+0x15be7752: 	max allowed diff for delayed schedule recognition is plus 5
+0x15be7752: *** delayed schedule *** recognized
+0x15be7752: 	calculating new schedule for '201112020110'...
+0x15be7752: 	interval is: 0d00h10m
+0x15be7752: 	schedule adjusted to '201112022010'
+0x15be7752: Creating new schedule for '\Windows\notes.exe' in Task2
+0x15be7752: 	ScheduleRunApp: Next run at: 02.12.2011 20:10:00
+0x965fef9e: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x965fef9e: Checking for Mutex (single instance allowed only)...
+0x965fef9e: 	Attached to existing mutex
+0x965fef9e: ................ Waiting for mutex release......
+0x15be7752: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x15be7752: Exec/Kill skipped as this is a delayed schedule
+0x15be7752: 	ReleaseMutex...0x15be7752: OK
+0x15be7752: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x965fef9e: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x965fef9e: ~~~ using actual localtime:
+0x965fef9e: 	 02.12.2011, 20:00
+0x965fef9e: CmdLine = 
+0x965fef9e: 	argv[1]: '-s'
+0x965fef9e: 	argv[2]: 'task5'
+0x965fef9e: Checking for valid date/time...
+0x965fef9e: Date/Time after 11 2011. OK
+0x965fef9e: Clearing all schedules for Task5 with '-s task5'
+0x965fef9e: 	ClearRunApp2: ...
+0x965fef9e: 	ClearRunApp2: returning with 0
+0x965fef9e: 	checking for delayed schedule...
+0x965fef9e: stStartTime = '201112022000', 0x965fef9e: current time = '201112022000'
+0x965fef9e: interval is: 0d00h15m
+0x965fef9e: 	delta is 0 minutes
+0x965fef9e: 	max allowed diff for delayed schedule recognition is plus 5
+0x965fef9e: *** NO delayed schedule *** recognized
+0x965fef9e: 	calculating new schedule for '201112022000'...
+0x965fef9e: 	interval is: 0d00h15m
+0x965fef9e: 	schedule adjusted to '201112022015'
+0x965fef9e: Creating new schedule for '\Windows\fexplore.exe' in Task5
+0x965fef9e: 	ScheduleRunApp: Next run at: 02.12.2011 20:15:00
+0x18a45dca: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x18a45dca: Checking for Mutex (single instance allowed only)...
+0x965fef9e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: 	Attached to existing mutex
+0x18a45dca: ................ Waiting for mutex release......
+0x965fef9e: Not a delayed schedule
+0x965fef9e: 	checking AC line status
+0x965fef9e: Starting exe '\Windows\fexplore.exe' as on AC power
+0x965fef9e: runExe OK for '\Windows\fexplore.exe'
+0x965fef9e: 	ReleaseMutex...0x965fef9e: OK
+0x965fef9e: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x18a45dca: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x18a45dca: ~~~ using actual localtime:
+0x18a45dca: 	 02.12.2011, 20:00
+0x18a45dca: CmdLine = 
+0x18a45dca: 	argv[1]: 'AppRunAfterTimeChange'
+0x18a45dca: Checking for valid date/time...
+0x18a45dca: Date/Time after 11 2011. OK
+0x18a45dca: got 'AppRunAfterTimeChange' signaled
+0x18a45dca: ~~~ using actual localtime:
+0x18a45dca: 	 02.12.2011, 20:00
+0x18a45dca: Checking for valid date/time...
+0x18a45dca: Date/Time after 11 2011. OK
+0x18a45dca: Clearing Event Notifications...0x18a45dca: OK
+0x18a45dca: ClearRunApp(): ...
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x3c00000b
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x32000022
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x36000028
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x35000016
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x3800001a
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x3b00001d
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x3600002c
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x3e000024
+0x18a45dca: ClearRunApp(): CeClearUserNotification for handle: 0x36000029
+0x18a45dca: ClearRunApp(): returns 9 
+0x18a45dca: Cleared 9 Tasker schedules
+0x18a45dca: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x18a45dca: Clearing Event Notifications...0x18a45dca: Clearing Event Notifications...0x18a45dca: OK
+0x18a45dca: Adding Time_Change Event Notification...0x18a45dca: OK
+0x18a45dca: Adding TZ_Change Event Notification...0x18a45dca: OK
+0x18a45dca: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x18a45dca: 	calculating new schedule for '201112020600'...
+0x18a45dca: 	interval is: 1d00h00m
+0x18a45dca: 	schedule adjusted to '201112030600'
+0x18a45dca: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x18a45dca: 	calculating new schedule for '201112020600'...
+0x18a45dca: 	interval is: 1d00h00m
+0x18a45dca: 	schedule adjusted to '201112030600'
+0x18a45dca: 	ScheduleRunApp: Next run at: 03.12.2011 06:00:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x18a45dca: 	calculating new schedule for '201112022010'...
+0x18a45dca: 	interval is: 0d00h10m
+0x18a45dca: 	schedule adjusted to '201112022010'
+0x18a45dca: 	ScheduleRunApp: Next run at: 02.12.2011 20:10:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x18a45dca: 	calculating new schedule for '201112020110'...
+0x18a45dca: 	interval is: 0d00h10m
+0x18a45dca: 	schedule adjusted to '201112022010'
+0x18a45dca: 	ScheduleRunApp: Next run at: 02.12.2011 20:10:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x18a45dca: 	calculating new schedule for '201112022040'...
+0x18a45dca: 	interval is: 0d01h10m
+0x18a45dca: 	schedule adjusted to '201112022040'
+0x18a45dca: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x18a45dca: 	calculating new schedule for '201112021230'...
+0x18a45dca: 	interval is: 0d01h10m
+0x18a45dca: 	schedule adjusted to '201112022040'
+0x18a45dca: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x18a45dca: 	calculating new schedule for '201112020410'...
+0x18a45dca: 	interval is: 0d12h00m
+0x18a45dca: 	schedule adjusted to '201112030410'
+0x18a45dca: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x18a45dca: 	calculating new schedule for '201112021610'...
+0x18a45dca: 	interval is: 0d12h00m
+0x18a45dca: 	schedule adjusted to '201112030410'
+0x18a45dca: 	ScheduleRunApp: Next run at: 03.12.2011 04:10:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x18a45dca: 	calculating new schedule for '201112022015'...
+0x18a45dca: 	interval is: 0d00h15m
+0x18a45dca: 	schedule adjusted to '201112022015'
+0x18a45dca: 	ScheduleRunApp: Next run at: 02.12.2011 20:15:02
+0x18a45dca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x18a45dca: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x18a45dca: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x18a45dca: scheduleAllTasks: scheduled 9 new tasks
+0x18a45dca: Scheduled 9 Tasks
+0x18a45dca: 	ReleaseMutex...0x18a45dca: OK
+0x18a45dca: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xd5611d16: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xd5611d16: Checking for Mutex (single instance allowed only)...
+0xd5611d16: 	Created new mutex
+0xd5611d16: ~~~ using actual localtime:
+0xd5611d16: 	 02.12.2011, 20:00
+0xd5611d16: CmdLine = 
+0xd5611d16: 	argv[1]: '-s'
+0xd5611d16: 	argv[2]: 'task3'
+0xd5611d16: Checking for valid date/time...
+0xd5611d16: Date/Time after 11 2011. OK
+0xd5611d16: Clearing all schedules for Task3 with '-s task3'
+0xd5611d16: 	ClearRunApp2: ...
+0xd5611d16: 	ClearRunApp2: CeClearUserNotification for handle: 0x37000028
+0xd5611d16: 	ClearRunApp2: returning with 1
+0xd5611d16: 	checking for delayed schedule...
+0xd5611d16: stStartTime = '201112022040', 0xd5611d16: current time = '201112022000'
+0xd5611d16: interval is: 0d01h10m
+0xd5611d16: 	delta is 40 minutes
+0xd5611d16: 	max allowed diff for delayed schedule recognition is plus 5
+0xd5611d16: *** delayed schedule *** recognized
+0xd5611d16: 	calculating new schedule for '201112022040'...
+0xd5611d16: 	interval is: 0d01h10m
+0xd5611d16: 	schedule adjusted to '201112022040'
+0xd5611d16: Creating new schedule for '\Windows\notes.exe' in Task3
+0xd5611d16: 	ScheduleRunApp: Next run at: 02.12.2011 20:40:06
+0xd5611d16: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5611d16: Exec/Kill skipped as this is a delayed schedule
+0xd5611d16: 	ReleaseMutex...0xd5611d16: OK
+0xd5611d16: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
 ---------------TEST6  --------------- 
 .
 ++++++++++++++ TEST7 ++++++++++++++++ 
@@ -415,52 +1452,422 @@ set time manually to 03.12.2011 0600
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112021510"
-UpdateAll=dword:00000000
-Version=dword:000000e4
+UpdateAll=dword:00000001
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112030615"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="0615"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112030410"
+NextStop="201112030410"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1420"
+exe="\Windows\notes.exe"
+interval="3600"
+start="0410"
 startOnAConly=dword:00000001
-stop="1510"
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112030640"
+NextStop="201112022040"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="0640"
+startOnAConly=dword:00000001
+stop="1230"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
+Default="stop"="0335"
+NextStart="201112030610"
+NextStop="201112030610"
 active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="0610"
 startOnAConly=dword:00000001
-stop="0605"
+stop="0110"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112040600"
+NextStop="201112040600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
 interval="2400"
-start="2000"
+start="0600"
 startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0x15e6ec7a:              TESTMODE !
-0x15e6ec7a: Checking for Mutex (single instance allowed only)...
-0x15e6ec7a: 	Attached to existing mutex
-0x15e6ec7a: ................ Waiting for mutex release......
+0x980c72d2: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x980c72d2: Checking for Mutex (single instance allowed only)...
+0x980c72d2: 	Created new mutex
+0x980c72d2: ~~~ using actual localtime:
+0x980c72d2: 	 03.12.2011, 06:00
+0x980c72d2: CmdLine = 
+0x980c72d2: 	argv[1]: '-k'
+0x980c72d2: 	argv[2]: 'task2'
+0x980c72d2: Checking for valid date/time...
+0x980c72d2: Date/Time after 11 2011. OK
+0x980c72d2: Clearing all schedules for Task2 with '-k task2'
+0x980c72d2: 	ClearRunApp2: ...
+0x980c72d2: 	ClearRunApp2: returning with 0
+0x980c72d2: 	checking for delayed schedule...
+0x980c72d2: stStopTime = '201112030110', 0x980c72d2: current time = '201112030600'
+0x980c72d2: interval is: 0d00h10m
+0x980c72d2: 	delta is 290 minutes
+0x980c72d2: 	max allowed diff for delayed schedule recognition is plus 5
+0x980c72d2: *** delayed schedule *** recognized
+0x980c72d2: 	calculating new schedule for '201112030110'...
+0x980c72d2: 	interval is: 0d00h10m
+0x980c72d2: 	schedule adjusted to '201112030610'
+0x980c72d2: Creating new schedule for '\Windows\notes.exe' in Task2
+0x980c72d2: 	ScheduleRunApp: Next run at: 03.12.2011 06:10:00
+0xb6b392c6: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xb6b392c6: Checking for Mutex (single instance allowed only)...
+0xb6b392c6: 	Attached to existing mutex
+0xb6b392c6: ................ Waiting for mutex release......
+0x980c72d2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x980c72d2: Exec/Kill skipped as this is a delayed schedule
+0x980c72d2: 	ReleaseMutex...0x980c72d2: OK
+0x980c72d2: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xb6b392c6: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xb6b392c6: ~~~ using actual localtime:
+0xb6b392c6: 	 03.12.2011, 06:00
+0xb6b392c6: CmdLine = 
+0xb6b392c6: 	argv[1]: '-s'
+0xb6b392c6: 	argv[2]: 'task2'
+0xb6b392c6: Checking for valid date/time...
+0xb6b392c6: Date/Time after 11 2011. OK
+0xb6b392c6: Clearing all schedules for Task2 with '-s task2'
+0xb6b392c6: 	ClearRunApp2: ...
+0xb6b392c6: 	ClearRunApp2: returning with 0
+0xb6b392c6: 	checking for delayed schedule...
+0xb6b392c6: stStartTime = '201112030610', 0xb6b392c6: current time = '201112030600'
+0xb6b392c6: interval is: 0d00h10m
+0xb6b392c6: 	delta is 10 minutes
+0xb6b392c6: 	max allowed diff for delayed schedule recognition is plus 5
+0xb6b392c6: *** delayed schedule *** recognized
+0xb6b392c6: 	calculating new schedule for '201112030610'...
+0xb6b392c6: 	interval is: 0d00h10m
+0xb6b392c6: 	schedule adjusted to '201112030610'
+0xb6b392c6: Creating new schedule for '\Windows\notes.exe' in Task2
+0xb6b392c6: 	ScheduleRunApp: Next run at: 03.12.2011 06:10:00
+0xb6b392c6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xf5611d16: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xf5611d16: Checking for Mutex (single instance allowed only)...
+0xf5611d16: 	Attached to existing mutex
+0xf5611d16: ................ Waiting for mutex release......
+0xb6b392c6: Exec/Kill skipped as this is a delayed schedule
+0xb6b392c6: 	ReleaseMutex...0xb6b392c6: OK
+0xb6b392c6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xf5611d16: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xf5611d16: ~~~ using actual localtime:
+0xf5611d16: 	 03.12.2011, 06:00
+0xf5611d16: CmdLine = 
+0xf5611d16: 	argv[1]: '-s'
+0xf5611d16: 	argv[2]: 'task5'
+0xf5611d16: Checking for valid date/time...
+0xf5611d16: Date/Time after 11 2011. OK
+0xf5611d16: Clearing all schedules for Task5 with '-s task5'
+0xf5611d16: 	ClearRunApp2: ...
+0xf5611d16: 	ClearRunApp2: returning with 0
+0xf5611d16: 	checking for delayed schedule...
+0xf5611d16: stStartTime = '201112032015', 0xf5611d16: current time = '201112030600'
+0xf5611d16: interval is: 0d00h15m
+0xf5611d16: 	delta is 855 minutes
+0xf5611d16: 	max allowed diff for delayed schedule recognition is plus 5
+0xf5611d16: *** delayed schedule *** recognized
+llowed only)...
+++
+0xf5611d16: 	calculating new schedule for '201112032015'...
+...
+0xf5611d16: 	interval is: 0d00h15m
+ for mutex release......
+0xf5611d16: 	schedule adjusted to '201112030615'
+ease......
+0xf5611d16: Creating new schedule for '\Windows\fexplore.exe' in Task5
+0x5423028a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xf5611d16: 	ScheduleRunApp: Next run at: 03.12.2011 06:15:01
+0x92f79dea: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x5423028a: Checking for Mutex (single instance allowed only)...
+0x92f79dea: Checking for Mutex (single instance allowed only)...
+0x5423028a: 	Attached to existing mutex
+0xd5e1946e: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x5423028a: ................ Waiting for mutex release......
+0xd5e1946e: Checking for Mutex (single instance allowed only)...
+0xf5611d16: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x92f79dea: 	Attached to existing mutex
+0xd5e1946e: 	Attached to existing mutex
+0x92f79dea: ................ Waiting for mutex release......
+0xf5611d16: Exec/Kill skipped as this is a delayed schedule
+0xf5611d16: 	ReleaseMutex...0xd5e1946e: ................ Waiting for mutex release......
+0xf5611d16: OK
+0xf5611d16: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x334adfc2: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x334adfc2: ~~~ using actual localtime:
+0x334adfc2: 	 03.12.2011, 06:00
+0x334adfc2: CmdLine = 
+0x334adfc2: 	argv[1]: '-k'
+0x334adfc2: 	argv[2]: 'task3'
+0x334adfc2: Checking for valid date/time...
+0x334adfc2: Date/Time after 11 2011. OK
+0x334adfc2: Clearing all schedules for Task3 with '-k task3'
+0x334adfc2: 	ClearRunApp2: ...
+0x334adfc2: 	ClearRunApp2: returning with 0
+0x334adfc2: 	checking for delayed schedule...
+0x334adfc2: stStopTime = '201112031230', 0x334adfc2: current time = '201112030600'
+0x334adfc2: interval is: 0d01h10m
+0x334adfc2: 	delta is -390 minutes
+0x334adfc2: 	calculating new schedule for '201112031230'...
+0x334adfc2: 	interval is: 0d01h10m
+0x334adfc2: 	schedule adjusted to '201112030640'
+0x334adfc2: 	ScheduleRunApp: Next run at: 03.12.2011 06:40:03
+0x334adfc2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x334adfc2: *** re-scheduled future task *** 
+0x334adfc2: 	ReleaseMutex...0x334adfc2: OK
+0x334adfc2: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x57522e86: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x57522e86: ~~~ using actual localtime:
+0x57522e86: 	 03.12.2011, 06:00
+0x57522e86: CmdLine = 
+0x57522e86: 	argv[1]: '-s'
+0x57522e86: 	argv[2]: 'task3'
+0x57522e86: Checking for valid date/time...
+0x57522e86: Date/Time after 11 2011. OK
+0x57522e86: Clearing all schedules for Task3 with '-s task3'
+0x57522e86: 	ClearRunApp2: ...
+0x57522e86: 	ClearRunApp2: returning with 0
+0x57522e86: 	checking for delayed schedule...
+0x57522e86: stStartTime = '201112032040', 0x57522e86: current time = '201112030600'
+0x57522e86: interval is: 0d01h10m
+0x57522e86: 	delta is 880 minutes
+0x57522e86: 	max allowed diff for delayed schedule recognition is plus 5
+0x57522e86: *** delayed schedule *** recognized
+0x57522e86: 	calculating new schedule for '201112032040'...
+0x57522e86: 	interval is: 0d01h10m
+0x57522e86: 	schedule adjusted to '201112030640'
+0x57522e86: Creating new schedule for '\Windows\notes.exe' in Task3
+0x57522e86: 	ScheduleRunApp: Next run at: 03.12.2011 06:40:03
+0x57522e86: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x57522e86: Exec/Kill skipped as this is a delayed schedule
+0x57522e86: 	ReleaseMutex...0x57522e86: OK
+0x57522e86: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x5423028a: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x5423028a: ~~~ using actual localtime:
+0x5423028a: 	 03.12.2011, 06:00
+0x5423028a: CmdLine = 
+0x5423028a: 	argv[1]: '-k'
+0x5423028a: 	argv[2]: 'task4'
+0x5423028a: Checking for valid date/time...
+0x5423028a: Date/Time after 11 2011. OK
+0x5423028a: Clearing all schedules for Task4 with '-k task4'
+0x5423028a: 	ClearRunApp2: ...
+0x5423028a: 	ClearRunApp2: returning with 0
+0x5423028a: 	checking for delayed schedule...
+0x5423028a: stStopTime = '201112031610', 0x5423028a: current time = '201112030600'
+0x5423028a: interval is: 0d12h00m
+0x5423028a: 	delta is -610 minutes
+0x5423028a: 	calculating new schedule for '201112031610'...
+0x5423028a: 	interval is: 0d12h00m
+0x5423028a: 	schedule adjusted to '201112031610'
+0x5423028a: 	ScheduleRunApp: Next run at: 03.12.2011 16:10:04
+0x5423028a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5423028a: *** re-scheduled future task *** 
+0x5423028a: 	ReleaseMutex...0x5423028a: OK
+0x5423028a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x92f79dea: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x92f79dea: ~~~ using actual localtime:
+0x92f79dea: 	 03.12.2011, 06:00
+0x92f79dea: CmdLine = 
+0x92f79dea: 	argv[1]: '-s'
+0x92f79dea: 	argv[2]: 'task4'
+0x92f79dea: Checking for valid date/time...
+0x92f79dea: Date/Time after 11 2011. OK
+0x92f79dea: Clearing all schedules for Task4 with '-s task4'
+0x92f79dea: 	ClearRunApp2: ...
+0x92f79dea: 	ClearRunApp2: returning with 0
+0x92f79dea: 	checking for delayed schedule...
+0x92f79dea: stStartTime = '201112030410', 0x92f79dea: current time = '201112030600'
+0x92f79dea: interval is: 0d12h00m
+0x92f79dea: 	delta is -110 minutes
+0x92f79dea: 	calculating new schedule for '201112030410'...
+0x92f79dea: 	interval is: 0d12h00m
+0x782b4fd6: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x92f79dea: 	schedule adjusted to '201112031610'
+0x782b4fd6: Checking for Mutex (single instance allowed only)...
+0x92f79dea: 	ScheduleRunApp: Next run at: 03.12.2011 16:10:05
+0x782b4fd6: 	Attached to existing mutex
+0x782b4fd6: ................ Waiting for mutex release......
+0x92f79dea: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x92f79dea: *** re-scheduled future task *** 
+0x9423028a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x92f79dea: 	ReleaseMutex...0x9423028a: Checking for Mutex (single instance allowed only)...
+0x92f79dea: OK
+0x158663b6: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x9423028a: 	Attached to existing mutex
+0x92f79dea: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x158663b6: Checking for Mutex (single instance allowed only)...
+0x9423028a: ................ Waiting for mutex release......
+0xd5e1946e: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xd5e1946e: ~~~ using actual localtime:
+0xd5e1946e: 	 03.12.2011, 06:00
+0x158663b6: 	Attached to existing mutex
+0x158663b6: ................ Waiting for mutex release......
+0xd5e1946e: 	argv[1]: 'AppRunAfterTimeChange'
+0xd5e1946e: Checking for valid date/time...
+0xd5e1946e: Date/Time after 11 2011. OK
+0xd5e1946e: got 'AppRunAfterTimeChange' signaled
+0xd5e1946e: ~~~ using actual localtime:
+0xd5e1946e: 	 03.12.2011, 06:00
+0xd5e1946e: Checking for valid date/time...
+0xd5e1946e: Date/Time after 11 2011. OK
+0xd5e1946e: Clearing Event Notifications...0xd5e1946e: OK
+0xd5e1946e: ClearRunApp(): ...
+0xd5e1946e: ClearRunApp(): CeClearUserNotification for handle: 0x3a00001a
+0xd5e1946e: ClearRunApp(): CeClearUserNotification for handle: 0x37000016
+0xd5e1946e: ClearRunApp(): CeClearUserNotification for handle: 0x3300001b
+0xd5e1946e: ClearRunApp(): CeClearUserNotification for handle: 0x37000023
+0xd5e1946e: ClearRunApp(): CeClearUserNotification for handle: 0x3e000026
+0xd5e1946e: ClearRunApp(): CeClearUserNotification for handle: 0x3100001e
+0xd5e1946e: ClearRunApp(): CeClearUserNotification for handle: 0x3800002c
+0xd5e1946e: ClearRunApp(): returns 7 
+0xd5e1946e: Cleared 7 Tasker schedules
+0xd5e1946e: scheduleAllTasks: ClearAllSchedules for 7 tasks
+0xd5e1946e: Clearing Event Notifications...0xd5e1946e: Clearing Event Notifications...0xd5e1946e: OK
+0xd5e1946e: Adding Time_Change Event Notification...0xd5e1946e: OK
+0xd5e1946e: Adding TZ_Change Event Notification...0xd5e1946e: OK
+0xd5e1946e: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xd5e1946e: 	calculating new schedule for '201112030600'...
+0xd5e1946e: 	interval is: 1d00h00m
+0xd5e1946e: 	schedule adjusted to '201112040600'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 04.12.2011 06:00:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xd5e1946e: 	calculating new schedule for '201112030600'...
+0xd5e1946e: 	interval is: 1d00h00m
+0xd5e1946e: 	schedule adjusted to '201112040600'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 04.12.2011 06:00:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0xd5e1946e: 	calculating new schedule for '201112030610'...
+0xd5e1946e: 	interval is: 0d00h10m
+0xd5e1946e: 	schedule adjusted to '201112030610'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 03.12.2011 06:10:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0xd5e1946e: 	calculating new schedule for '201112030110'...
+0xd5e1946e: 	interval is: 0d00h10m
+0xd5e1946e: 	schedule adjusted to '201112030610'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 03.12.2011 06:10:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0xd5e1946e: 	calculating new schedule for '201112030640'...
+0xd5e1946e: 	interval is: 0d01h10m
+0xd5e1946e: 	schedule adjusted to '201112030640'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 03.12.2011 06:40:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0xd5e1946e: 	calculating new schedule for '201112031230'...
+0xd5e1946e: 	interval is: 0d01h10m
+0xd5e1946e: 	schedule adjusted to '201112030640'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 03.12.2011 06:40:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0xd5e1946e: 	calculating new schedule for '201112030410'...
+0xd5e1946e: 	interval is: 0d12h00m
+0xd5e1946e: 	schedule adjusted to '201112031610'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 03.12.2011 16:10:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0xd5e1946e: 	calculating new schedule for '201112031610'...
+0xd5e1946e: 	interval is: 0d12h00m
+0xd5e1946e: 	schedule adjusted to '201112031610'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 03.12.2011 16:10:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0xd5e1946e: 	calculating new schedule for '201112030615'...
+0xd5e1946e: 	interval is: 0d00h15m
+0xd5e1946e: 	schedule adjusted to '201112030615'
+0xd5e1946e: 	ScheduleRunApp: Next run at: 03.12.2011 06:15:06
+0xd5e1946e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd5e1946e: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0xd5e1946e: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0xd5e1946e: scheduleAllTasks: scheduled 9 new tasks
+0xd5e1946e: Scheduled 9 Tasks
+0xd5e1946e: 	ReleaseMutex...0xd5e1946e: OK
+0xd5e1946e: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x782b4fd6: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x782b4fd6: ~~~ using actual localtime:
+0x782b4fd6: 	 03.12.2011, 06:00
+0x782b4fd6: CmdLine = 
+0x782b4fd6: 	argv[1]: '-k'
+0x782b4fd6: 	argv[2]: 'task1'
+0x782b4fd6: Checking for valid date/time...
+0x782b4fd6: Date/Time after 11 2011. OK
+0x782b4fd6: Clearing all schedules for Task1 with '-k task1'
+0x782b4fd6: 	ClearRunApp2: ...
+0x782b4fd6: 	ClearRunApp2: CeClearUserNotification for handle: 0x38000023
+0x782b4fd6: 	ClearRunApp2: returning with 1
+0x782b4fd6: 	checking for delayed schedule...
+0x782b4fd6: stStopTime = '201112030600', 0x782b4fd6: current time = '201112030600'
+0x782b4fd6: interval is: 1d00h00m
+0x782b4fd6: 	delta is 0 minutes
+0x782b4fd6: 	max allowed diff for delayed schedule recognition is plus 5
+0x782b4fd6: *** NO delayed schedule *** recognized
+0x782b4fd6: 	calculating new schedule for '201112030600'...
+0x782b4fd6: 	interval is: 1d00h00m
+0x782b4fd6: 	schedule adjusted to '201112040600'
+0x782b4fd6: Creating new schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x782b4fd6: 	ScheduleRunApp: Next run at: 04.12.2011 06:00:09
+0x782b4fd6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x782b4fd6: Not a delayed schedule
+0x782b4fd6: Killing exe '\Program Files\INcontrol\Athena\Athena.exe'...
+0x782b4fd6: 	Terminate process: 'Athena.exe'
+0x782b4fd6: 	exe not running
+0x782b4fd6: 	ReleaseMutex...0x782b4fd6: OK
+0x782b4fd6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x9423028a: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x9423028a: ~~~ using actual localtime:
+0x9423028a: 	 03.12.2011, 06:00
+0x9423028a: CmdLine = 
+0x9423028a: 	argv[1]: '-s'
+0x9423028a: 	argv[2]: 'task1'
+0x9423028a: Checking for valid date/time...
+0x9423028a: Date/Time after 11 2011. OK
+0x9423028a: Clearing all schedules for Task1 with '-s task1'
+0x9423028a: 	ClearRunApp2: ...
+0x9423028a: 	ClearRunApp2: CeClearUserNotification for handle: 0x3f000026
+0x9423028a: 	ClearRunApp2: returning with 1
+0x9423028a: 	checking for delayed schedule...
+0x9423028a: stStartTime = '201112030600', 0x9423028a: current time = '201112030600'
+0x9423028a: interval is: 1d00h00m
+0x9423028a: 	delta is 0 minutes
+0x9423028a: 	max allowed diff for delayed schedule recognition is plus 5
+0x9423028a: *** NO delayed schedule *** recognized
+0x9423028a: 	calculating new schedule for '201112030600'...
+0x9423028a: 	interval is: 1d00h00m
+0x9423028a: 	schedule adjusted to '201112040600'
+0x9423028a: Creating new schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x9423028a: 	ScheduleRunApp: Next run at: 04.12.2011 06:00:10
+0x9423028a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x9423028a: Not a delayed schedule
+0x9423028a: 	checking AC line status
 ---------------TEST7  --------------- 
 .
 ++++++++++++++ TEST8 ++++++++++++++++ 
@@ -471,52 +1878,222 @@ set time manually to 03.12.2011 0605
 ------------------------------------- 
 "############# Result:" 
 [HKLM\Software\Tasker]
-NextStart="201112201420"
-NextStop="201112021510"
-UpdateAll=dword:00000000
-Version=dword:000000e4
+UpdateAll=dword:00000001
+Version=dword:0000012c
 dbglevel=dword:00000000
 maxDelay=dword:00000005
 
-[HKLM\Software\Tasker\Task3]
-NextStart="201112011510"
-NextStop="201112011510"
+[HKLM\Software\Tasker\Task5]
+NextStart="201112030615"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="0615"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112031610"
+NextStop="201112031610"
 active=dword:00000001
 args=""
-exe="\Windows\notepad.exe"
-interval="0010"
-start="1420"
+exe="\Windows\notes.exe"
+interval="3600"
+start="1610"
 startOnAConly=dword:00000001
-stop="1510"
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112030640"
+NextStop="201112030640"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="0640"
+startOnAConly=dword:00000001
+stop="1230"
 
 [HKLM\Software\Tasker\Task2]
-NextStart="201112010605"
-NextStop="201112010605"
+Default="stop"="0335"
+NextStart="201112030610"
+NextStop="201112030610"
 active=dword:00000001
-args="-hidden"
-exe="\Program Files\INcontrol\Athena\tclient.exe"
-interval="2400"
-start="1955"
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="0610"
 startOnAConly=dword:00000001
-stop="0605"
+stop="0110"
 
 [HKLM\Software\Tasker\Task1]
-NextStart="201112010600"
-NextStop="201112010600"
+Default="stop"="0330"
+NextStart="201112040600"
+NextStop="201112040600"
 active=dword:00000001
 args="-hidden"
 exe="\Program Files\INcontrol\Athena\Athena.exe"
 interval="2400"
-start="2000"
+start="0600"
 startOnAConly=dword:00000001
 stop="0600"
 
 *************** LOG  **************** 
-0x15e6ec7a: ++++++++++++++++ Tasker v234 started +++++++++++++++++++
-0x15e6ec7a:              TESTMODE !
-0x15e6ec7a: Checking for Mutex (single instance allowed only)...
-0x15e6ec7a: 	Attached to existing mutex
-0x15e6ec7a: ................ Waiting for mutex release......
+0x9423028a: Starting exe '\Program Files\INcontrol\Athena\Athena.exe' as on AC power
+0x9423028a: runExe failed for '\Program Files\INcontrol\Athena\Athena.exe', GetLastError=2
+0x9423028a: 	ReleaseMutex...0x9423028a: OK
+0x9423028a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x158663b6: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x158663b6: ~~~ using actual localtime:
+0x158663b6: 	 03.12.2011, 06:05
+0x158663b6: CmdLine = 
+0x158663b6: 	argv[1]: '-k'
+0x158663b6: 	argv[2]: 'task1'
+0x158663b6: Checking for valid date/time...
+0x158663b6: Date/Time after 11 2011. OK
+0x158663b6: Clearing all schedules for Task1 with '-k task1'
+0x158663b6: 	ClearRunApp2: ...
+0x158663b6: 	ClearRunApp2: CeClearUserNotification for handle: 0x39000023
+0x158663b6: 	ClearRunApp2: returning with 1
+0x158663b6: 	checking for delayed schedule...
+0x158663b6: stStopTime = '201112030600', 0x158663b6: current time = '201112030605'
+0x158663b6: interval is: 1d00h00m
+0x158663b6: 	delta is 5 minutes
+0x158663b6: 	max allowed diff for delayed schedule recognition is plus 5
+0x158663b6: *** NO delayed schedule *** recognized
+0x158663b6: 	calculating new schedule for '201112030600'...
+0x158663b6: 	interval is: 1d00h00m
+0x158663b6: 	schedule adjusted to '201112040600'
+0x158663b6: Creating new schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x158663b6: 	ScheduleRunApp: Next run at: 04.12.2011 06:00:00
+0x158663b6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x158663b6: Not a delayed schedule
+0x158663b6: Killing exe '\Program Files\INcontrol\Athena\Athena.exe'...
+0x158663b6: 	Terminate process: 'Athena.exe'
+0x158663b6: 	exe not running
+0x158663b6: 	ReleaseMutex...0x158663b6: OK
+0x158663b6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x36ac5f7a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x36ac5f7a: Checking for Mutex (single instance allowed only)...
+0x36ac5f7a: 	Created new mutex
+0x36ac5f7a: ~~~ using actual localtime:
+0x36ac5f7a: 	 03.12.2011, 06:05
+0x36ac5f7a: CmdLine = 
+0x36ac5f7a: 	argv[1]: 'AppRunAfterTimeChange'
+0x36ac5f7a: Checking for valid date/time...
+0x36ac5f7a: Date/Time after 11 2011. OK
+0x36ac5f7a: got 'AppRunAfterTimeChange' signaled
+0x36ac5f7a: ~~~ using actual localtime:
+0x36ac5f7a: 	 03.12.2011, 06:05
+0x36ac5f7a: Checking for valid date/time...
+0x36ac5f7a: Date/Time after 11 2011. OK
+0x36ac5f7a: Clearing Event Notifications...0x36ac5f7a: OK
+0x36ac5f7a: ClearRunApp(): ...
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x38000016
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x3400001b
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x3400001c
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x3b00001a
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x30000024
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x38000029
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x3d00001d
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x34000022
+0x36ac5f7a: ClearRunApp(): CeClearUserNotification for handle: 0x30000026
+0x36ac5f7a: ClearRunApp(): returns 9 
+0x36ac5f7a: Cleared 9 Tasker schedules
+0x36ac5f7a: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x36ac5f7a: Clearing Event Notifications...0x36ac5f7a: Clearing Event Notifications...0x36ac5f7a: OK
+0x36ac5f7a: Adding Time_Change Event Notification...0x36ac5f7a: OK
+0x36ac5f7a: Adding TZ_Change Event Notification...0x36ac5f7a: OK
+0x36ac5f7a: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x36ac5f7a: 	calculating new schedule for '201112030600'...
+0x36ac5f7a: 	interval is: 1d00h00m
+0x36ac5f7a: 	schedule adjusted to '201112040600'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 04.12.2011 06:00:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x36ac5f7a: 	calculating new schedule for '201112030600'...
+0x36ac5f7a: 	interval is: 1d00h00m
+0x36ac5f7a: 	schedule adjusted to '201112040600'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 04.12.2011 06:00:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x36ac5f7a: 	calculating new schedule for '201112030610'...
+0x36ac5f7a: 	interval is: 0d00h10m
+0x36ac5f7a: 	schedule adjusted to '201112030610'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 03.12.2011 06:10:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x36ac5f7a: 	calculating new schedule for '201112030110'...
+0x36ac5f7a: 	interval is: 0d00h10m
+0x36ac5f7a: 	schedule adjusted to '201112030610'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 03.12.2011 06:10:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x36ac5f7a: 	calculating new schedule for '201112030640'...
+0x36ac5f7a: 	interval is: 0d01h10m
+0x36ac5f7a: 	schedule adjusted to '201112030640'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 03.12.2011 06:40:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x36ac5f7a: 	calculating new schedule for '201112031230'...
+0x36ac5f7a: 	interval is: 0d01h10m
+0x36ac5f7a: 	schedule adjusted to '201112030640'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 03.12.2011 06:40:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x36ac5f7a: 	calculating new schedule for '201112031610'...
+0x36ac5f7a: 	interval is: 0d12h00m
+0x36ac5f7a: 	schedule adjusted to '201112031610'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 03.12.2011 16:10:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x36ac5f7a: 	calculating new schedule for '201112031610'...
+0x36ac5f7a: 	interval is: 0d12h00m
+0x36ac5f7a: 	schedule adjusted to '201112031610'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 03.12.2011 16:10:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x36ac5f7a: 	calculating new schedule for '201112030615'...
+0x36ac5f7a: 	interval is: 0d00h15m
+0x36ac5f7a: 	schedule adjusted to '201112030615'
+0x36ac5f7a: 	ScheduleRunApp: Next run at: 03.12.2011 06:15:01
+0x36ac5f7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x36ac5f7a: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x36ac5f7a: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x36ac5f7a: scheduleAllTasks: scheduled 9 new tasks
+0x36ac5f7a: Scheduled 9 Tasks
+0x36ac5f7a: 	ReleaseMutex...0x36ac5f7a: OK
+0x36ac5f7a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x1b11019a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x1b11019a: Checking for Mutex (single instance allowed only)...
+0x1b11019a: 	Created new mutex
+0x1b11019a: ~~~ using actual localtime:
+0x1b11019a: 	 03.12.2011, 06:05
+0x1b11019a: CmdLine = 
+0x1b11019a: 	argv[1]: '-k'
+0x1b11019a: 	argv[2]: 'task2'
+0x1b11019a: Checking for valid date/time...
+0x1b11019a: Date/Time after 11 2011. OK
+0x1b11019a: Clearing all schedules for Task2 with '-k task2'
+0x1b11019a: 	ClearRunApp2: ...
+0x1b11019a: 	ClearRunApp2: CeClearUserNotification for handle: 0x3e00001d
+0x1b11019a: 	ClearRunApp2: returning with 1
+0x1b11019a: 	checking for delayed schedule...
+0x1b11019a: stStopTime = '201112030110', 0x1b11019a: current time = '201112030605'
+0x1b11019a: interval is: 0d00h10m
+0x1b11019a: 	delta is 295 minutes
+0x1b11019a: 	max allowed diff for delayed schedule recognition is plus 5
+0x1b11019a: *** delayed schedule *** recognized
+0x1b11019a: 	calculating new schedule for '201112030110'...
+0x1b11019a: 	interval is: 0d00h10m
+0x1b11019a: 	schedule adjusted to '201112030610'
+0x1b11019a: Creating new schedule for '\Windows\notes.exe' in Task2
+0x1b11019a: 	ScheduleRunApp: Next run at: 03.12.2011 06:10:04
+0x1b11019a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x1b11019a: Exec/Kill skipped as this is a delayed schedule
+0x1b11019a: 	ReleaseMutex...0x1b11019a: OK
+0x1b11019a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
 ---------------TEST8  --------------- 
 .
 ++++++++++++++ TEST9 ++++++++++++++++ 
@@ -529,3 +2106,1115 @@ set time manually to 04.12.2011 1500
 	tasker2.exe -k task2  				
 	tasker2.exe AppRunAfterTimeChange  
 ------------------------------------- 
+"############# Result:" 
+[HKLM\Software\Tasker]
+UpdateAll=dword:00000001
+Version=dword:0000012c
+dbglevel=dword:00000000
+maxDelay=dword:00000005
+
+[HKLM\Software\Tasker\Task5]
+NextStart="201112041515"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="1515"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112041610"
+NextStop="201112041610"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="3600"
+start="1610"
+startOnAConly=dword:00000001
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112041600"
+NextStop="201112041600"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="1600"
+startOnAConly=dword:00000001
+stop="1230"
+
+[HKLM\Software\Tasker\Task2]
+Default="stop"="0335"
+NextStart="201112041510"
+NextStop="201112041510"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="1510"
+startOnAConly=dword:00000001
+stop="0110"
+
+[HKLM\Software\Tasker\Task1]
+Default="stop"="0330"
+NextStart="201112050600"
+NextStop="201112050600"
+active=dword:00000001
+args="-hidden"
+exe="\Program Files\INcontrol\Athena\Athena.exe"
+interval="2400"
+start="0600"
+startOnAConly=dword:00000001
+stop="0600"
+
+*************** LOG  **************** 
+0xb589e3e6: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xb589e3e6: Checking for Mutex (single instance allowed only)...
+0xb589e3e6: 	Created new mutex
+0xb589e3e6: ~~~ using actual localtime:
+0xb589e3e6: 	 04.12.2011, 15:00
+0xb589e3e6: CmdLine = 
+0xb589e3e6: 	argv[1]: '-s'
+0xb589e3e6: 	argv[2]: 'task2'
+0xb589e3e6: Checking for valid date/time...
+0xb589e3e6: Date/Time after 11 2011. OK
+0xb589e3e6: Clearing all schedules for Task2 with '-s task2'
+0xb589e3e6: 	ClearRunApp2: ...
+0xb589e3e6: 	ClearRunApp2: CeClearUserNotification for handle: 0x3f00000b
+0xb589e3e6: 	Failed to clear schedule for '\Tasker2.exe'
+0xb589e3e6: 	ClearRunApp2: returning with 0
+0xb589e3e6: 	checking for delayed schedule...
+0xb589e3e6: stStartTime = '201112040610', 0xb589e3e6: current time = '201112041500'
+0xb589e3e6: interval is: 0d00h10m
+0xb589e3e6: 	delta is -530 minutes
+0xb589e3e6: 	calculating new schedule for '201112040610'...
+0xb589e3e6: 	interval is: 0d00h10m
+0xb589e3e6: 	schedule adjusted to '201112041510'
+0xb589e3e6: 	ScheduleRunApp: Next run at: 04.12.2011 15:10:00
+0xb589e3e6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb589e3e6: *** re-scheduled future task *** 
+0xb589e3e6: 	ReleaseMutex...0xb589e3e6: OK
+0xb589e3e6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x964869c6: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x95ccf8ca: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x964869c6: Checking for Mutex (single instance allowed only)...
+0xb6d338a2: ++++++++++++++++ Tasker v300 started +++++++++++++++++0x964869c6: 	Created new mutex
+0xf8dda8d6: ++++++++++++++++ Tasker v300 0x964869c6: ~~~ using actual localtime:
+0x964869c6: 	 04.12.2011, 15:00
+ingle instance allowed only)...
+++
+0x964869c6: CmdLine = 
+ existing mutex
+mutex release......
+..
+++
+0x964869c6: 	argv[1]: '-k'
+ Waiting for mutex release......
+..
+0x964869c6: 	argv[2]: 'task2'
+iting for mutex release......
+0xfb0e9526: ................ Waiting for mutex release......
+0x964869c6: Checking for valid date/time...
+0x7634d38e: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x7634d38e: Checking for Mutex (single instance allowed only).0x920x964869c6: 	ClearRunApp2: ...
+v300 started +++++++++++++++++++
+0x92b82eae: Checking for Mutex (single in0x964869c6: 	ClearRunApp20x7634d38e: ........0x92b82eae: 	Attached to existing mutex
+
+0x964869c6: 	checking for delayed schedule...
+0x964869c6: stStopTime = '201112040110', mutex release......
+0x964869c6: current time = '201112041500'
+0x964869c6: interval is: 0d00h10m
+0x964869c6: 	delta is 830 minutes
+0x964869c6: 	max allowed diff for delayed schedule recognition is plus 5
+0x964869c6: *** delayed schedule *** recognized
+0x964869c6: 	calculating new schedule for '201112040110'...
+0x964869c6: 	interval is: 0d00h10m
+0x964869c6: 	schedule adjusted to '201112041510'
+0x964869c6: Creating new schedule for '\Windows\notes.exe' in Task2
+0x964869c6: 	ScheduleRunApp: Next run at: 04.12.2011 15:10:01
+0x964869c6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x964869c6: Exec/Kill skipped as this is a delayed schedule
+0x964869c6: 	ReleaseMutex...0x964869c6: OK
+0x964869c6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x95ccf8ca: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x95ccf8ca: ~~~ using actual localtime:
+0x95ccf8ca: 	 04.12.2011, 15:00
+0x95ccf8ca: CmdLine = 
+0x95ccf8ca: 	argv[1]: '-s'
+0x95ccf8ca: 	argv[2]: 'task5'
+0x95ccf8ca: Checking for valid date/time...
+0x95ccf8ca: Date/Time after 11 2011. OK
+0x95ccf8ca: Clearing all schedules for Task5 with '-s task5'
+0x95ccf8ca: 	ClearRunApp2: ...
+0x95ccf8ca: 	ClearRunApp2: returning with 0
+0x95ccf8ca: 	checking for delayed schedule...
+0x95ccf8ca: stStartTime = '201112040615', 0x95ccf8ca: current time = '201112041500'
+0x95ccf8ca: interval is: 0d00h15m
+0x95ccf8ca: 	delta is -525 minutes
+0x95ccf8ca: 	calculating new schedule for '201112040615'...
+0x95ccf8ca: 	interval is: 0d00h15m
+0x95ccf8ca: 	schedule adjusted to '201112041515'
+0x95ccf8ca: 	ScheduleRunApp: Next run at: 04.12.2011 15:15:02
+0x95ccf8ca: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95ccf8ca: *** re-scheduled future task *** 
+0x95ccf8ca: 	ReleaseMutex...0x95ccf8ca: OK
+0x95ccf8ca: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xb6d338a2: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xb6d338a2: ~~~ using actual localtime:
+0xb6d338a2: 	 04.12.2011, 15:00
+0xb6d338a2: CmdLine = 
+0xb6d338a2: 	argv[1]: '-s'
+0xb6d338a2: 	argv[2]: 'task3'
+0xb6d338a2: Checking for valid date/time...
+0xb6d338a2: Date/Time after 11 2011. OK
+0xb6d338a2: Clearing all schedules for Task3 with '-s task3'
+0xb6d338a2: 	ClearRunApp2: ...
+0xb6d338a2: 	ClearRunApp2: returning with 0
+0xb6d338a2: 	checking for delayed schedule...
+0xb6d338a2: stStartTime = '201112040640', 0xb6d338a2: current time = '201112041500'
+0xb6d338a2: interval is: 0d01h10m
+0xb6d338a2: 	delta is -500 minutes
+0xb6d338a2: 	calculating new schedule for '201112040640'...
+0xb6d338a2: 	interval is: 0d01h10m
+0xb6d338a2: 	schedule adjusted to '201112041600'
+0xb6d338a2: 	ScheduleRunApp: Next run at: 04.12.2011 16:00:02
+0xb6d338a2: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xb6d338a2: *** re-scheduled future task *** 
+0xb6d338a2: 	ReleaseMutex...0xb6d338a2: OK
+0xb6d338a2: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xf8dda8d6: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xf8dda8d6: ~~~ using actual localtime:
+0xf8dda8d6: 	 04.12.2011, 15:00
+0xf8dda8d6: CmdLine = 
+0xf8dda8d6: 	argv[1]: '-k'
+0xf8dda8d6: 	argv[2]: 'task3'
+0xf8dda8d6: Checking for valid date/time...
+0xf8dda8d6: Date/Time after 11 2011. OK
+0xf8dda8d6: Clearing all schedules for Task3 with '-k task3'
+0xf8dda8d6: 	ClearRunApp2: ...
+0xf8dda8d6: 	ClearRunApp2: returning with 0
+0xf8dda8d6: 	checking for delayed schedule...
+0xf8dda8d6: stStopTime = '201112041230', 0xf8dda8d6: current time = '201112041500'
+0xf8dda8d6: interval is: 0d01h10m
+0xf8dda8d6: 	delta is 150 minutes
+0xf8dda8d6: 	max allowed diff for delayed schedule recognition is plus 5
+0xf8dda8d6: *** delayed schedule *** recognized
+0xf8dda8d6: 	calculating new schedule for '201112041230'...
+0xf8dda8d6: 	interval is: 0d01h10m
+0xf8dda8d6: 	schedule adjusted to '201112041600'
+0xf8dda8d6: Creating new schedule for '\Windows\notes.exe' in Task3
+0xf8dda8d6: 	ScheduleRunApp: Next run at: 04.12.2011 16:00:02
+0xf8dda8d6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xf8dda8d6: Exec/Kill skipped as this is a delayed schedule
+0xf8dda8d6: 	ReleaseMutex...0xf8dda8d6: OK
+0xf8dda8d6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x1c881666: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x1c881666: ~~~ using actual localtime:
+0x1c881666: 	 04.12.2011, 15:00
+0x1c881666: CmdLine = 
+0x1c881666: 	argv[1]: '-s'
+0x1c881666: 	argv[2]: 'task4'
+0x1c881666: Checking for valid date/time...
+0x1c881666: Date/Time after 11 2011. OK
+0x1c881666: Clearing all schedules for Task4 with '-s task4'
+0x1c881666: 	ClearRunApp2: ...
+0x1c881666: 	ClearRunApp2: returning with 0
+0x1c881666: 	checking for delayed schedule...
+0x1c881666: stStartTime = '201112041610', 0x1c881666: current time = '201112041500'
+0x1c881666: interval is: 0d12h00m
+0x1c881666: 	delta is 70 minutes
+0x1c881666: 	max allowed diff for delayed schedule recognition is plus 5
+0x1c881666: *** delayed schedule *** recognized
+0x1c881666: 	calculating new schedule for '201112041610'...
+0x1c881666: 	interval is: 0d12h00m
+0x1c881666: 	schedule adjusted to '201112041610'
+0x1c881666: Creating new schedule for '\Windows\notes.exe' in Task4
+0x52f73116: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x1c881666: 	ScheduleRunApp: Next run at: 04.12.2011 16:10:03
+0x52f73116: Checking for Mutex (single instance allowed only)...
+0x52f73116: 	Attached to existing mutex
+0x52f73116: ................ Waiting for mutex release......
+0x1c881666: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x1c881666: Exec/Kill skipped as this is a delayed schedule
+0x1c881666: 	ReleaseMutex...0x1c881666: OK
+0x1c881666: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xfb0e9526: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0xfb0e9526: ~~~ using actual localtime:
+0xfb0e9526: 	 04.12.2011, 15:00
+0xfb0e9526: CmdLine = 
+0xfb0e9526: 	argv[1]: '-k'
+0xfb0e9526: 	argv[2]: 'task4'
+0xfb0e9526: Checking for valid date/time...
+0xfb0e9526: Date/Time after 11 2011. OK
+0xfb0e9526: Clearing all schedules for Task4 with '-k task4'
+0xfb0e9526: 	ClearRunApp2: ...
+0xfb0e9526: 	ClearRunApp2: returning with 0
+0xfb0e9526: 	checking for delayed schedule...
+0xfb0e9526: stStopTime = '201112041610', 0xfb0e9526: current time = '201112041500'
+0xfb0e9526: interval is: 0d12h00m
+0xfb0e9526: 	delta is -70 minutes
+0xfb0e9526: 	calculating new schedule for '201112041610'...
+0xfb0e9526: 	interval is: 0d12h00m
+0xfb0e9526: 	schedule adjusted to '201112041610'
+0xfb0e9526: 	ScheduleRunApp: Next run at: 04.12.2011 16:10:04
+0xfb0e9526: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xfb0e9526: *** re-scheduled future task *** 
+0xfb0e9526: 	ReleaseMutex...0xfb0e9526: OK
+0xfb0e9526: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x7634d38e: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x7634d38e: ~~~ using actual localtime:
+0x7634d38e: 	 04.12.2011, 15:00
+0x7634d38e: CmdLine = 
+0x7634d38e: 	argv[1]: '-s'
+0x7634d38e: 	argv[2]: 'task1'
+0x7634d38e: Checking for valid date/time...
+0x7634d38e: Date/Time after 11 2011. OK
+0x7634d38e: Clearing all schedules for Task1 with '-s task1'
+0x7634d38e: 	ClearRunApp2: ...
+0x7634d38e: 	ClearRunApp2: returning with 0
+0x7634d38e: 	checking for delayed schedule...
+0x7634d38e: stStartTime = '201112040600', 0x7634d38e: current time = '201112041500'
+0x7634d38e: interval is: 1d00h00m
+0x7634d38e: 	delta is -540 minutes
+0x7634d38e: 	calculating new schedule for '201112040600'...
+0x7634d38e: 	interval is: 1d00h00m
+0x7634d38e: 	schedule adjusted to '201112050600'
+0x7634d38e: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:05
+0x7634d38e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7634d38e: *** re-scheduled future task *** 
+0x7634d38e: 	ReleaseMutex...0x7634d38e: OK
+0x7634d38e: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x92b82eae: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x92b82eae: ~~~ using actual localtime:
+0x92b82eae: 	 04.12.2011, 15:00
+0x92b82eae: CmdLine = 
+0x92b82eae: 	argv[1]: '-k'
+0x92b82eae: 	argv[2]: 'task1'
+0x92b82eae: Checking for valid date/time...
+0x92b82eae: Date/Time after 11 2011. OK
+0x92b82eae: Clearing all schedules for Task1 with '-k task1'
+0x92b82eae: 	ClearRunApp2: ...
+0x92b82eae: 	ClearRunApp2: returning with 0
+0x92b82eae: 	checking for delayed schedule...
+0x92b82eae: stStopTime = '201112040600', 0x92b82eae: current time = '201112041500'
+0x92b82eae: interval is: 1d00h00m
+0x92b82eae: 	delta is 540 minutes
+0x92b82eae: 	max allowed diff for delayed schedule recognition is plus 5
+0x92b82eae: *** delayed schedule *** recognized
+0x92b82eae: 	calculating new schedule for '201112040600'...
+0x92b82eae: 	interval is: 1d00h00m
+0x92b82eae: 	schedule adjusted to '201112050600'
+0x92b82eae: Creating new schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x92b82eae: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:05
+0x92b82eae: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x92b82eae: Exec/Kill skipped as this is a delayed schedule
+0x92b82eae: 	ReleaseMutex...0x92b82eae: OK
+0x92b82eae: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x52f73116: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x52f73116: ~~~ using actual localtime:
+0x52f73116: 	 04.12.2011, 15:00
+0x52f73116: CmdLine = 
+0x52f73116: 	argv[1]: 'AppRunAfterTimeChange'
+0x52f73116: Checking for valid date/time...
+0x52f73116: Date/Time after 11 2011. OK
+0x52f73116: got 'AppRunAfterTimeChange' signaled
+0x52f73116: ~~~ using actual localtime:
+0x52f73116: 	 04.12.2011, 15:00
+0x52f73116: Checking for valid date/time...
+0x52f73116: Date/Time after 11 2011. OK
+0x52f73116: Clearing Event Notifications...0x52f73116: OK
+0x52f73116: ClearRunApp(): ...
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x3000000b
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x3600001b
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x3600001c
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x37000027
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x39000017
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x3b000021
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x3900002a
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x3b00002c
+0x52f73116: ClearRunApp(): CeClearUserNotification for handle: 0x3a000016
+0x52f73116: ClearRunApp(): returns 9 
+0x52f73116: Cleared 9 Tasker schedules
+0x52f73116: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x52f73116: Clearing Event Notifications...0x52f73116: Clearing Event Notifications...0x52f73116: OK
+0x52f73116: Adding Time_Change Event Notification...0x52f73116: OK
+0x52f73116: Adding TZ_Change Event Notification...0x52f73116: OK
+0x52f73116: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x52f73116: 	calculating new schedule for '201112040600'...
+0x52f73116: 	interval is: 1d00h00m
+0x52f73116: 	schedule adjusted to '201112050600'
+0x52f73116: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x52f73116: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x52f73116: 	calculating new schedule for '201112040600'...
+0x52f73116: 	interval is: 1d00h00m
+0x52f73116: 	schedule adjusted to '201112050600'
+0x52f73116: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x955ffc6a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x955ffc6a: Checking for Mutex (single instance allowed only)...
+0x955ffc6a: 	Attached to existing mutex
+0x955ffc6a: ................ Waiting for mutex release......
+0x52f73116: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x52f73116: 	calculating new schedule for '201112041510'...
+0x52f73116: 	interval is: 0d00h10m
+0x52f73116: 	schedule adjusted to '201112041510'
+0x52f73116: 	ScheduleRunApp: Next run at: 04.12.2011 15:10:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x52f73116: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x52f73116: 	calculating new schedule for '201112040110'...
+0x52f73116: 	interval is: 0d00h10m
+0x52f73116: 	schedule adjusted to '201112041510'
+0x52f73116: 	ScheduleRunApp: Next run at: 04.12.2011 15:10:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x52f73116: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x52f73116: 	calculating new schedule for '201112041600'...
+0x52f73116: 	interval is: 0d01h10m
+0x52f73116: 	schedule adjusted to '201112041600'
+0x52f73116: 	ScheduleRunApp: Next run at: 04.12.2011 16:00:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x52f73116: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x52f73116: 	calculating new schedule for '201112041230'...
+0x52f73116: 	interval is: 0d01h10m
+0x52f73116: 	schedule adjusted to '201112041600'
+0x52f73116: 	ScheduleRunApp: Next run at: 04.12.2011 16:00:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x52f73116: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x52f73116: 	calculating new schedule for '201112041610'...
+0x52f73116: 	interval is: 0d12h00m
+0x52f73116: 	schedule adjusted to '201112041610'
+0x52f73116: 	ScheduleRunApp: Next run at: 04.12.2011 16:10:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x52f73116: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x52f73116: 	calculating new schedule for '201112041610'...
+0x52f73116: 	interval is: 0d12h00m
+0x52f73116: 	schedule adjusted to '201112041610'
+0x52f73116: 	ScheduleRunApp: Next run at: 04.12.2011 16:10:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x52f73116: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x52f73116: 	calculating new schedule for '201112040615'...
+0x52f73116: 	interval is: 0d00h15m
+0x52f73116: 	schedule adjusted to '201112041515'
+0x52f73116: 	ScheduleRunApp: Next run at: 04.12.2011 15:15:06
+0x52f73116: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x52f73116: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x52f73116: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x52f73116: scheduleAllTasks: scheduled 9 new tasks
+0x52f73116: Scheduled 9 Tasks
+0x52f73116: 	ReleaseMutex...0x52f73116: OK
+0x52f73116: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x955ffc6a: ++++++++++++++++ Mutex wait released. +++++++++++++++
+0x955ffc6a: ~~~ using actual localtime:
+0x955ffc6a: 	 04.12.2011, 15:00
+0x955ffc6a: CmdLine = 
+0x955ffc6a: 	argv[1]: '-s'
+0x955ffc6a: 	argv[2]: 'task2'
+0x955ffc6a: Checking for valid date/time...
+0x955ffc6a: Date/Time after 11 2011. OK
+0x955ffc6a: Clearing all schedules for Task2 with '-s task2'
+0x955ffc6a: 	ClearRunApp2: ...
+0x955ffc6a: 	ClearRunApp2: CeClearUserNotification for handle: 0x3900001f
+0x955ffc6a: 	ClearRunApp2: returning with 1
+0x955ffc6a: 	checking for delayed schedule...
+0x955ffc6a: stStartTime = '201112041510', 0x955ffc6a: current time = '201112041500'
+0x955ffc6a: interval is: 0d00h10m
+0x955ffc6a: 	delta is 10 minutes
+0x955ffc6a: 	max allowed diff for delayed schedule recognition is plus 5
+0x955ffc6a: *** delayed schedule *** recognized
+0x955ffc6a: 	calculating new schedule for '201112041510'...
+0x955ffc6a: 	interval is: 0d00h10m
+0x955ffc6a: 	schedule adjusted to '201112041510'
+0x955ffc6a: Creating new schedule for '\Windows\notes.exe' in Task2
+0x955ffc6a: 	ScheduleRunApp: Next run at: 04.12.2011 15:10:09
+0x955ffc6a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x955ffc6a: Exec/Kill skipped as this is a delayed schedule
+0x955ffc6a: 	ReleaseMutex...0x955ffc6a: OK
+0x955ffc6a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x35866c36: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x35866c36: Checking for Mutex (single instance allowed only)...
+0x35866c36: 	Created new mutex
+0x35866c36: ~~~ using actual localtime:
+0x35866c36: 	 04.12.2011, 15:00
+0x35866c36: CmdLine = 
+0x35866c36: 	argv[1]: '-s'
+0x35866c36: 	argv[2]: 'task1'
+0x35866c36: Checking for valid date/time...
+0x35866c36: Date/Time after 11 2011. OK
+0x35866c36: Clearing all schedules for Task1 with '-s task1'
+0x35866c36: 	ClearRunApp2: ...
+0x35866c36: 	ClearRunApp2: CeClearUserNotification for handle: 0x3a00002a
+0x35866c36: 	ClearRunApp2: returning with 1
+0x35866c36: 	checking for delayed schedule...
+0x35866c36: stStartTime = '201112040600', 0x35866c36: current time = '201112041500'
+0x35866c36: interval is: 1d00h00m
+0x35866c36: 	delta is -540 minutes
+0x35866c36: 	calculating new schedule for '201112040600'...
+0x35866c36: 	interval is: 1d00h00m
+0x35866c36: 	schedule adjusted to '201112050600'
+0x35866c36: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:10
+0x35866c36: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x35866c36: *** re-scheduled future task *** 
+0x35866c36: 	ReleaseMutex...0x35866c36: OK
+0x35866c36: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xf89c4dfe: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xf89c4dfe: Checking for Mutex (single instance allowed only)...
+0xf89c4dfe: 	Created new mutex
+0xf89c4dfe: ~~~ using actual localtime:
+0xf89c4dfe: 	 04.12.2011, 15:00
+0xf89c4dfe: CmdLine = 
+0xf89c4dfe: 	argv[1]: '-k'
+0xf89c4dfe: 	argv[2]: 'task1'
+0xf89c4dfe: Checking for valid date/time...
+0xf89c4dfe: Date/Time after 11 2011. OK
+0xf89c4dfe: Clearing all schedules for Task1 with '-k task1'
+0xf89c4dfe: 	ClearRunApp2: ...
+0xf89c4dfe: 	ClearRunApp2: CeClearUserNotification for handle: 0x3c000021
+0xf89c4dfe: 	ClearRunApp2: returning with 1
+0xf89c4dfe: 	checking for delayed schedule...
+0xf89c4dfe: stStopTime = '201112040600', 0xf89c4dfe: current time = '201112041500'
+0xf89c4dfe: interval is: 1d00h00m
+0xf89c4dfe: 	delta is 540 minutes
+0xf89c4dfe: 	max allowed diff for delayed schedule recognition is plus 5
+0xf89c4dfe: *** delayed schedule *** recognized
+0xf89c4dfe: 	calculating new schedule for '201112040600'...
+0xf89c4dfe: 	interval is: 1d00h00m
+0xf89c4dfe: 	schedule adjusted to '201112050600'
+0xf89c4dfe: Creating new schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xf89c4dfe: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:11
+0xf89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xf89c4dfe: Exec/Kill skipped as this is a delayed schedule
+0xf89c4dfe: 	ReleaseMutex...0xf89c4dfe: OK
+0xf89c4dfe: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0xf589e3e6: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xf589e3e6: Checking for Mutex (single instance allowed only)...
+0xf589e3e6: 	Created new mutex
+0xf589e3e6: ~~~ using actual localtime:
+0xf589e3e6: 	 04.12.2011, 15:00
+0xf589e3e6: CmdLine = 
+0xf589e3e6: 	argv[1]: '-k'
+0xf589e3e6: 	argv[2]: 'task2'
+0xf589e3e6: Checking for valid date/time...
+0xf589e3e6: Date/Time after 11 2011. OK
+0xf589e3e6: Clearing all schedules for Task2 with '-k task2'
+0xf589e3e6: 	ClearRunApp2: ...
+0xf589e3e6: 	ClearRunApp2: CeClearUserNotification for handle: 0x3a000017
+0xf589e3e6: 	ClearRunApp2: returning with 1
+0xf589e3e6: 	checking for delayed schedule...
+0xf589e3e6: stStopTime = '201112040110', 0xf589e3e6: current time = '201112041500'
+0xf589e3e6: interval is: 0d00h10m
+0xf589e3e6: 	delta is 830 minutes
+0xf589e3e6: 	max allowed diff for delayed schedule recognition is plus 5
+0xf589e3e6: *** delayed schedule *** recognized
+0xf589e3e6: 	calculating new schedule for '201112040110'...
+0xf589e3e6: 	interval is: 0d00h10m
+0xf589e3e6: 	schedule adjusted to '201112041510'
+0xf589e3e6: Creating new schedule for '\Windows\notes.exe' in Task2
+0xf589e3e6: 	ScheduleRunApp: Next run at: 04.12.2011 15:10:12
+0xf589e3e6: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xf589e3e6: Exec/Kill skipped as this is a delayed schedule
+0xf589e3e6: 	ReleaseMutex...0xf589e3e6: OK
+0xf589e3e6: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x95e5b266: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x95e5b266: Checking for Mutex (single instance allowed only)...
+0x95e5b266: 	Created new mutex
+0x95e5b266: ~~~ using actual localtime:
+0x95e5b266: 	 04.12.2011, 15:00
+0x95e5b266: CmdLine = 
+0x95e5b266: 	argv[1]: 'AppRunAfterTimeChange'
+0x95e5b266: Checking for valid date/time...
+0x95e5b266: Date/Time after 11 2011. OK
+0x95e5b266: got 'AppRunAfterTimeChange' signaled
+0x95e5b266: ~~~ using actual localtime:
+0x95e5b266: 	 04.12.2011, 15:00
+0x95e5b266: Checking for valid date/time...
+0x95e5b266: Date/Time after 11 2011. OK
+0x95e5b266: Clearing Event Notifications...0x95e5b266: OK
+0x95e5b266: ClearRunApp(): ...
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x3a00001f
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x3b000017
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x36000022
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x38000027
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x3700001c
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x3700001b
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x3100000b
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x3b00002a
+0x95e5b266: ClearRunApp(): CeClearUserNotification for handle: 0x3d000021
+0x95e5b266: ClearRunApp(): returns 9 
+0x95e5b266: Cleared 9 Tasker schedules
+0x95e5b266: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x95e5b266: Clearing Event Notifications...0x95e5b266: Clearing Event Notifications...0x95e5b266: OK
+0x95e5b266: Adding Time_Change Event Notification...0x95e5b266: OK
+0x95e5b266: Adding TZ_Change Event Notification...0x95e5b266: OK
+0x95e5b266: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x95e5b266: 	calculating new schedule for '201112040600'...
+0x95e5b266: 	interval is: 1d00h00m
+0x95e5b266: 	schedule adjusted to '201112050600'
+0x95e5b266: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x95e5b266: 	calculating new schedule for '201112040600'...
+0x95e5b266: 	interval is: 1d00h00m
+0x95e5b266: 	schedule adjusted to '201112050600'
+0x95e5b266: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x95e5b266: 	calculating new schedule for '201112041510'...
+0x95e5b266: 	interval is: 0d00h10m
+0x95e5b266: 	schedule adjusted to '201112041510'
+0x95e5b266: 	ScheduleRunApp: Next run at: 04.12.2011 15:10:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x95e5b266: 	calculating new schedule for '201112040110'...
+0x95e5b266: 	interval is: 0d00h10m
+0x95e5b266: 	schedule adjusted to '201112041510'
+0x95e5b266: 	ScheduleRunApp: Next run at: 04.12.2011 15:10:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x95e5b266: 	calculating new schedule for '201112041600'...
+0x95e5b266: 	interval is: 0d01h10m
+0x95e5b266: 	schedule adjusted to '201112041600'
+0x95e5b266: 	ScheduleRunApp: Next run at: 04.12.2011 16:00:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x95e5b266: 	calculating new schedule for '201112041230'...
+0x95e5b266: 	interval is: 0d01h10m
+0x95e5b266: 	schedule adjusted to '201112041600'
+0x95e5b266: 	ScheduleRunApp: Next run at: 04.12.2011 16:00:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x95e5b266: 	calculating new schedule for '201112041610'...
+0x95e5b266: 	interval is: 0d12h00m
+0x95e5b266: 	schedule adjusted to '201112041610'
+0x95e5b266: 	ScheduleRunApp: Next run at: 04.12.2011 16:10:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x95e5b266: 	calculating new schedule for '201112041610'...
+0x95e5b266: 	interval is: 0d12h00m
+0x95e5b266: 	schedule adjusted to '201112041610'
+0x95e5b266: 	ScheduleRunApp: Next run at: 04.12.2011 16:10:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x95e5b266: 	calculating new schedule for '201112041515'...
+0x95e5b266: 	interval is: 0d00h15m
+0x95e5b266: 	schedule adjusted to '201112041515'
+0x95e5b266: 	ScheduleRunApp: Next run at: 04.12.2011 15:15:13
+0x95e5b266: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x95e5b266: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x95e5b266: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x95e5b266: scheduleAllTasks: scheduled 9 new tasks
+0x95e5b266: Scheduled 9 Tasks
+0x95e5b266: 	ReleaseMutex...0x95e5b266: OK
+0x95e5b266: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+---------------TEST9  --------------- 
+.
+++++++++++++++ TEST10 ++++++++++++++++ 
+------------------------------------- 
+###	simululates a delayed call  
+set time manually to 04.12.2011 0000  
+	tasker2.exe AppRunAfterTimeChange  
+------------------------------------- 
+"############# Result:" 
+[HKLM\Software\Tasker]
+UpdateAll=dword:00000001
+Version=dword:0000012c
+dbglevel=dword:00000000
+maxDelay=dword:00000005
+
+[HKLM\Software\Tasker\Task5]
+NextStart="201112040015"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="0015"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112040410"
+NextStop="201112040410"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="3600"
+start="0410"
+startOnAConly=dword:00000001
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112040050"
+NextStop="201112040050"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="0050"
+startOnAConly=dword:00000001
+stop="1230"
+
+[HKLM\Software\Tasker\Task2]
+Default="stop"="0335"
+NextStart="201112040010"
+NextStop="201112040010"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="0010"
+startOnAConly=dword:00000001
+stop="0110"
+
+[HKLM\Software\Tasker\Task1]
+Default="stop"="0330"
+NextStart="201112050600"
+NextStop="201112050600"
+active=dword:00000001
+args="-hidden"
+exe="\Program Files\INcontrol\Athena\Athena.exe"
+interval="2400"
+start="0600"
+startOnAConly=dword:00000001
+stop="0600"
+
+*************** LOG  **************** 
+0xd89c4dfe: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0xd89c4dfe: Checking for Mutex (single instance allowed only)...
+0xd89c4dfe: 	Created new mutex
+0xd89c4dfe: ~~~ using actual localtime:
+0xd89c4dfe: 	 04.12.2011, 00:00
+0xd89c4dfe: CmdLine = 
+0xd89c4dfe: 	argv[1]: 'AppRunAfterTimeChange'
+0xd89c4dfe: Checking for valid date/time...
+0xd89c4dfe: Date/Time after 11 2011. OK
+0xd89c4dfe: got 'AppRunAfterTimeChange' signaled
+0xd89c4dfe: ~~~ using actual localtime:
+0xd89c4dfe: 	 04.12.2011, 00:00
+0xd89c4dfe: Checking for valid date/time...
+0xd89c4dfe: Date/Time after 11 2011. OK
+0xd89c4dfe: Clearing Event Notifications...0xd89c4dfe: OK
+0xd89c4dfe: ClearRunApp(): ...
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x39000027
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x3800001c
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x3c000016
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x37000022
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x3c000017
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x3b00001f
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x3d00002c
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x3800001b
+0xd89c4dfe: ClearRunApp(): CeClearUserNotification for handle: 0x3200000b
+0xd89c4dfe: ClearRunApp(): returns 9 
+0xd89c4dfe: Cleared 9 Tasker schedules
+0xd89c4dfe: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0xd89c4dfe: Clearing Event Notifications...0xd89c4dfe: Clearing Event Notifications...0xd89c4dfe: OK
+0xd89c4dfe: Adding Time_Change Event Notification...0xd89c4dfe: OK
+0xd89c4dfe: Adding TZ_Change Event Notification...0xd89c4dfe: OK
+0xd89c4dfe: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xd89c4dfe: 	calculating new schedule for '201112040600'...
+0xd89c4dfe: 	interval is: 1d00h00m
+0xd89c4dfe: 	schedule adjusted to '201112050600'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0xd89c4dfe: 	calculating new schedule for '201112040600'...
+0xd89c4dfe: 	interval is: 1d00h00m
+0xd89c4dfe: 	schedule adjusted to '201112050600'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0xd89c4dfe: 	calculating new schedule for '201112041510'...
+0xd89c4dfe: 	interval is: 0d00h10m
+0xd89c4dfe: 	schedule adjusted to '201112040010'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 04.12.2011 00:10:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0xd89c4dfe: 	calculating new schedule for '201112040110'...
+0xd89c4dfe: 	interval is: 0d00h10m
+0xd89c4dfe: 	schedule adjusted to '201112040010'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 04.12.2011 00:10:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0xd89c4dfe: 	calculating new schedule for '201112041600'...
+0xd89c4dfe: 	interval is: 0d01h10m
+0xd89c4dfe: 	schedule adjusted to '201112040050'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 04.12.2011 00:50:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0xd89c4dfe: 	calculating new schedule for '201112041230'...
+0xd89c4dfe: 	interval is: 0d01h10m
+0xd89c4dfe: 	schedule adjusted to '201112040050'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 04.12.2011 00:50:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0xd89c4dfe: 	calculating new schedule for '201112041610'...
+0xd89c4dfe: 	interval is: 0d12h00m
+0xd89c4dfe: 	schedule adjusted to '201112040410'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 04.12.2011 04:10:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0xd89c4dfe: 	calculating new schedule for '201112041610'...
+0xd89c4dfe: 	interval is: 0d12h00m
+0xd89c4dfe: 	schedule adjusted to '201112040410'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 04.12.2011 04:10:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0xd89c4dfe: 	calculating new schedule for '201112041515'...
+0xd89c4dfe: 	interval is: 0d00h15m
+0xd89c4dfe: 	schedule adjusted to '201112040015'
+0xd89c4dfe: 	ScheduleRunApp: Next run at: 04.12.2011 00:15:00
+0xd89c4dfe: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0xd89c4dfe: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0xd89c4dfe: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0xd89c4dfe: scheduleAllTasks: scheduled 9 new tasks
+0xd89c4dfe: Scheduled 9 Tasks
+0xd89c4dfe: 	ReleaseMutex...0xd89c4dfe: OK
+0xd89c4dfe: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x7406ef7a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x7406ef7a: Checking for Mutex (single instance allowed only)...
+0x7406ef7a: 	Created new mutex
+0x7406ef7a: ~~~ using actual localtime:
+0x7406ef7a: 	 04.12.2011, 00:00
+0x7406ef7a: CmdLine = 
+0x7406ef7a: 	argv[1]: 'AppRunAfterTimeChange'
+0x7406ef7a: Checking for valid date/time...
+0x7406ef7a: Date/Time after 11 2011. OK
+0x7406ef7a: got 'AppRunAfterTimeChange' signaled
+0x7406ef7a: ~~~ using actual localtime:
+0x7406ef7a: 	 04.12.2011, 00:00
+0x7406ef7a: Checking for valid date/time...
+0x7406ef7a: Date/Time after 11 2011. OK
+0x7406ef7a: Clearing Event Notifications...0x7406ef7a: OK
+0x7406ef7a: ClearRunApp(): ...
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x3c00001f
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x3d000017
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x38000022
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x3e000023
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x3500001e
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x3e00001a
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x3100001d
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x3e00002c
+0x7406ef7a: ClearRunApp(): CeClearUserNotification for handle: 0x3b000029
+0x7406ef7a: ClearRunApp(): returns 9 
+0x7406ef7a: Cleared 9 Tasker schedules
+0x7406ef7a: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x7406ef7a: Clearing Event Notifications...0x7406ef7a: Clearing Event Notifications...0x7406ef7a: OK
+0x7406ef7a: Adding Time_Change Event Notification...0x7406ef7a: OK
+0x7406ef7a: Adding TZ_Change Event Notification...0x7406ef7a: OK
+0x7406ef7a: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x7406ef7a: 	calculating new schedule for '201112040600'...
+0x7406ef7a: 	interval is: 1d00h00m
+0x7406ef7a: 	schedule adjusted to '201112050600'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x7406ef7a: 	calculating new schedule for '201112040600'...
+0x7406ef7a: 	interval is: 1d00h00m
+0x7406ef7a: 	schedule adjusted to '201112050600'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 05.12.2011 06:00:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x7406ef7a: 	calculating new schedule for '201112040010'...
+0x7406ef7a: 	interval is: 0d00h10m
+0x7406ef7a: 	schedule adjusted to '201112040010'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 04.12.2011 00:10:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x7406ef7a: 	calculating new schedule for '201112040110'...
+0x7406ef7a: 	interval is: 0d00h10m
+0x7406ef7a: 	schedule adjusted to '201112040010'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 04.12.2011 00:10:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x7406ef7a: 	calculating new schedule for '201112040050'...
+0x7406ef7a: 	interval is: 0d01h10m
+0x7406ef7a: 	schedule adjusted to '201112040050'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 04.12.2011 00:50:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x7406ef7a: 	calculating new schedule for '201112041230'...
+0x7406ef7a: 	interval is: 0d01h10m
+0x7406ef7a: 	schedule adjusted to '201112040050'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 04.12.2011 00:50:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x7406ef7a: 	calculating new schedule for '201112040410'...
+0x7406ef7a: 	interval is: 0d12h00m
+0x7406ef7a: 	schedule adjusted to '201112040410'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 04.12.2011 04:10:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x7406ef7a: 	calculating new schedule for '201112041610'...
+0x7406ef7a: 	interval is: 0d12h00m
+0x7406ef7a: 	schedule adjusted to '201112040410'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 04.12.2011 04:10:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x7406ef7a: 	calculating new schedule for '201112040015'...
+0x7406ef7a: 	interval is: 0d00h15m
+0x7406ef7a: 	schedule adjusted to '201112040015'
+0x7406ef7a: 	ScheduleRunApp: Next run at: 04.12.2011 00:15:05
+0x7406ef7a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x7406ef7a: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x7406ef7a: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x7406ef7a: scheduleAllTasks: scheduled 9 new tasks
+0x7406ef7a: Scheduled 9 Tasks
+0x7406ef7a: 	ReleaseMutex...0x7406ef7a: OK
+0x7406ef7a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+---------------TEST10  --------------- 
+.
+++++++++++++++ TEST10 ++++++++++++++++ 
+------------------------------------- 
+###	simululates a past time change  
+set time manually to 01.12.2011 0100  
+	tasker2.exe AppRunAfterTimeChange  
+------------------------------------- 
+"############# Result:" 
+[HKLM\Software\Tasker]
+UpdateAll=dword:00000001
+Version=dword:0000012c
+dbglevel=dword:00000000
+maxDelay=dword:00000005
+
+[HKLM\Software\Tasker\Task5]
+NextStart="201112010115"
+active=dword:00000001
+args="\My Documents"
+exe="\Windows\fexplore.exe"
+interval="0015"
+start="0115"
+startOnAConly=dword:00000001
+stop="none"
+
+[HKLM\Software\Tasker\Task4]
+NextStart="201112010410"
+NextStop="201112010410"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="3600"
+start="0410"
+startOnAConly=dword:00000001
+stop="1610"
+
+[HKLM\Software\Tasker\Task3]
+NextStart="201112010200"
+NextStop="201112010200"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0070"
+start="0200"
+startOnAConly=dword:00000001
+stop="1230"
+
+[HKLM\Software\Tasker\Task2]
+Default="stop"="0335"
+NextStart="201112010110"
+NextStop="201112010110"
+active=dword:00000001
+args=""
+exe="\Windows\notes.exe"
+interval="0010"
+start="0110"
+startOnAConly=dword:00000001
+stop="0110"
+
+[HKLM\Software\Tasker\Task1]
+Default="stop"="0330"
+NextStart="201112020600"
+NextStop="201112020600"
+active=dword:00000001
+args="-hidden"
+exe="\Program Files\INcontrol\Athena\Athena.exe"
+interval="2400"
+start="0600"
+startOnAConly=dword:00000001
+stop="0600"
+
+*************** LOG  **************** 
+0x5998e87e: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x5998e87e: Checking for Mutex (single instance allowed only)...
+0x5998e87e: 	Created new mutex
+0x5998e87e: ~~~ using actual localtime:
+0x5998e87e: 	 01.12.2011, 01:00
+0x5998e87e: CmdLine = 
+0x5998e87e: 	argv[1]: 'AppRunAfterTimeChange'
+0x5998e87e: Checking for valid date/time...
+0x5998e87e: Date/Time after 11 2011. OK
+0x5998e87e: got 'AppRunAfterTimeChange' signaled
+0x5998e87e: ~~~ using actual localtime:
+0x5998e87e: 	 01.12.2011, 01:00
+0x5998e87e: Checking for valid date/time...
+0x5998e87e: Date/Time after 11 2011. OK
+0x5998e87e: Clearing Event Notifications...0x5998e87e: OK
+0x5998e87e: ClearRunApp(): ...
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3a000027
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3f000023
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3600001e
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3400000b
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x39000022
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3e000017
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3d00001f
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3a00001b
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3200001d
+0x5998e87e: ClearRunApp(): CeClearUserNotification for handle: 0x3f00001a
+0x5998e87e: ClearRunApp(): returns 10 
+0x5998e87e: Cleared 10 Tasker schedules
+0x5998e87e: scheduleAllTasks: ClearAllSchedules for 10 tasks
+0x5998e87e: Clearing Event Notifications...0x5998e87e: Clearing Event Notifications...0x5998e87e: OK
+0x5998e87e: Adding Time_Change Event Notification...0x5998e87e: OK
+0x5998e87e: Adding TZ_Change Event Notification...0x5998e87e: OK
+0x5998e87e: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x5998e87e: 	calculating new schedule for '201112010600'...
+0x5998e87e: 	interval is: 1d00h00m
+0x5998e87e: 	schedule adjusted to '201112020600'
+0x5998e87e: 	ScheduleRunApp: Next run at: 02.12.2011 06:00:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x5998e87e: 	calculating new schedule for '201112010600'...
+0x5998e87e: 	interval is: 1d00h00m
+0x5998e87e: 	schedule adjusted to '201112020600'
+0x5998e87e: 	ScheduleRunApp: Next run at: 02.12.2011 06:00:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x5998e87e: 	calculating new schedule for '201112010010'...
+0x5998e87e: 	interval is: 0d00h10m
+0x5998e87e: 	schedule adjusted to '201112010110'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 01:10:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x5998e87e: 	calculating new schedule for '201112010110'...
+0x5998e87e: 	interval is: 0d00h10m
+0x5998e87e: 	schedule adjusted to '201112010110'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 01:10:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x5998e87e: 	calculating new schedule for '201112010050'...
+0x5998e87e: 	interval is: 0d01h10m
+0x5998e87e: 	schedule adjusted to '201112010200'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 02:00:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x5998e87e: 	calculating new schedule for '201112011230'...
+0x5998e87e: 	interval is: 0d01h10m
+0x5998e87e: 	schedule adjusted to '201112010200'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 02:00:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x5998e87e: 	calculating new schedule for '201112010410'...
+0x5998e87e: 	interval is: 0d12h00m
+0x5998e87e: 	schedule adjusted to '201112010410'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 04:10:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x5998e87e: 	calculating new schedule for '201112011610'...
+0x5998e87e: 	interval is: 0d12h00m
+0x5998e87e: 	schedule adjusted to '201112010410'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 04:10:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x5998e87e: 	calculating new schedule for '201112010015'...
+0x5998e87e: 	interval is: 0d00h15m
+0x5998e87e: 	schedule adjusted to '201112010115'
+0x5998e87e: 	ScheduleRunApp: Next run at: 01.12.2011 01:15:00
+0x5998e87e: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x5998e87e: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x5998e87e: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x5998e87e: scheduleAllTasks: scheduled 9 new tasks
+0x5998e87e: Scheduled 9 Tasks
+0x5998e87e: 	ReleaseMutex...0x5998e87e: OK
+0x5998e87e: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+0x76cb204a: ++++++++++++++++ Tasker v300 started +++++++++++++++++++
+0x76cb204a: Checking for Mutex (single instance allowed only)...
+0x76cb204a: 	Created new mutex
+0x76cb204a: ~~~ using actual localtime:
+0x76cb204a: 	 01.12.2011, 01:00
+0x76cb204a: CmdLine = 
+0x76cb204a: 	argv[1]: 'AppRunAfterTimeChange'
+0x76cb204a: Checking for valid date/time...
+0x76cb204a: Date/Time after 11 2011. OK
+0x76cb204a: got 'AppRunAfterTimeChange' signaled
+0x76cb204a: ~~~ using actual localtime:
+0x76cb204a: 	 01.12.2011, 01:00
+0x76cb204a: Checking for valid date/time...
+0x76cb204a: Date/Time after 11 2011. OK
+0x76cb204a: Clearing Event Notifications...0x76cb204a: OK
+0x76cb204a: ClearRunApp(): ...
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3d00002b
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3f000017
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3a000022
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3e00002a
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x34000024
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3d000028
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3a000018
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x30000021
+0x76cb204a: ClearRunApp(): CeClearUserNotification for handle: 0x3b00001b
+0x76cb204a: ClearRunApp(): returns 9 
+0x76cb204a: Cleared 9 Tasker schedules
+0x76cb204a: scheduleAllTasks: ClearAllSchedules for 9 tasks
+0x76cb204a: Clearing Event Notifications...0x76cb204a: Clearing Event Notifications...0x76cb204a: OK
+0x76cb204a: Adding Time_Change Event Notification...0x76cb204a: OK
+0x76cb204a: Adding TZ_Change Event Notification...0x76cb204a: OK
+0x76cb204a: Creating new Start Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x76cb204a: 	calculating new schedule for '201112010600'...
+0x76cb204a: 	interval is: 1d00h00m
+0x76cb204a: 	schedule adjusted to '201112020600'
+0x76cb204a: 	ScheduleRunApp: Next run at: 02.12.2011 06:00:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Program Files\INcontrol\Athena\Athena.exe' in Task1
+0x76cb204a: 	calculating new schedule for '201112010600'...
+0x76cb204a: 	interval is: 1d00h00m
+0x76cb204a: 	schedule adjusted to '201112020600'
+0x76cb204a: 	ScheduleRunApp: Next run at: 02.12.2011 06:00:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Start Task schedule for '\Windows\notes.exe' in Task2
+0x76cb204a: 	calculating new schedule for '201112010110'...
+0x76cb204a: 	interval is: 0d00h10m
+0x76cb204a: 	schedule adjusted to '201112010110'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 01:10:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task2
+0x76cb204a: 	calculating new schedule for '201112010110'...
+0x76cb204a: 	interval is: 0d00h10m
+0x76cb204a: 	schedule adjusted to '201112010110'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 01:10:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Start Task schedule for '\Windows\notes.exe' in Task3
+0x76cb204a: 	calculating new schedule for '201112010200'...
+0x76cb204a: 	interval is: 0d01h10m
+0x76cb204a: 	schedule adjusted to '201112010200'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 02:00:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task3
+0x76cb204a: 	calculating new schedule for '201112011230'...
+0x76cb204a: 	interval is: 0d01h10m
+0x76cb204a: 	schedule adjusted to '201112010200'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 02:00:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Start Task schedule for '\Windows\notes.exe' in Task4
+0x76cb204a: 	calculating new schedule for '201112010410'...
+0x76cb204a: 	interval is: 0d12h00m
+0x76cb204a: 	schedule adjusted to '201112010410'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 04:10:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Windows\notes.exe' in Task4
+0x76cb204a: 	calculating new schedule for '201112011610'...
+0x76cb204a: 	interval is: 0d12h00m
+0x76cb204a: 	schedule adjusted to '201112010410'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 04:10:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Start Task schedule for '\Windows\fexplore.exe' in Task5
+0x76cb204a: 	calculating new schedule for '201112010115'...
+0x76cb204a: 	interval is: 0d00h15m
+0x76cb204a: 	schedule adjusted to '201112010115'
+0x76cb204a: 	ScheduleRunApp: Next run at: 01.12.2011 01:15:05
+0x76cb204a: 	ScheduleRunApp: CeSetUserNotificationEx succeeded...
+0x76cb204a: Creating new Kill Task schedule for '\Windows\fexplore.exe' in Task5
+0x76cb204a: 	Kill Task schedule for '\Windows\fexplore.exe' in Task5 is Disabled
+0x76cb204a: scheduleAllTasks: scheduled 9 new tasks
+0x76cb204a: Scheduled 9 Tasks
+0x76cb204a: 	ReleaseMutex...0x76cb204a: OK
+0x76cb204a: ++++++++++++++++++ Tasker2 ended +++++++++++++++++++
+---------------TEST10  --------------- 
+.
