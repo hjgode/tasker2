@@ -53,6 +53,24 @@ struct tm getLocalTime(struct tm* pLocalTime){
     // Get UNIX-style time
 	_time64( &now );	//get the system time
 	_localtime64_s( pLocalTime, &now );	// convert to local time
+	
+	//### patch provided by Michael D. on 23. may 2014 ###
+       // Adjust the local time with valid DST info since _localtime64_s doesn't honor HomeDST.
+       // Don't bother with year, minute or seconds, since DST can't change them.
+       // Don't bother with tm_yday because it isn't used in code.
+       SYSTEMTIME local_time;
+       GetLocalTime(&local_time);
+       pLocalTime->tm_hour = local_time.wHour;
+       pLocalTime->tm_mday = local_time.wDay;
+       pLocalTime->tm_wday = local_time.wDayOfWeek;
+    /*
+    The root of the problem is that under Windows Mobile, the _localtime64_s() function does not honor DST.  This is true 
+    regardless of the setting of HomeDST in the registry, or state of TIME_ZONE_INFORMATION.  The result is that the local
+    time reported by _localtime64_s()  is one hour earlier than actual, and the next scheduled task time is the current 
+    time instead of one hour in the future.
+    */
+    //### END of patch provided by Michael D. on 23. may 2014 ###
+ 
 //	g_tmCurrentStartTime = *pLocalTime;
 	nclog(L"\t %02i.%02i.%04i, %02i:%02i\n",
 		pLocalTime->tm_mday, pLocalTime->tm_mon+1, pLocalTime->tm_year +1900,
@@ -114,7 +132,7 @@ TCHAR* wasctime_s(TCHAR* buf, const __time64_t* time64, int dwSize){
 		wsprintf(buf, L"%04i%02i%02i%02i%02i", tmTime.tm_year+1900, tmTime.tm_mon+1, tmTime.tm_mday, tmTime.tm_hour, tmTime.tm_min);
 	else{
 		wsprintf(buf, L"");
-		nclog(L"\terror %i in wasctime_s\n");
+		nclog(L"\terror %i in wasctime_s\n", eStat);
 	}
 	return buf;
 }
