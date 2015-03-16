@@ -1,0 +1,1 @@
+Tasker2 will use the Windows CE / Windows Mobile scheduler to become launched periodically. It then can start or kill other apps
